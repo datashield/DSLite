@@ -1,6 +1,6 @@
-# DataSHIELD Opal
+# DataSHIELD Lite
 
-[![Build Status](https://travis-ci.org/datashield/DSLite.svg?branch=master)](https://travis-ci.org/datashield/DSLite)
+[![Build Status](https://travis-ci.com/datashield/DSLite.svg?branch=master)](https://travis-ci.com/datashield/DSLite)
 
 Server-less [DataSHIELD Interface (DSI)](https://github.com/datashield/DSI/) implementation which purpose is to mimic
 the behavior of a proper distant data repository (see [DSOpal](https://github.com/datashield/DSOpal) for instance). The
