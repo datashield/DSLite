@@ -217,8 +217,9 @@ DSLiteServer <- R6::R6Class(
       # prepare options
       if (!is.null(private$.config$Options)) {
         opts <- lapply(names(private$.config$Options), function(opt) { paste0(opt, "=", private$.config$Options[[opt]]) })
+        opts <- append(opts, paste0("datashield.wd='", wd, "'"))
         opts <- paste(opts, collapse = ",")
-        opts <- paste0("options(", opts, ", datashield.wd='", wd, "')")
+        opts <- paste0("options(", opts, ")")
         eval(parse(text = opts), envir = private$.sessions[[sid]])
       }
       # restore image
