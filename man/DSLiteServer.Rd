@@ -21,6 +21,8 @@ environment where the assignment and the operations happen.
 \item{\code{config}}{The DataSHIELD configuration. Default is to discover it from the DataSHIELD server-side R packages.}
 
 \item{\code{strict}}{Logical to specify whether the DataSHIELD configuration must be strictly applied. Default is TRUE.}
+
+\item{\code{workspacesDir}}{Folder location where to read and dump workspace images. Default is in a hidden folder of the user home.}
 }}
 
 \seealso{

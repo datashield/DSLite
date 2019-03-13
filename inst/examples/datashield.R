@@ -49,6 +49,7 @@ datashield.logout(conns, save = "test")
 
 conns <- datashield.login(logindata.dslite.demo, assign=FALSE, restore = "test")
 datashield.symbols(conns)
+dsListWorkspaces(conns[[1]])
 datashield.workspaces(conns)
 datashield.workspace_save(conns, "toto")
 datashield.workspaces(conns)

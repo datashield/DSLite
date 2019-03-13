@@ -32,10 +32,7 @@ setMethod("dsConnect", "DSLiteDriver",
             if (is.null(server) || !("DSLiteServer" %in% class(server))) {
               stop(paste0("Not a valid DSLite server identified by '", url, "', expecting an object of class: DSLiteServer"))
             }
-            if (!is.null(restore)) {
-              warning("Restoring a workspace is not supported (yet)")
-            }
-            sid <- server$newSession()
+            sid <- server$newSession(restore = restore)
             con <- new("DSLiteConnection", name = name, sid = sid, server = server)
             con
           })
@@ -50,8 +47,7 @@ setMethod("dsConnect", "DSLiteDriver",
 #' @import methods
 #' @export
 setMethod("dsDisconnect", "DSLiteConnection", function(conn, save = NULL) {
-  conn@server$closeSession(conn@sid)
-  # TODO save session image to a local file
+  conn@server$closeSession(conn@sid, save = save)
   invisible(TRUE)
 })
 
@@ -171,9 +167,7 @@ setMethod("dsListPackages", "DSLiteConnection", function(conn) {
 #' @import methods
 #' @export
 setMethod("dsListWorkspaces", "DSLiteConnection", function(conn) {
-  warning("Unsupported operation")
-  #conn@server$workspaces()
-  data.frame()
+  conn@server$workspaces(paste0(conn@name, ":"))
 })
 
 #' Save workspace
@@ -186,8 +180,7 @@ setMethod("dsListWorkspaces", "DSLiteConnection", function(conn) {
 #' @import methods
 #' @export
 setMethod("dsSaveWorkspace", "DSLiteConnection", function(conn, name) {
-  warning("Unsupported operation")
-  #conn@server$workspace_save(name)
+  conn@server$workspace_save(conn@sid, name)
 })
 
 #' Remove a workspace
@@ -200,8 +193,7 @@ setMethod("dsSaveWorkspace", "DSLiteConnection", function(conn, name) {
 #' @import methods
 #' @export
 setMethod("dsRmWorkspace", "DSLiteConnection", function(conn, name) {
-  warning("Unsupported operation")
-  #conn@server$workspace_rm(name)
+  conn@server$workspace_rm(name)
 })
 
 #' Assign a table
