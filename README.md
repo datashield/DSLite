@@ -28,6 +28,14 @@ Using the [R environment](https://adv-r.hadley.nz/environments.html) paradigm en
 
 ![DSLite architecture](https://raw.githubusercontent.com/datashield/DSLite/master/inst/images/dslite.png)
 
+The minimum steps to follow for this kind of setup:
+
+* make sure the DataSHIELD client-side and server-side R packages are installed in your local R session, 
+* load harmonized datasets in data frames (with the method of your choice),
+* instanciate a new `DSLiteServer` and provide a named list of these data frames,
+* prepare DataSHIELD logindata object where the `table` to assign is the name of one the data frames and the `url` is the symbol that refers to the `DSLiteServer` object,
+* perform DataSHIELD login and do analysis.
+
 See usage [examples](https://github.com/datashield/DSLite/tree/master/inst/examples).
 
 Article about DataSHIELD:
