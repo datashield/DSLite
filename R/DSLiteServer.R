@@ -193,7 +193,9 @@ DSLiteServer <- R6::R6Class(
     # create a new DataSHIELD session (contained execution environment)
     newSession = function(restore = NULL) {
       sid <- as.character(sample(1000:9999, 1))
-      private$.sessions[[sid]] <- new.env()
+      env <- new.env()
+      parent.env(env) <- parent.env(globalenv())
+      private$.sessions[[sid]] <- env
       # prepare options
       if (!is.null(private$.config$Options)) {
         opts <- lapply(names(private$.config$Options), function(opt) { paste0(opt, "=", private$.config$Options[[opt]]) })
