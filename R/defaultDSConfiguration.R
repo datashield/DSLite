@@ -34,8 +34,6 @@ defaultDSConfiguration <- function(include=NULL, exclude=NULL) {
   assignMethods <- list()
   options <- list()
 
-  print(dsPacks)
-
   if (nrow(dsPacks)>0) {
     for (i in 1:nrow(dsPacks)) {
       pack <- dsPacks[i,]
