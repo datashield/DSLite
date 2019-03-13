@@ -23,7 +23,8 @@ The following figure illustrates a setup where a single [DSLiteServer](https://g
 holds several data frames and is used by two different DataSHIELD Connection ([DSConnection](https://github.com/datashield/DSI)) objects. 
 All these objects live in the same R environment (usually the Global Environment). The "server" is responsible of managing DataSHIELD 
 sessions that are implemented as distinct R environments inside of which R symbols are assigned and R functions are evaluated. 
-Using the R environment paradigm ensures that the different DataSHIELD execution context (client and servers) are contained and exclusive from each other.
+Using the [R environment](https://adv-r.hadley.nz/environments.html) paradigm ensures that the different DataSHIELD execution context 
+(client and servers) are contained and exclusive from each other.
 
 ![DSLite architecture](https://raw.githubusercontent.com/datashield/DSLite/master/inst/images/dslite.png)
 
