@@ -1,0 +1,55 @@
+library(DSLite)
+data("CNSIM1")
+data("CNSIM2")
+data("CNSIM3")
+testServ <- newDSLiteServer(tables=list(CNSIM1=CNSIM1, CNSIM2=CNSIM2, CNSIM3=CNSIM3))
+testServ$config()
+testServ$config(defaultDSConfiguration(include=c("dsBase")))
+testServ$config()
+testServ$config(defaultDSConfiguration(exclude=c("dsBetaTest")))
+testServ$config()
+testServ$aggregateMethods()
+testServ$assignMethods()
+
+o <- dsConnect(DSLite::DSLite(), name="server1", url="testServ")
+o
+testServ$hasSession(o@sid)
+dsListTables(o)
+dsHasTable(o, "CNSIM1")
+dsHasTable(o, "CNSIM1xx")
+dsIsAsync(o)
+
+res <- dsAssignTable(o, "D", "CNSIM1")
+dsGetInfo(res)
+dsFetch(res)
+
+res <- dsAssignExpr(o, "N", "sum(D$PM_BMI_CONTINUOUS)")
+dsGetInfo(res)
+dsFetch(res)
+
+res <- dsAggregate(o, "colnames(D)")
+dsGetInfo(res)
+dsFetch(res)
+
+res <- dsAggregate(o, "length(colnames(D))")
+dsGetInfo(res)
+dsFetch(res)
+
+dsListSymbols(o)
+dsRmSymbol(o, "D")
+dsListSymbols(o)
+
+rbind(dsListMethods(o, type = "aggregate"), dsListMethods(o, type = "assign"))
+dsListPackages(o)
+
+dsListWorkspaces(o)
+dsSaveWorkspace(o, "server1:cnsim1")
+dsSaveWorkspace(o, "server1:cnsim1-2")
+dsListWorkspaces(o)
+dsRmWorkspace(o, "server1:cnsim1")
+dsDisconnect(o, save = "server1:xxx")
+
+o <- dsConnect(DSLite::DSLite(), name="server1", url = "testServ", restore="server1:xxx")
+dsListWorkspaces(o)
+dsListSymbols(o)
+dsDisconnect(o)

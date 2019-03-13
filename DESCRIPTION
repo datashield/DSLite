@@ -1,0 +1,34 @@
+Package: DSLite
+Type: Package
+Version: 0.9.0
+Title: DataSHIELD implementation on local datasets
+Authors@R:
+    c(person(given = "Yannick",
+             family = "Marcon",
+             role = c("aut", "cre"),
+             email = "yannick.marcon@obiba.org",
+             comment = c(ORCID = "0000-0003-0138-2023")))
+Depends:
+    R (>= 3.1),
+    DSI,
+    methods,
+    R6
+Suggests:
+    knitr,
+    testthat
+Description: DataSHIELD implementation based on datasets living in the 
+    current R session. The purpose of this is to enable distributed 
+    meta-analysis with datasets that cannot be shared or for lightweight testing.
+License: GPL-3
+URL: http://www.datashield.ac.uk https://doi.org/10.1093/ije/dyu188
+BugReports: https://github.com/datashield/DSLite
+RoxygenNote: 6.1.1
+VignetteBuilder: knitr
+Encoding: UTF-8
+Collate: 
+    'DSLiteDriver.R'
+    'DSLiteConnection.R'
+    'DSLiteResult.R'
+    'DSLiteServer.R'
+    'data.R'
+    'defaultDSConfiguration.R'
