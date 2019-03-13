@@ -6,7 +6,7 @@
 \usage{
 newDSLiteServer(tables = list(),
   config = DSLite::defaultDSConfiguration(), strict = TRUE,
-  workspacesDir = file.path("~", ".dslite", "workspaces"))
+  home = file.path("~", ".dslite"))
 }
 \arguments{
 \item{tables}{A named list of data.frames representing the harmonized tables.}
@@ -15,7 +15,8 @@ newDSLiteServer(tables = list(),
 
 \item{strict}{Logical to specify whether the DataSHIELD configuration must be strictly applied. Default is TRUE.}
 
-\item{workspacesDir}{Folder location where to read and dump workspace images. Default is in a hidden folder of the user home.}
+\item{home}{Folder location where are located the session work directory and where to read and dump workspace images.
+Default is in a hidden folder of the user home.}
 }
 \description{
 Shortcut function to create a new \link{DSLiteServer} instance.

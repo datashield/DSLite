@@ -10,7 +10,7 @@ testServ$config(defaultDSConfiguration(exclude=c("dsBetaTest")))
 testServ$config()
 testServ$aggregateMethods()
 testServ$assignMethods()
-
+testServ$home()
 o <- dsConnect(DSLite::DSLite(), name="server1", url="testServ")
 o
 testServ$hasSession(o@sid)

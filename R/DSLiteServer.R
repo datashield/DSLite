@@ -5,12 +5,13 @@
 #' @param tables A named list of data.frames representing the harmonized tables.
 #' @param config The DataSHIELD configuration. Default is to discover it from the DataSHIELD server-side R packages.
 #' @param strict Logical to specify whether the DataSHIELD configuration must be strictly applied. Default is TRUE.
-#' @param workspacesDir Folder location where to read and dump workspace images. Default is in a hidden folder of the user home.
+#' @param home Folder location where are located the session work directory and where to read and dump workspace images.
+#' Default is in a hidden folder of the user home.
 #'
 #' @family server-side items
 #' @export
-newDSLiteServer <- function(tables = list(), config = DSLite::defaultDSConfiguration(), strict = TRUE, workspacesDir = file.path("~", ".dslite", "workspaces")) {
-  DSLiteServer$new(tables = tables, config = config, strict = strict, workspacesDir = workspacesDir)
+newDSLiteServer <- function(tables = list(), config = DSLite::defaultDSConfiguration(), strict = TRUE, home = file.path("~", ".dslite")) {
+  DSLiteServer$new(tables = tables, config = config, strict = strict, home = home)
 }
 
 #' Lightweight DataSHIELD server-side component
@@ -22,7 +23,8 @@ newDSLiteServer <- function(tables = list(), config = DSLite::defaultDSConfigura
 #' @field tables A named list of data.frames representing the harmonized tables.
 #' @field config The DataSHIELD configuration. Default is to discover it from the DataSHIELD server-side R packages.
 #' @field strict Logical to specify whether the DataSHIELD configuration must be strictly applied. Default is TRUE.
-#' @field workspacesDir Folder location where to read and dump workspace images. Default is in a hidden folder of the user home.
+#' @field home Folder location where are located the session work directory and where to read and dump workspace images.
+#' Default is in a hidden folder of the user home.
 #'
 #' @family server-side items
 #' @docType class
@@ -37,8 +39,8 @@ DSLiteServer <- R6::R6Class(
     .config = NULL,
     # if TRUE, stop when function call is not one of the configured ones
     .strict = TRUE,
-    # workspaces folder
-    .wsDir = NULL,
+    # home folder
+    .home = NULL,
     # active DataSHIELD sessions (contained execution environments)
     .sessions = list(),
     # get a session
@@ -78,18 +80,27 @@ DSLiteServer <- R6::R6Class(
       }
       parse(text=expression)
     },
-    # ensure workspace dir is defined and exists
-    .ws.mkdir = function() {
-      if (is.null(private$.wsDir)) {
-        private$.wsDir <- "."
-      } else if (!dir.exists(private$.wsDir)) {
-        dir.create(private$.wsDir, recursive = TRUE)
+    # ensure home dir is defined and exists
+    .home.mkdir = function() {
+      if (is.null(private$.home)) {
+        private$.home <- "."
+      } else if (!dir.exists(private$.home)) {
+        dir.create(private$.home, recursive = TRUE)
       }
+    },
+    # makes a session working directory path and ensure it exists
+    .as.wd.path = function(sid) {
+      private$.home.mkdir()
+      dir <- file.path(private$.home, "sessions", sid)
+      if (!dir.exists(dir)) {
+        dir.create(dir, recursive = TRUE)
+      }
+      dir
     },
     # makes a single workspace directory path and ensure it exists
     .as.ws.path = function(name) {
-      private$.ws.mkdir()
-      dir <- file.path(private$.wsDir, name)
+      private$.home.mkdir()
+      dir <- file.path(private$.home, "workspaces", name)
       if (!dir.exists(dir)) {
         dir.create(dir, recursive = TRUE)
       }
@@ -101,12 +112,12 @@ DSLiteServer <- R6::R6Class(
     }
   ),
   public = list(
-    initialize = function(tables = list(), config = DSLite::defaultDSConfiguration(), strict = TRUE, workspacesDir = file.path("~", ".dslite", "workspaces")) {
+    initialize = function(tables = list(), config = DSLite::defaultDSConfiguration(), strict = TRUE, home = file.path("~", ".dslite")) {
       private$.tables <- tables
       private$.config <- config
       private$.strict <- strict
-      private$.wsDir <- workspacesDir
-      private$.ws.mkdir()
+      private$.home <- home
+      private$.home.mkdir()
     },
     # get or set the configuration
     config = function(value) {
@@ -124,32 +135,36 @@ DSLiteServer <- R6::R6Class(
         private$.strict <- value
       }
     },
-    # get or set the workspaces folder location
-    workspacesDir = function() {
+    # get or set the home folder location
+    home = function(value) {
       if (missing(value)) {
-        private$.wsDir
+        private$.home
       } else {
-        private$.wsDir <- value
-        private$.ws.mkdir()
+        private$.home <- value
+        private$.home.mkdir()
       }
     },
+
     # list the saved workspaces
     workspaces = function(prefix = NULL) {
-      private$.ws.mkdir()
-      dirs <- list.dirs(private$.wsDir, full.names = FALSE)
+      private$.home.mkdir()
+      path <- file.path(private$.home, "workspaces")
       name <- c()
       size <- c()
       user <- c()
       lastAccessDate <- c()
-      for (dir in dirs) {
-        if (dir != "") {
-          data <- file.path(private$.wsDir, dir, ".RData")
-          if (file.exists(data) && (is.null(prefix) || startsWith(dir, prefix))) {
-            name <- append(name, dir)
-            info <- file.info(data)
-            size <- append(size, info$size)
-            user <- append(user, info$uname)
-            lastAccessDate <- append(lastAccessDate, info$atime)
+      if (dir.exists(path)) {
+        dirs <- list.dirs(path, full.names = FALSE)
+        for (dir in dirs) {
+          if (dir != "") {
+            data <- file.path(private$.home, "workspaces", dir, ".RData")
+            if (file.exists(data) && (is.null(prefix) || startsWith(dir, prefix))) {
+              name <- append(name, dir)
+              info <- file.info(data)
+              size <- append(size, info$size)
+              user <- append(user, info$uname)
+              lastAccessDate <- append(lastAccessDate, format(info$atime, format = "%FT%T%z"))
+            }
           }
         }
       }
@@ -166,6 +181,7 @@ DSLiteServer <- R6::R6Class(
       path <- private$.as.ws.path(name)
       unlink(path, recursive = TRUE)
     },
+
     # get or set the data.frame representing the aggregate methods
     aggregateMethods = function(value) {
       if (missing(value)) {
@@ -190,17 +206,19 @@ DSLiteServer <- R6::R6Class(
         private$.config$Options <- value
       }
     },
+
     # create a new DataSHIELD session (contained execution environment)
     newSession = function(restore = NULL) {
       sid <- as.character(sample(1000:9999, 1))
       env <- new.env()
       parent.env(env) <- parent.env(globalenv())
       private$.sessions[[sid]] <- env
+      wd <- private$.as.wd.path(sid)
       # prepare options
       if (!is.null(private$.config$Options)) {
         opts <- lapply(names(private$.config$Options), function(opt) { paste0(opt, "=", private$.config$Options[[opt]]) })
         opts <- paste(opts, collapse = ",")
-        opts <- paste0("options(", opts, ")")
+        opts <- paste0("options(", opts, ", datashield.wd='", wd, "')")
         eval(parse(text = opts), envir = private$.sessions[[sid]])
       }
       # restore image
@@ -218,12 +236,19 @@ DSLiteServer <- R6::R6Class(
     },
     # close a DataSHIELD session and save image if a name is provided
     closeSession = function(sid, save = NULL) {
+      # save workspace image
       if (!is.null(save)) {
         self$workspace_rm(save)
         self$workspace_save(sid, save)
       }
+      # remove working dir
+      wd <- private$.as.wd.path(sid)
+      if (dir.exists(wd)) {
+        unlink(wd, recursive = TRUE)
+      }
       private$.sessions[[sid]] <- NULL
     },
+
     # list tables hold by the server
     tableNames = function() {
       names(private$.tables)

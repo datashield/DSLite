@@ -22,7 +22,8 @@ environment where the assignment and the operations happen.
 
 \item{\code{strict}}{Logical to specify whether the DataSHIELD configuration must be strictly applied. Default is TRUE.}
 
-\item{\code{workspacesDir}}{Folder location where to read and dump workspace images. Default is in a hidden folder of the user home.}
+\item{\code{home}}{Folder location where are located the session work directory and where to read and dump workspace images.
+Default is in a hidden folder of the user home.}
 }}
 
 \seealso{
