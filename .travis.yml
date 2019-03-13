@@ -8,5 +8,4 @@ r_packages:
   - devtools
 r_github_packages:
   - datashield/DSI
-  - obiba/opalr
 warnings_are_errors: true

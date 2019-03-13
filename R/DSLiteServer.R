@@ -52,7 +52,7 @@ DSLiteServer <- R6::R6Class(
         }
       }
       normalized <- FALSE
-      if (private$.strict && !is.null(methods)) {
+      if (!is.null(methods)) {
         # develop function calls according to configured methods
         for (i in 1:length(methods$name)) {
           m <- methods[i,]
@@ -66,7 +66,7 @@ DSLiteServer <- R6::R6Class(
         # no configured methods = allow any
         normalized <- TRUE
       }
-      if (!normalized) {
+      if (private$.strict &&!normalized) {
         stop(paste0("DataSHIELD configuration does not allow expression: ", expression, "\nSupported function calls are: ", paste0(methods$name, collapse = ", ")))
       }
       if (getOption("dslite.verbose", FALSE)) {
