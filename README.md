@@ -19,6 +19,14 @@ need to deploy a data repository infrastructure.
 * allow DataSHIELD analysis with combined datasets, some of them being accessible remotely in secure data repositories, 
 others being privatly accessible (in a governmental institution for instance).
 
+The following figure illustrates a setup where a single [DSLiteServer](https://github.com/datashield/DSLite/blob/master/R/DSLiteServer.R) 
+holds several data frames and is used by two different DataSHIELD Connection ([DSConnection](https://github.com/datashield/DSI)) objects. 
+All these objects live in the same R environment (usually the Global Environment). The "server" is responsible of managing DataSHIELD 
+sessions that are implemented as distinct R environments inside of which R symbols are assigned and R functions are evaluated. 
+Using the R environment paradigm ensures that the different DataSHIELD execution context (client and servers) are contained and exclusive from each other.
+
+![DSLite architecture](https://raw.githubusercontent.com/datashield/DSLite/master/inst/images/dslite.png)
+
 See usage [examples](https://github.com/datashield/DSLite/tree/master/inst/examples).
 
 Article about DataSHIELD:
