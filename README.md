@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.com/datashield/DSLite.svg?branch=master)](https://travis-ci.com/datashield/DSLite)
 
-Server-less [DataSHIELD Interface (DSI)](https://github.com/datashield/DSI/) implementation which purpose is to mimic
+Serverless [DataSHIELD Interface (DSI)](https://github.com/datashield/DSI/) implementation which purpose is to mimic
 the behavior of a distant (virtualized or barebone) data repository server (see [DSOpal](https://github.com/datashield/DSOpal) for instance). The
 datasets that are being analyzed are fully accessible in the local environment. The DataSHIELD configuration (set of 
 allowed aggregation and assignment functions) is discovered at runtime by inspecting the DataSHIELD server-side R packages
