@@ -33,3 +33,33 @@ test_that("session operations work", {
   testServ$closeSession(sid)
   expect_false(testServ$hasSession(sid))
 })
+
+test_that("options operations work", {
+  testServ$options(list(foo="bar"))
+  expect_equal(testServ$options(), list(foo="bar"))
+  expect_equal(testServ$option("foo"), "bar")
+  expect_equal(testServ$option("toto"), NULL)
+  testServ$option("foo", "123")
+  expect_equal(testServ$option("foo"), "123")
+  testServ$option("foo", NULL)
+  expect_equal(testServ$option("foo"), NULL)
+  expect_equal(length(testServ$options()), 0)
+})
+
+test_that("methods operations work", {
+  testServ$aggregateMethod("foo", "bar")
+  expect_equal(testServ$aggregateMethod("foo"), "bar")
+  expect_equal(testServ$aggregateMethod("toto"), NULL)
+  testServ$aggregateMethod("foo", "base::bar")
+  expect_equal(testServ$aggregateMethod("foo"), "base::bar")
+  testServ$aggregateMethod("foo", NULL)
+  expect_equal(testServ$aggregateMethod("foo"), NULL)
+
+  testServ$assignMethod("foo", "bar")
+  expect_equal(testServ$assignMethod("foo"), "bar")
+  expect_equal(testServ$assignMethod("toto"), NULL)
+  testServ$assignMethod("foo", "base::bar")
+  expect_equal(testServ$assignMethod("foo"), "base::bar")
+  testServ$assignMethod("foo", NULL)
+  expect_equal(testServ$aggregateMethod("foo"), NULL)
+})

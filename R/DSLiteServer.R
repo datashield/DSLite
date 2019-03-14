@@ -109,6 +109,53 @@ DSLiteServer <- R6::R6Class(
     # get the path to a single workspace image
     .as.ws.image.path = function(name) {
       file.path(private$.as.ws.path(name), ".RData")
+    },
+    # get a method
+    .get.method = function(methods, key) {
+      if (is.null(methods) || is.null(key)) {
+        NULL
+      } else {
+        rval <- as.character(subset(methods, name == key)$value)
+        if (length(rval) == 0) {
+          NULL
+        } else {
+          as.character(rval)
+        }
+      }
+    },
+    # set a method
+    .set.method = function(methods, type, key, value) {
+      if (is.null(key)) {
+        methods
+      } else {
+        names <- names(methods)
+        if (length(names) == 0) {
+          names <- c("name", "value", "package", "version", "type", "class")
+        }
+        df <- data.frame()
+        if (!is.null(methods)) {
+          df <- subset(methods, name != key)
+        }
+        if (is.null(value)) {
+          df
+        } else {
+          row <- list()
+          for (k in names) {
+            if (k == "name") {
+              row[["name"]] <- key
+            } else if (k == "value") {
+              row[["value"]] <- value
+            } else if (k == "type") {
+              row[["type"]] <- type
+            } else if (k == "class") {
+              row[["class"]] <- "function" # no custom script support
+            } else {
+              row[[k]] <- NA
+            }
+          }
+          rbind(df, as.data.frame(row))
+        }
+      }
     }
   ),
   public = list(
@@ -145,6 +192,9 @@ DSLiteServer <- R6::R6Class(
       }
     },
 
+    #
+    # Workspaces
+    #
     # list the saved workspaces
     workspaces = function(prefix = NULL) {
       private$.home.mkdir()
@@ -182,12 +232,24 @@ DSLiteServer <- R6::R6Class(
       unlink(path, recursive = TRUE)
     },
 
+    #
+    # DataSHIELD configuration
+    #
     # get or set the data.frame representing the aggregate methods
     aggregateMethods = function(value) {
       if (missing(value)) {
         private$.config$AggregateMethods
       } else {
         private$.config$AggregateMethods <- value
+      }
+    },
+    # get or set an aggregate method
+    aggregateMethod = function(key, value) {
+      if (missing(value)) {
+        private$.get.method(private$.config$AggregateMethods, key)
+      } else {
+        private$.config$AggregateMethods <- private$.set.method(private$.config$AggregateMethods, "aggregate", key, value)
+        invisible(TRUE)
       }
     },
     # get or set the data.frame representing the assign methods
@@ -198,6 +260,15 @@ DSLiteServer <- R6::R6Class(
         private$.config$AssignMethods <- value
       }
     },
+    # get or set an aggregate method
+    assignMethod = function(key, value) {
+      if (missing(value)) {
+        private$.get.method(private$.config$AssignMethods, key)
+      } else {
+        private$.config$AssignMethods <- private$.set.method(private$.config$AssignMethods, "assign", key, value)
+        invisible(TRUE)
+      }
+    },
     # get or set the named list of options
     options = function(value) {
       if (missing(value)) {
@@ -206,7 +277,28 @@ DSLiteServer <- R6::R6Class(
         private$.config$Options <- value
       }
     },
+    # get or set an option, return NULL if it does not exist
+    option = function(key, value) {
+      if (missing(value)) {
+        if (is.null(private$.config$Options) || is.null(key)) {
+          NULL
+        } else {
+          private$.config$Options[[key]]
+        }
+      } else if (is.null(key)) {
+        invisible(FALSE)
+      } else {
+        if (is.null(private$.config$Options)) {
+          private$.config$Options <- list()
+        }
+        private$.config$Options[[key]] <- value
+        invisible(TRUE)
+      }
+    },
 
+    #
+    # DataSHIELD sessions
+    #
     # create a new DataSHIELD session (contained execution environment)
     newSession = function(restore = NULL) {
       sid <- as.character(sample(1000:9999, 1))
@@ -250,6 +342,9 @@ DSLiteServer <- R6::R6Class(
       private$.sessions[[sid]] <- NULL
     },
 
+    #
+    # DataSHIELD operations
+    #
     # list tables hold by the server
     tableNames = function() {
       names(private$.tables)
