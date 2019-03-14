@@ -11,7 +11,9 @@ newDSLiteServer(tables = list(),
 \arguments{
 \item{tables}{A named list of data.frames representing the harmonized tables.}
 
-\item{config}{The DataSHIELD configuration. Default is to discover it from the DataSHIELD server-side R packages.}
+\item{config}{The DataSHIELD configuration. Default is to discover it from the DataSHIELD server-side R packages.
+See \link{defaultDSConfiguration} function for including or excluding packages when discovering the DataSHIELD configuration
+from the DataSHIELD server-side packages (meta-data from the DESCRIPTION files).}
 
 \item{strict}{Logical to specify whether the DataSHIELD configuration must be strictly applied. Default is TRUE.}
 

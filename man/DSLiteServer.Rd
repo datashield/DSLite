@@ -29,6 +29,8 @@ Default is in a hidden folder of the user home.}
 \section{Methods}{
 
 \code{$new(tables, config, strict, home)} Create new DSLiteServer instance with the arguments described in the Fields section.
+See \link{defaultDSConfiguration} function for including or excluding packages when discovering the DataSHIELD configuration
+from the DataSHIELD server-side packages (meta-data from the DESCRIPTION files).
 
 \code{$config(value)} Get (if \code{value} argument is missing) or set the DataSHIELD configuration: aggregate/assign methods
 in data frames and a named list of options.

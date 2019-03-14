@@ -4,6 +4,8 @@
 #'
 #' @param tables A named list of data.frames representing the harmonized tables.
 #' @param config The DataSHIELD configuration. Default is to discover it from the DataSHIELD server-side R packages.
+#' See \link{defaultDSConfiguration} function for including or excluding packages when discovering the DataSHIELD configuration
+#' from the DataSHIELD server-side packages (meta-data from the DESCRIPTION files).
 #' @param strict Logical to specify whether the DataSHIELD configuration must be strictly applied. Default is TRUE.
 #' @param home Folder location where are located the session work directory and where to read and dump workspace images.
 #' Default is in a hidden folder of the user home.
@@ -28,6 +30,8 @@ newDSLiteServer <- function(tables = list(), config = DSLite::defaultDSConfigura
 #'
 #' @section Methods:
 #' \code{$new(tables, config, strict, home)} Create new DSLiteServer instance with the arguments described in the Fields section.
+#' See \link{defaultDSConfiguration} function for including or excluding packages when discovering the DataSHIELD configuration
+#' from the DataSHIELD server-side packages (meta-data from the DESCRIPTION files).
 #'
 #' \code{$config(value)} Get (if \code{value} argument is missing) or set the DataSHIELD configuration: aggregate/assign methods
 #' in data frames and a named list of options.
