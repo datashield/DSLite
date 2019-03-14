@@ -5,14 +5,14 @@
 #' @keywords data
 NULL
 
-#' Example simulated data 1
+#' Example simulated dataset 1
 #'
 #' @name CNSIM1
 #' @docType data
 #' @keywords data
 NULL
 
-#' Example simulated data 2
+#' Example simulated dataset 2
 #'
 #' @name CNSIM2
 #' @docType data

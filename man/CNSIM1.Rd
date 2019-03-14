@@ -3,8 +3,8 @@
 \docType{data}
 \name{CNSIM1}
 \alias{CNSIM1}
-\title{Example simulated data 1}
+\title{Example simulated dataset 1}
 \description{
-Example simulated data 1
+Example simulated dataset 1
 }
 \keyword{data}
