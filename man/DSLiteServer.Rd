@@ -26,6 +26,67 @@ environment where the assignment and the operations happen.
 Default is in a hidden folder of the user home.}
 }}
 
+\section{Methods}{
+
+\code{$new(tables, config, strict, home)} Create new DSLiteServer instance with the arguments described in the Fields section.
+
+\code{$config(value)} Get (if \code{value} argument is missing) or set the DataSHIELD configuration: aggregate/assign methods
+in data frames and a named list of options.
+
+\code{$strict(value)} Get (if \code{value} argument is missing) or set the \code{strict} logical field.
+
+\code{$home(value)} Get (if \code{value} argument is missing) or set the \code{home} field.
+
+\code{$workspaces()} List all the workspaces stored in the \code{home} folder.
+
+\code{$workspace_save(sid, name)} Save the session's workspace image identified by the \code{sid} identifier
+  with the provided \code{name} in the \code{home} folder.
+
+\code{$workspace_rm(name)} Remove the workspace image with the provided \code{name} from the \code{home} folder.
+
+\code{$aggregateMethods(value)} Get (if \code{value} argument is missing) or set the aggregate methods, a \code{data.frame}
+with columns: \code{name} (the client function call), \code{value} (the translated server call), \code{package} (relevant when
+extracted from a DataSHIELD server-side package), \code{version} (relevant when extracted from a DataSHIELD server-side package),
+\code{type} ("aggregate"), \code{class} (always "function" as custom scripts are not supported).
+
+\code{$aggregateMethod(name, value)} Get (if \code{value} argument is missing) or set the aggregate method: \code{name} (the client
+function call), \code{value} (the translated server call). Remove the method when \code{value} is \code{NULL}.
+
+\code{$assignMethods(value)} Get (if \code{value} argument is missing) or set the assign methods, a \code{data.frame}
+with columns: \code{name} (the client function call), \code{value} (the translated server call), \code{package} (relevant when
+extracted from a DataSHIELD server-side package), \code{version} (relevant when extracted from a DataSHIELD server-side package),
+\code{type} ("aggregate"), \code{class} (always "function" as custom scripts are not supported).
+
+\code{$assignMethod(name, value)} Get (if \code{value} argument is missing) or set the assign method: \code{name} (the client
+function call), \code{value} (the translated server call). Remove the method when \code{value} is \code{NULL}.
+
+\code{$options(value)} Get (if \code{value} argument is missing) or set the DataSHIELD R options that are applied when a new
+DataSHIELD session is started.
+
+\code{$option(key, value)} Get (if \code{value} argument is missing) or set the R option. Remove the option when \code{value} is \code{NULL}.
+
+\code{$newSession(restore)} Create a new DataSHIELD session and restore workspace image if \code{restore} workspace name argument is provided.
+
+\code{$hasSession(sid)} Check a DataSHIELD session is alive.
+
+\code{$closeSession(sid, save)} Destroy DataSHIELD session and save workspace image if \code{save} workspace name argument is provided.
+
+\code{$tableNames()} List the names of the tables that can be assigned.
+
+\code{$hasTable(name)} Check the table exists.
+
+\code{$symbols(sid)} List the symbols living in the DataSHIELD session identified by \code{sid}.
+
+\code{$symbol_rm(sid, name)} Remove a symbol from the DataSHIELD session identified by \code{sid}.
+
+\code{$assignTable(sid, symbol, name, variables=NULL)} Assign a table to a symbol in the DataSHIELD session identified by \code{sid}. Filter
+table columns with the variables names provided.
+
+\code{$assignExpr(sid, symbol, expr)} Evaluate an assignment expression in the DataSHIELD session identified by \code{sid}.
+
+\code{$aggregate(sid, expr)} Evaluate an aggregation expression in the DataSHIELD session identified by \code{sid}.
+}
+
 \seealso{
 Other server-side items: \code{\link{newDSLiteServer}}
 }
