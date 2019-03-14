@@ -219,6 +219,12 @@ DSLiteServer <- R6::R6Class(
           rbind(df, as.data.frame(row))
         }
       }
+    },
+    # set working directory corresponding to the session and return the current working directory
+    .set.wd = function(sid) {
+      current <- getwd()
+      wd <- private$.as.wd.path(sid)
+      setwd(wd)
     }
   ),
   public = list(
@@ -368,14 +374,14 @@ DSLiteServer <- R6::R6Class(
       env <- new.env()
       parent.env(env) <- parent.env(globalenv())
       private$.sessions[[sid]] <- env
-      wd <- private$.as.wd.path(sid)
       # prepare options
       if (!is.null(private$.config$Options)) {
         opts <- lapply(names(private$.config$Options), function(opt) { paste0(opt, "=", private$.config$Options[[opt]]) })
-        opts <- append(opts, paste0("datashield.wd='", wd, "'"))
-        opts <- paste(opts, collapse = ",")
-        opts <- paste0("options(", opts, ")")
-        eval(parse(text = opts), envir = private$.sessions[[sid]])
+        if (length(opts)>0) {
+          opts <- paste(opts, collapse = ",")
+          opts <- paste0("options(", opts, ")")
+          eval(parse(text = opts), envir = private$.sessions[[sid]])
+        }
       }
       # restore image
       if (!is.null(restore)) {
@@ -435,12 +441,14 @@ DSLiteServer <- R6::R6Class(
     # apply expression assignement operation in the DataSHIELD session
     assignExpr = function(sid, symbol, expr) {
       exprr <- private$.as.language(expr, private$.config$AssignMethods)
-      assign(symbol, eval(exprr, envir = private$.session(sid)), envir = private$.session(sid))
+      origwd <- private$.set.wd(sid)
+      tryCatch(assign(symbol, eval(exprr, envir = private$.session(sid)), envir = private$.session(sid)), finally = { setwd(origwd) })
     },
     # apply aggregate operation in the DataSHIELD session
     aggregate = function(sid, expr) {
       exprr <- private$.as.language(expr, private$.config$AggregateMethods)
-      eval(exprr, envir = private$.session(sid))
+      origwd <- private$.set.wd(sid)
+      tryCatch(eval(exprr, envir = private$.session(sid)), finally = { setwd(origwd) })
     }
   )
 )
