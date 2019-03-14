@@ -222,7 +222,6 @@ DSLiteServer <- R6::R6Class(
     },
     # set working directory corresponding to the session and return the current working directory
     .set.wd = function(sid) {
-      current <- getwd()
       wd <- private$.as.wd.path(sid)
       setwd(wd)
     }
