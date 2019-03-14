@@ -192,7 +192,7 @@ DSLiteServer <- R6::R6Class(
           names <- c("name", "value", "package", "version", "type", "class")
         }
         df <- data.frame()
-        if (!is.null(methods)) {
+        if (!is.null(methods) && "name" %in% names(methods)) {
           df <- subset(methods, name != key)
         }
         if (is.null(value)) {
