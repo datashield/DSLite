@@ -290,7 +290,16 @@ DSLiteServer <- R6::R6Class(
     },
     # save a session's workspace
     workspace_save = function(sid, name) {
+      ws <- private$.as.ws.path(name)
+      if (dir.exists(ws)) {
+        unlink(ws, recursive = TRUE)
+      }
       path <- private$.as.ws.image.path(name)
+      # save working directory content
+      wd <- private$.as.wd.path(sid)
+      origwd <- setwd(wd)
+      tryCatch(file.copy(from = list.files(wd), to = ws, recursive = TRUE, copy.mode = TRUE), finally = { setwd(origwd) })
+      # save environment image
       env <- private$.sessions[[sid]]
       save(list = ls(all.names = TRUE, envir = env), file=path, envir = env)
     },
@@ -373,6 +382,7 @@ DSLiteServer <- R6::R6Class(
       env <- new.env()
       parent.env(env) <- parent.env(globalenv())
       private$.sessions[[sid]] <- env
+      wd <- private$.as.wd.path(sid)
       # prepare options
       if (!is.null(private$.config$Options)) {
         opts <- lapply(names(private$.config$Options), function(opt) { paste0(opt, "=", private$.config$Options[[opt]]) })
@@ -382,11 +392,20 @@ DSLiteServer <- R6::R6Class(
           eval(parse(text = opts), envir = private$.sessions[[sid]])
         }
       }
-      # restore image
+      # restore workspace
       if (!is.null(restore)) {
+        # restore image
         path <- private$.as.ws.image.path(restore)
         if (file.exists(path)) {
           load(path, envir = private$.sessions[[sid]])
+        }
+        # restore files
+        ws <- private$.as.ws.path(restore)
+        files <- list.files(ws)
+        files <- files[files != ".RData"]
+        if (length(files)>0) {
+          files <- unlist(lapply(files, function(f) { file.path(ws, f) }))
+          file.copy(from = files, to = wd, recursive = TRUE, copy.mode = TRUE)
         }
       }
       sid
