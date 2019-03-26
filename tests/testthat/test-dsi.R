@@ -41,7 +41,6 @@ test_that("aggregate expression works", {
   info <- dsGetInfo(res)
   expect_equal(info$status, "COMPLETED")
   rval <- dsFetch(res)
-  print(rval)
   expect_equal(rval[["Mean"]], 27.398, tolerance=1e-3)
 })
 
