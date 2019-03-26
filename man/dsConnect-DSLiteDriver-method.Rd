@@ -12,7 +12,9 @@
 
 \item{name}{Name of the connection, which must be unique among all the DataSHIELD connections.}
 
-\item{url}{A R symbol that refers to a \link{DSLiteServer} object that holds the datasets of interest.}
+\item{url}{A R symbol that refers to a \link{DSLiteServer} object that holds the datasets of interest. The
+option "datashield.env" can be used to specify where to search for this symbol value. If not specified,
+the environment is the global one.}
 
 \item{restore}{Workspace name to be restored in the newly created DataSHIELD R session.}
 

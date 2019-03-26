@@ -17,7 +17,9 @@ setClass("DSLiteConnection", contains = "DSConnection", slots = list(name = "cha
 #'
 #' @param drv \code{\link{DSLiteDriver-class}} class object.
 #' @param name Name of the connection, which must be unique among all the DataSHIELD connections.
-#' @param url A R symbol that refers to a \link{DSLiteServer} object that holds the datasets of interest.
+#' @param url A R symbol that refers to a \link{DSLiteServer} object that holds the datasets of interest. The
+#' option "datashield.env" can be used to specify where to search for this symbol value. If not specified,
+#' the environment is the global one.
 #' @param restore Workspace name to be restored in the newly created DataSHIELD R session.
 #' @param ... Unused, needed for compatibility with generic.
 #'
@@ -28,7 +30,7 @@ setClass("DSLiteConnection", contains = "DSConnection", slots = list(name = "cha
 setMethod("dsConnect", "DSLiteDriver",
           function(drv, name, url, restore = NULL, ...) {
             # get the R symbol value
-            server <- base::get(url)
+            server <- base::get(url, envir = getOption("datashield.env", globalenv()))
             if (is.null(server) || !("DSLiteServer" %in% class(server))) {
               stop(paste0("Not a valid DSLite server identified by '", url, "', expecting an object of class: DSLiteServer"))
             }
