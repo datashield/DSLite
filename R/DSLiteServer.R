@@ -112,36 +112,61 @@ DSLiteServer <- R6::R6Class(
     },
     # apply configuration to function calls in the expression
     .as.language = function(expr, methods) {
-      expression <- expr
+      exprStr <- expr
       # handle expressions made with quote() or call()
       if (is.language(expr)) {
-        expression <- deparse(expr)
-        if(length(expression) > 1) {
-          expression = paste(expression, collapse='\n')
+        exprStr <- deparse(expr)
+        if(length(exprStr) > 1) {
+          exprStr = paste(exprStr, collapse='\n')
         }
       }
-      normalized <- FALSE
+
+      # find replacement method
+      replaceMethod <- function(name) {
+        found <- methods[methods$name == name,]
+        if (length(found) == 0) {
+          NA
+        } else {
+          as.character(found$value)
+        }
+      }
+
       if (!is.null(methods)) {
         # develop function calls according to configured methods
-        for (i in 1:length(methods$name)) {
-          m <- methods[i,]
-          normalizedExpr <- gsub(paste0("^", m$name, "\\("), paste0(m$value, "\\("), expression)
-          if (normalizedExpr != expression) {
-            normalized <- TRUE
-            expression <- normalizedExpr
+        parseExpr <- parse(text = exprStr, keep.source = TRUE)
+        parseData <- getParseData(parseExpr)
+        if (getOption("dslite.debug", FALSE)) {
+          print(parseData)
+        }
+        parseData <- parseData[parseData$token != "expr",]
+
+        for (i in 1:length(parseData$token)) {
+          if (parseData[i,]$token == "SYMBOL_FUNCTION_CALL") {
+            replacement <- replaceMethod(parseData[i,]$text)
+            if (getOption("dslite.debug", FALSE)) {
+              message("Replacement of '", parseData[i,]$text, "': ", replacement)
+            }
+            if (!is.na(replacement)) {
+              parseData[i,]$text <- replacement
+            } else if (private$.strict) {
+              if (is.null(methods) || length(methods) == 0) {
+                stop(paste0("DataSHIELD configuration does not allow expression: ", expression,
+                            "\nNo DataSHIELD methods have been configured (No DataSHIELD server-side package is installed)."),
+                     call. = FALSE)
+              } else {
+                stop(paste0("DataSHIELD configuration does not allow expression: ", expression,
+                            "\nSupported function calls are: ", paste0(methods$name, collapse = ", ")),
+                     call. = FALSE)
+              }
+            }
           }
         }
-      } else {
-        # no configured methods = allow any
-        normalized <- TRUE
-      }
-      if (private$.strict &&!normalized) {
-        stop(paste0("DataSHIELD configuration does not allow expression: ", expression, "\nSupported function calls are: ", paste0(methods$name, collapse = ", ")))
+        exprStr <- paste(parseData$text, collapse = "")
       }
       if (getOption("dslite.verbose", FALSE)) {
-        message(paste0("Expression to evaluate: ", expression))
+        message(paste0("Expression to evaluate: ", exprStr))
       }
-      parse(text=expression)
+      parse(text=exprStr)
     },
     # ensure home dir is defined and exists
     .home.mkdir = function() {
