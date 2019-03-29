@@ -33,3 +33,4 @@ Collate:
     'data.R'
     'defaultDSConfiguration.R'
     'setupCNSIMTest.R'
+    'setupDSLiteServer.R'

@@ -4,20 +4,23 @@
 \alias{setupCNSIMTest}
 \title{Setup a test environment based on the CNSIM simulated datasets}
 \usage{
-setupCNSIMTest(packages, env)
+setupCNSIMTest(packages, env = globalenv())
 }
 \arguments{
 \item{packages}{DataSHIELD server-side packages that must be installed locally so that the \link{DSLiteServer}
 can execute the DataSHIELD operations.}
 
 \item{env}{The environment where DataSHIELD objects should be looked for: the \link{DSLiteServer} and
-the DSIConnection objects.}
+the DSIConnection objects. Default is the Global environment.}
 }
 \value{
 The login data for the \link{datashield.login} function.
 }
 \description{
-Load the CNSIM datasets, instanciate a new \link{DSLiteServer} hosting these datasets, verifies that
-the required DataSHIELD server-side packages are installed.
+Load the CNSIM datasets and the corresponding loadingdata object, instanciate a new \link{DSLiteServer}
+hosting these datasets, verifies that the required DataSHIELD server-side packages are installed.
 }
-\concept{test setup}
+\seealso{
+Other setup functions: \code{\link{setupDSLiteServer}}
+}
+\concept{setup functions}
