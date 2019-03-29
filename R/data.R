@@ -5,6 +5,13 @@
 #' @keywords data
 NULL
 
+#' Example login data for the simulated datasets
+#'
+#' @name logindata.dslite.cnsim
+#' @docType data
+#' @keywords data
+NULL
+
 #' Example simulated dataset 1
 #'
 #' @name CNSIM1
