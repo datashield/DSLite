@@ -4,20 +4,22 @@
 \alias{setupDSLiteServer}
 \title{Setup an environment based on named datasets and logindata}
 \usage{
-setupDSLiteServer(packages, datasets, logindata, pkgs = NULL,
-  dslite.server = "dslite.server", env = globalenv())
+setupDSLiteServer(packages = c(), datasets, logindata, pkgs = NULL,
+  dslite.server = NULL, env = globalenv())
 }
 \arguments{
-\item{packages}{DataSHIELD server-side packages that must be installed locally so that the \link{DSLiteServer}
-can execute the DataSHIELD operations.}
+\item{packages}{DataSHIELD server-side packages which local installation must be verified so that the \link{DSLiteServer}
+can auto-configure itself and can execute the DataSHIELD operations. Default is none.}
 
 \item{datasets}{Names of the datasets to be loaded using \link{data}.}
 
 \item{logindata}{Name of the login data object to be loaded using \link{data}.}
 
-\item{pkgs}{The package(s) to look in for datasets, default is all.}
+\item{pkgs}{The package(s) to look in for datasets, default is all, then the 'data' subdirectory (if present)
+of the current working directory (same behavior as 'package' argument in \link{data}).}
 
-\item{dslite.server}{Symbol name to which the \link{DSLiteServer} should be assigned to.}
+\item{dslite.server}{Symbol name to which the \link{DSLiteServer} should be assigned to. If not provided, the symbol name
+will be the first not null one specified in the 'url' column of the loaded login data.}
 
 \item{env}{The environment where DataSHIELD objects should be looked for: the \link{DSLiteServer} and
 the DSIConnection objects. Default is the Global environment.}
