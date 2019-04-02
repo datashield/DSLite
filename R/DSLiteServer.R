@@ -476,8 +476,14 @@ DSLiteServer <- R6::R6Class(
     # apply table assignment operation in the DataSHIELD session
     assignTable = function(sid, symbol, name, variables=NULL) {
       df <- private$.tables[[name]]
-      if (is.character(variables)) {
-        df <- df[, colnames(df) %in% variables]
+      if (!is.null(variables)) {
+        vars <- variables
+        if (is.list(variables)) {
+          vars <- unlist(variables)
+        }
+        if (is.character(vars)) {
+          df <- df[, colnames(df) %in% vars]
+        }
       }
       assign(symbol, df, envir = private$.session(sid))
     },
