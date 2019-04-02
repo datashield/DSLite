@@ -34,3 +34,4 @@ Collate:
     'defaultDSConfiguration.R'
     'setupCNSIMTest.R'
     'setupDSLiteServer.R'
+    'setupSURVIVALTest.R'

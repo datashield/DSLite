@@ -33,6 +33,7 @@ hosting these datasets, verifies that the required DataSHIELD server-side packag
 All the data structures are loaded by \link{data} which supports various formats (see data() documentation).
 }
 \seealso{
-Other setup functions: \code{\link{setupCNSIMTest}}
+Other setup functions: \code{\link{setupCNSIMTest}},
+  \code{\link{setupSURVIVALTest}}
 }
 \concept{setup functions}

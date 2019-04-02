@@ -3,8 +3,8 @@
 \docType{data}
 \name{logindata.dslite.cnsim}
 \alias{logindata.dslite.cnsim}
-\title{Example login data for the simulated datasets}
+\title{Login data for the simulated datasets}
 \description{
-Example login data for the simulated datasets
+Login data for the simulated datasets
 }
 \keyword{data}
