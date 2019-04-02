@@ -41,10 +41,16 @@ defaultDSConfiguration <- function(include=NULL, exclude=NULL) {
         if (!is.na(pack$AggregateMethods)) {
           methods <- .strToList(pack$AggregateMethods, pack$Package)
           for (m in names(methods)) {
-            aggregateMethods$name <- append(aggregateMethods$name, m)
-            aggregateMethods$value <- append(aggregateMethods$value, methods[[m]])
-            aggregateMethods$package <- append(aggregateMethods$package, as.character(pack$Package))
-            aggregateMethods$version <- append(aggregateMethods$version, as.character(pack$Version))
+            idx <- which(aggregateMethods$name %in% m)
+            if (length(idx) > 0) {
+              pkg <- as.character(aggregateMethods$package[idx[1]])
+              warning("Ignoring aggregate method '", m, "' from package '", as.character(pack$Package), "' because it is already defined by package '", pkg, "'!")
+            } else {
+              aggregateMethods$name <- append(aggregateMethods$name, m)
+              aggregateMethods$value <- append(aggregateMethods$value, methods[[m]])
+              aggregateMethods$package <- append(aggregateMethods$package, as.character(pack$Package))
+              aggregateMethods$version <- append(aggregateMethods$version, as.character(pack$Version))
+            }
           }
           aggregateMethods$type <- rep("aggregate", length(aggregateMethods$name))
           aggregateMethods$class <- rep("function", length(aggregateMethods$name))
@@ -52,10 +58,16 @@ defaultDSConfiguration <- function(include=NULL, exclude=NULL) {
         if (!is.na(pack$AssignMethods)) {
           methods <- .strToList(pack$AssignMethods, pack$Package)
           for (m in names(methods)) {
-            assignMethods$name <- append(assignMethods$name, m)
-            assignMethods$value <- append(assignMethods$value, methods[[m]])
-            assignMethods$package <- append(assignMethods$package, as.character(pack$Package))
-            assignMethods$version <- append(assignMethods$version, as.character(pack$Version))
+            idx <- which(assignMethods$name %in% m)
+            if (length(idx) > 0) {
+              pkg <- as.character(assignMethods$package[idx[1]])
+              warning("Ignoring assign method '", m, "' from package '", as.character(pack$Package), "' because it is already defined by package '", pkg, "'!")
+            } else {
+              assignMethods$name <- append(assignMethods$name, m)
+              assignMethods$value <- append(assignMethods$value, methods[[m]])
+              assignMethods$package <- append(assignMethods$package, as.character(pack$Package))
+              assignMethods$version <- append(assignMethods$version, as.character(pack$Version))
+            }
           }
           assignMethods$type <- rep("assign", length(assignMethods$name))
           assignMethods$class <- rep("function", length(assignMethods$name))
