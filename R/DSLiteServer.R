@@ -482,7 +482,7 @@ DSLiteServer <- R6::R6Class(
           vars <- unlist(variables)
         }
         if (is.character(vars)) {
-          df <- df[, colnames(df) %in% vars]
+          df <- subset(df, select = vars)
         }
       }
       assign(symbol, df, envir = private$.session(sid))
