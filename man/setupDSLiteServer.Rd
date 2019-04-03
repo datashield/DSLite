@@ -34,6 +34,7 @@ All the data structures are loaded by \link{data} which supports various formats
 }
 \seealso{
 Other setup functions: \code{\link{setupCNSIMTest}},
+  \code{\link{setupDASIMTest}},
   \code{\link{setupSURVIVALTest}}
 }
 \concept{setup functions}
