@@ -14,8 +14,8 @@ dslite.server <- newDSLiteServer(tables=list(CNSIM1=CNSIM1, CNSIM2=CNSIM2, CNSIM
 dslite.server$config()
 
 # datashield logins and assignments
-data("logindata.dslite.demo")
-conns <- datashield.login(logindata.dslite.demo, assign=T, variables=c("GENDER","PM_BMI_CONTINUOUS"))
+data("logindata.dslite.cnsim")
+conns <- datashield.login(logindata.dslite.cnsim, assign=T, variables=c("GENDER","PM_BMI_CONTINUOUS"))
 
 # check assigned variables
 datashield.symbols(conns)
