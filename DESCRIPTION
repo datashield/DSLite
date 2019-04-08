@@ -34,6 +34,7 @@ Collate:
     'data.dasim.R'
     'data.survival.R'
     'defaultDSConfiguration.R'
+    'getDSLiteData.R'
     'setupCNSIMTest.R'
     'setupDASIMTest.R'
     'setupDSLiteServer.R'

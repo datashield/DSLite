@@ -3,6 +3,7 @@
 export(DSLite)
 export(DSLiteServer)
 export(defaultDSConfiguration)
+export(getDSLiteData)
 export(newDSLiteServer)
 export(setupCNSIMTest)
 export(setupDASIMTest)

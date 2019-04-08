@@ -20,8 +20,9 @@ test_that("session operations work", {
   testServ$assignTable(sid, "D", "CNSIM1")
   expect_equal(testServ$symbols(sid), c("D"))
 
-  testServ$assignExpr(sid, "N", "sum(D$PM_BMI_CONTINUOUS)")
+  testServ$assignExpr(sid, "N", "sum(D$PM_BMI_CONTINUOUS, na.rm = TRUE)")
   expect_equal(testServ$symbols(sid), c("D", "N"))
+  expect_equal(testServ$getSessionData(sid, "N"), 56604.36)
 
   expect_equal(testServ$aggregate(sid, "length(N)"), 1)
   expect_equal(testServ$aggregate(sid, quote(length(N))), 1)

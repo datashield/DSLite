@@ -439,6 +439,10 @@ DSLiteServer <- R6::R6Class(
     hasSession = function(sid) {
       sid %in% names(private$.sessions)
     },
+    # get a data value from a variable name
+    getSessionData = function(sid, symbol) {
+      base::get(symbol, envir = private$.sessions[[sid]])
+    },
     # close a DataSHIELD session and save image if a name is provided
     closeSession = function(sid, save = NULL) {
       # save workspace image

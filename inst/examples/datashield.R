@@ -21,7 +21,7 @@ conns <- datashield.login(logindata.dslite.cnsim, assign=T, variables=c("GENDER"
 datashield.symbols(conns)
 
 # table assignment can also happen later
-datashield.assign(conns, "T", "CNSIM1", variables=c("GENDER","PM_BMI_CONTINUOUS"))
+datashield.assign(conns, "T", "CNSIM1", variables=c("GENDER"))
 datashield.aggregate(conns,'class(T)')
 
 # execute some aggregate calls (if these methods are available in the conns)
@@ -40,14 +40,14 @@ datashield.assign(conns, "xn", quote(as.numeric(x)))
 datashield.aggregate(conns,'class(xn)')
 
 datashield.methods(conns, type="aggregate")
-datashield.methods(conns$study1, type="aggregate")
+datashield.methods(conns$sim1, type="aggregate")
 datashield.method_status(conns, type="assign")
 datashield.pkg_status(conns)
-datashield.table_status(conns, list(study1="CNSIM1", study2="CNSIM2", study3="CNSIM3"))
+datashield.table_status(conns, list(sim1="CNSIM1", sim2="CNSIM2", sim3="CNSIM3"))
 
 datashield.logout(conns, save = "test")
 
-conns <- datashield.login(logindata.dslite.demo, assign=FALSE, restore = "test")
+conns <- datashield.login(logindata.dslite.cnsim, assign=FALSE, restore = "test")
 datashield.symbols(conns)
 dsListWorkspaces(conns[[1]])
 datashield.workspaces(conns)
