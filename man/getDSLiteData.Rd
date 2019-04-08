@@ -12,7 +12,8 @@ getDSLiteData(conns, symbol)
 \item{symbol}{Symbol name identifying the variable in the \link{DSLiteServer}'s "server-side" environment(s).}
 }
 \value{
-The data value or a list of values depending on the connections parameter.
+The data value or a list of values depending on the connections parameter. The value is NA when the connection object
+is not of class \code{\link{DSLiteConnection-class}}.
 }
 \description{
 Get the data value corresponding to the variable with the symbol name from the \link{DSLiteServer} associated

@@ -71,6 +71,8 @@ DataSHIELD session is started.
 
 \code{$hasSession(sid)} Check a DataSHIELD session is alive.
 
+\code{$getSessionData(sid, symbol)} Get the symbol value from the DataSHIELD session's environment.
+
 \code{$closeSession(sid, save)} Destroy DataSHIELD session and save workspace image if \code{save} workspace name argument is provided.
 
 \code{$tableNames()} List the names of the tables that can be assigned.
