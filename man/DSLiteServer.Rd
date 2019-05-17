@@ -83,7 +83,7 @@ DataSHIELD session is started.
 
 \code{$symbol_rm(sid, name)} Remove a symbol from the DataSHIELD session identified by \code{sid}.
 
-\code{$assignTable(sid, symbol, name, variables=NULL)} Assign a table to a symbol in the DataSHIELD session identified by \code{sid}. Filter
+\code{$assignTable(sid, symbol, name, variables=NULL, id.name=NULL)} Assign a table to a symbol in the DataSHIELD session identified by \code{sid}. Filter
 table columns with the variables names provided.
 
 \code{$assignExpr(sid, symbol, expr)} Evaluate an assignment expression in the DataSHIELD session identified by \code{sid}.

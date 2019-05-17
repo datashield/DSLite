@@ -7,7 +7,7 @@
 \usage{
 \S4method{dsAssignTable}{DSLiteConnection}(conn, symbol, table,
   variables = NULL, missings = FALSE, identifiers = NULL,
-  async = TRUE)
+  id.name = NULL, async = TRUE)
 }
 \arguments{
 \item{conn}{\code{\link{DSLiteConnection-class}} object.}
@@ -20,7 +20,10 @@
 
 \item{missings}{If TRUE, missing values will be pushed from Opal to R, default is FALSE. Ignored if value is an R expression.}
 
-\item{identifiers}{Name of the identifiers mapping to use when assigning entities to R.}
+\item{identifiers}{Name of the identifiers mapping to use when assigning entities to R (currently NOT supported by DSLite).}
+
+\item{id.name}{Name of the column that will contain the entity identifiers. If not specified, the identifiers
+will be the data frame row names. When specified this column can be used to perform joins between data frames.}
 
 \item{async}{Whether the result of the call should be retrieved asynchronously. When TRUE (default) the calls are parallelized over
 the connections, when the connection supports that feature, with an extra overhead of requests.}
