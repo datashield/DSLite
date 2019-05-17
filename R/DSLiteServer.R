@@ -84,7 +84,7 @@ newDSLiteServer <- function(tables = list(), config = DSLite::defaultDSConfigura
 #'
 #' \code{$symbol_rm(sid, name)} Remove a symbol from the DataSHIELD session identified by \code{sid}.
 #'
-#' \code{$assignTable(sid, symbol, name, variables=NULL)} Assign a table to a symbol in the DataSHIELD session identified by \code{sid}. Filter
+#' \code{$assignTable(sid, symbol, name, variables=NULL, id.name=NULL)} Assign a table to a symbol in the DataSHIELD session identified by \code{sid}. Filter
 #' table columns with the variables names provided.
 #'
 #' \code{$assignExpr(sid, symbol, expr)} Evaluate an assignment expression in the DataSHIELD session identified by \code{sid}.
@@ -480,7 +480,7 @@ DSLiteServer <- R6::R6Class(
       invisible(rm(list=c(name), envir = private$.session(sid)))
     },
     # apply table assignment operation in the DataSHIELD session
-    assignTable = function(sid, symbol, name, variables=NULL) {
+    assignTable = function(sid, symbol, name, variables=NULL, id.name=id.name) {
       df <- private$.tables[[name]]
       if (!is.null(variables)) {
         vars <- variables
@@ -490,6 +490,9 @@ DSLiteServer <- R6::R6Class(
         if (is.character(vars)) {
           df <- subset(df, select = vars)
         }
+      }
+      if (!is.null(id.name) && id.name != "" && !(id.name %in% colnames(df))) {
+        df[id.name] <- row.names(df)
       }
       assign(symbol, df, envir = private$.session(sid))
     },

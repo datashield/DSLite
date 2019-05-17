@@ -207,7 +207,9 @@ setMethod("dsRmWorkspace", "DSLiteConnection", function(conn, name) {
 #' @param table Fully qualified name of a dataset living in the DSLite server.
 #' @param variables List of variable names or Javascript expression that selects the variables of a table (ignored if value does not refere to a table). See javascript documentation: http://wiki.obiba.org/display/OPALDOC/Variable+Methods
 #' @param missings If TRUE, missing values will be pushed from Opal to R, default is FALSE. Ignored if value is an R expression.
-#' @param identifiers Name of the identifiers mapping to use when assigning entities to R.
+#' @param identifiers Name of the identifiers mapping to use when assigning entities to R (currently NOT supported by DSLite).
+#' @param id.name Name of the column that will contain the entity identifiers. If not specified, the identifiers
+#'   will be the data frame row names. When specified this column can be used to perform joins between data frames.
 #' @param async Whether the result of the call should be retrieved asynchronously. When TRUE (default) the calls are parallelized over
 #'   the connections, when the connection supports that feature, with an extra overhead of requests.
 #'
@@ -215,10 +217,13 @@ setMethod("dsRmWorkspace", "DSLiteConnection", function(conn, name) {
 #'
 #' @import methods
 #' @export
-setMethod("dsAssignTable", "DSLiteConnection", function(conn, symbol, table, variables=NULL, missings=FALSE, identifiers=NULL, async=TRUE) {
+setMethod("dsAssignTable", "DSLiteConnection", function(conn, symbol, table, variables=NULL, missings=FALSE, identifiers=NULL, id.name=NULL, async=TRUE) {
   rval <- FALSE
   if (conn@server$hasTable(table)) {
-    conn@server$assignTable(conn@sid, symbol, table, variables=variables)
+    if (!is.null(identifiers) && identifiers != "") {
+      warning("Identifiers mapping is currently not supported by DSLite")
+    }
+    conn@server$assignTable(conn@sid, symbol, table, variables=variables, id.name=id.name)
     rval <- TRUE
   }
   new("DSLiteResult", conn = conn, rval = list(status = ifelse(rval, "COMPLETED", "FAILED"), result = NULL))
