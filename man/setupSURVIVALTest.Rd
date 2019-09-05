@@ -23,6 +23,8 @@ hosting these datasets and verify that the required DataSHIELD server-side packa
 \seealso{
 Other setup functions: \code{\link{setupCNSIMTest}},
   \code{\link{setupDASIMTest}},
+  \code{\link{setupDATASETTest}},
+  \code{\link{setupDISCORDANTTest}},
   \code{\link{setupDSLiteServer}}
 }
 \concept{setup functions}
