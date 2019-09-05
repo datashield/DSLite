@@ -488,6 +488,9 @@ DSLiteServer <- R6::R6Class(
           vars <- unlist(variables)
         }
         if (is.character(vars)) {
+          # make sure variables specified are existing column names
+          cols <- colnames(df)
+          vars <- vars[sapply(vars, function(v) v %in% cols)]
           df <- subset(df, select = vars)
         }
       }

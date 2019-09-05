@@ -11,7 +11,7 @@
 #' @family setup functions
 #' @export
 setupDATASETTest <- function(packages = c(), env = globalenv()) {
-  setupDSLiteServer(packages, c("TESTING.DATASET", "TESTING.DATASET", "TESTING.DATASET"),
+  setupDSLiteServer(packages, c("TESTING.DATASET1", "TESTING.DATASET2", "TESTING.DATASET3"),
                     "logindata.dslite.testing.dataset", "DSLite", "dslite.server", env)
 }
 
