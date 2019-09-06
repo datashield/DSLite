@@ -114,6 +114,10 @@ DSLiteServer <- R6::R6Class(
     },
     # apply configuration to function calls in the expression
     .as.language = function(expr, methods) {
+      if (is.null(expr)) {
+        stop("Invalid expression type: 'NULL'. Expected a call or character vector.",
+             call. = FALSE)
+      }
       exprStr <- expr
       # handle expressions made with quote() or call()
       if (is.language(expr)) {
@@ -126,7 +130,7 @@ DSLiteServer <- R6::R6Class(
       # find replacement method
       replaceMethod <- function(name) {
         found <- methods[methods$name == name,]
-        if (length(found) == 0) {
+        if (nrow(found) == 0) {
           NA
         } else {
           as.character(found$value)
@@ -144,19 +148,20 @@ DSLiteServer <- R6::R6Class(
 
         for (i in 1:length(parseData$token)) {
           if (parseData[i,]$token == "SYMBOL_FUNCTION_CALL") {
-            replacement <- replaceMethod(parseData[i,]$text)
+            method <- parseData[i,]$text
+            replacement <- replaceMethod(method)
             if (getOption("dslite.debug", FALSE)) {
-              message("Replacement of '", parseData[i,]$text, "': ", replacement)
+              message("Replacement of '", method, "': '", replacement, "' (is.na=", is.na(replacement), ")")
             }
             if (!is.na(replacement)) {
               parseData[i,]$text <- replacement
             } else if (private$.strict) {
               if (is.null(methods) || length(methods) == 0) {
-                stop(paste0("DataSHIELD configuration does not allow expression: ", expression,
+                stop(paste0("DataSHIELD configuration does not allow expression: ", method,
                             "\nNo DataSHIELD methods have been configured (No DataSHIELD server-side package is installed)."),
                      call. = FALSE)
               } else {
-                stop(paste0("DataSHIELD configuration does not allow expression: ", expression,
+                stop(paste0("DataSHIELD configuration does not allow expression: ", method,
                             "\nSupported function calls are: ", paste0(methods$name, collapse = ", ")),
                      call. = FALSE)
               }
@@ -497,12 +502,18 @@ DSLiteServer <- R6::R6Class(
       if (!is.null(id.name) && id.name != "" && !(id.name %in% colnames(df))) {
         df[id.name] <- row.names(df)
       }
+      if (getOption("dslite.verbose", FALSE)) {
+        message(paste0("Symbol to assign: ", symbol))
+      }
       assign(symbol, df, envir = private$.session(sid))
     },
     # apply expression assignement operation in the DataSHIELD session
     assignExpr = function(sid, symbol, expr) {
       exprr <- private$.as.language(expr, private$.config$AssignMethods)
       origwd <- private$.set.wd(sid)
+      if (getOption("dslite.verbose", FALSE)) {
+        message(paste0("Symbol to assign: ", symbol))
+      }
       tryCatch(assign(symbol, eval(exprr, envir = private$.session(sid)), envir = private$.session(sid)), finally = { setwd(origwd) })
     },
     # apply aggregate operation in the DataSHIELD session
