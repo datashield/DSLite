@@ -140,7 +140,7 @@ DSLiteServer <- R6::R6Class(
       if (!is.null(methods)) {
         # develop function calls according to configured methods
         parseExpr <- parse(text = exprStr, keep.source = TRUE)
-        parseData <- getParseData(parseExpr)
+        parseData <- utils::getParseData(parseExpr)
         if (getOption("dslite.debug", FALSE)) {
           print(parseData)
         }
@@ -168,7 +168,8 @@ DSLiteServer <- R6::R6Class(
             }
           }
         }
-        exprStr <- paste(parseData$text, collapse = "")
+        # text may be truncated
+        exprStr <- paste(unlist(lapply(rownames(parseData), function(id) utils::getParseText(parseData, id))), collapse = "")
       }
       if (getOption("dslite.verbose", FALSE)) {
         message(paste0("Expression to evaluate: ", exprStr))
@@ -423,6 +424,10 @@ DSLiteServer <- R6::R6Class(
           opts <- paste0("options(", opts, ")")
           eval(parse(text = opts), envir = private$.sessions[[sid]])
         }
+        if (!("datashield.seed") %in% names(private$.config$Options)) {
+          opt <- getOption("datashield.seed", 1234)
+          eval(parse(text = paste0("options(datashield.seed=",opt,")")), envir = private$.sessions[[sid]])
+        }
       }
       # restore workspace
       if (!is.null(restore)) {
@@ -446,7 +451,11 @@ DSLiteServer <- R6::R6Class(
     hasSession = function(sid) {
       sid %in% names(private$.sessions)
     },
-    # get a data value from a variable name
+    # get the DataSHIELD session's environment
+    getSession = function(sid) {
+      private$.sessions[[sid]]
+    },
+    # get a data value from a symbol name in the DataSHIELD session
     getSessionData = function(sid, symbol) {
       base::get(symbol, envir = private$.sessions[[sid]])
     },
