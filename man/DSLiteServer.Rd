@@ -18,6 +18,8 @@ environment where the assignment and the operations happen.
 \describe{
 \item{\code{tables}}{A named list of data.frames representing the harmonized tables.}
 
+\item{\code{resources}}{A named list of \code{resourcer::ResourceClient} objects representing accessible data or computation resources.}
+
 \item{\code{config}}{The DataSHIELD configuration. Default is to discover it from the DataSHIELD server-side R packages.}
 
 \item{\code{strict}}{Logical to specify whether the DataSHIELD configuration must be strictly applied. Default is TRUE.}
@@ -28,7 +30,7 @@ Default is in a hidden folder of the user home.}
 
 \section{Methods}{
 
-\code{$new(tables, config, strict, home)} Create new DSLiteServer instance with the arguments described in the Fields section.
+\code{$new(tables, resources, config, strict, home)} Create new DSLiteServer instance with the arguments described in the Fields section.
 See \link{defaultDSConfiguration} function for including or excluding packages when discovering the DataSHIELD configuration
 from the DataSHIELD server-side packages (meta-data from the DESCRIPTION files).
 
@@ -79,12 +81,18 @@ DataSHIELD session is started.
 
 \code{$hasTable(name)} Check the table exists.
 
+\code{$resourceNames()} List the names of the \code{resourcer::ResourceClient} objects that can be assigned.
+
+\code{$hasResource(name)} Check the \code{resourcer::ResourceClient} object exists.
+
 \code{$symbols(sid)} List the symbols living in the DataSHIELD session identified by \code{sid}.
 
 \code{$symbol_rm(sid, name)} Remove a symbol from the DataSHIELD session identified by \code{sid}.
 
 \code{$assignTable(sid, symbol, name, variables=NULL, id.name=NULL)} Assign a table to a symbol in the DataSHIELD session identified by \code{sid}. Filter
 table columns with the variables names provided.
+
+\code{$assignResource(sid, symbol, name)} Assign a resource to a symbol in the DataSHIELD session identified by \code{sid}.
 
 \code{$assignExpr(sid, symbol, expr)} Evaluate an assignment expression in the DataSHIELD session identified by \code{sid}.
 

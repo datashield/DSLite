@@ -1,6 +1,6 @@
 Package: DSLite
 Type: Package
-Version: 1.0.0
+Version: 1.1.0
 Title: DataSHIELD implementation on local datasets
 Authors@R:
     c(person(given = "Yannick",
@@ -10,10 +10,11 @@ Authors@R:
              comment = c(ORCID = "0000-0003-0138-2023")))
 Depends:
     R (>= 3.5.0),
-    DSI,
+    DSI (>= 1.1),
     methods,
     R6
 Suggests:
+    resourcer,
     knitr,
     testthat
 Description: DataSHIELD implementation based on datasets living in the 
