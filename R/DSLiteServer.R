@@ -540,7 +540,7 @@ DSLiteServer <- R6::R6Class(
       if (getOption("dslite.verbose", FALSE)) {
         message(paste0("Symbol to assign: ", symbol))
       }
-      assign(symbol, res, envir = private$.session(sid))
+      assign(symbol, resourcer::newResourceClient(res), envir = private$.session(sid))
     },
     # apply expression assignement operation in the DataSHIELD session
     assignExpr = function(sid, symbol, expr) {
