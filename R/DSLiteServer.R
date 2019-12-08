@@ -1,9 +1,9 @@
 #' Create a new DSLite server
 #'
-#' Shortcut function to create a new \code{resourcer::DSLiteServer} instance.
+#' Shortcut function to create a new \code{DSLiteServer} instance.
 #'
 #' @param tables A named list of data.frames representing the harmonized tables.
-#' @param resources A named list of \code{resourcer::ResourceClient} objects representing accessible data or computation resources.
+#' @param resources A named list of \code{resourcer::Resource} objects representing accessible data or computation resources.
 #' @param config The DataSHIELD configuration. Default is to discover it from the DataSHIELD server-side R packages.
 #' See \link{defaultDSConfiguration} function for including or excluding packages when discovering the DataSHIELD configuration
 #' from the DataSHIELD server-side packages (meta-data from the DESCRIPTION files).
@@ -17,87 +17,11 @@ newDSLiteServer <- function(tables = list(), resources = list(), config = DSLite
   DSLiteServer$new(tables = tables, resources = resources, config = config, strict = strict, home = home)
 }
 
-#' Lightweight DataSHIELD server-side component
+#' @title Lightweight DataSHIELD server-side component
 #'
-#' DSLiteServer mimics a DataSHIELD server by holding datasets and exposing
+#' @description DSLiteServer mimics a DataSHIELD server by holding datasets and exposing
 #' DataSHIELD-like functions: aggregate and assign. A DataSHIELD session is a R
 #' environment where the assignment and the operations happen.
-#'
-#' @field tables A named list of data.frames representing the harmonized tables.
-#' @field resources A named list of \code{resourcer::ResourceClient} objects representing accessible data or computation resources.
-#' @field config The DataSHIELD configuration. Default is to discover it from the DataSHIELD server-side R packages.
-#' @field strict Logical to specify whether the DataSHIELD configuration must be strictly applied. Default is TRUE.
-#' @field home Folder location where are located the session work directory and where to read and dump workspace images.
-#' Default is in a hidden folder of the user home.
-#'
-#' @section Methods:
-#' \code{$new(tables, resources, config, strict, home)} Create new DSLiteServer instance with the arguments described in the Fields section.
-#' See \link{defaultDSConfiguration} function for including or excluding packages when discovering the DataSHIELD configuration
-#' from the DataSHIELD server-side packages (meta-data from the DESCRIPTION files).
-#'
-#' \code{$config(value)} Get (if \code{value} argument is missing) or set the DataSHIELD configuration: aggregate/assign methods
-#' in data frames and a named list of options.
-#'
-#' \code{$strict(value)} Get (if \code{value} argument is missing) or set the \code{strict} logical field.
-#'
-#' \code{$home(value)} Get (if \code{value} argument is missing) or set the \code{home} field.
-#'
-#' \code{$workspaces()} List all the workspaces stored in the \code{home} folder.
-#'
-#' \code{$workspace_save(sid, name)} Save the session's workspace image identified by the \code{sid} identifier
-#'   with the provided \code{name} in the \code{home} folder.
-#'
-#' \code{$workspace_rm(name)} Remove the workspace image with the provided \code{name} from the \code{home} folder.
-#'
-#' \code{$aggregateMethods(value)} Get (if \code{value} argument is missing) or set the aggregate methods, a \code{data.frame}
-#' with columns: \code{name} (the client function call), \code{value} (the translated server call), \code{package} (relevant when
-#' extracted from a DataSHIELD server-side package), \code{version} (relevant when extracted from a DataSHIELD server-side package),
-#' \code{type} ("aggregate"), \code{class} (always "function" as custom scripts are not supported).
-#'
-#' \code{$aggregateMethod(name, value)} Get (if \code{value} argument is missing) or set the aggregate method: \code{name} (the client
-#' function call), \code{value} (the translated server call). Remove the method when \code{value} is \code{NULL}.
-#'
-#' \code{$assignMethods(value)} Get (if \code{value} argument is missing) or set the assign methods, a \code{data.frame}
-#' with columns: \code{name} (the client function call), \code{value} (the translated server call), \code{package} (relevant when
-#' extracted from a DataSHIELD server-side package), \code{version} (relevant when extracted from a DataSHIELD server-side package),
-#' \code{type} ("aggregate"), \code{class} (always "function" as custom scripts are not supported).
-#'
-#' \code{$assignMethod(name, value)} Get (if \code{value} argument is missing) or set the assign method: \code{name} (the client
-#' function call), \code{value} (the translated server call). Remove the method when \code{value} is \code{NULL}.
-#'
-#' \code{$options(value)} Get (if \code{value} argument is missing) or set the DataSHIELD R options that are applied when a new
-#' DataSHIELD session is started.
-#'
-#' \code{$option(key, value)} Get (if \code{value} argument is missing) or set the R option. Remove the option when \code{value} is \code{NULL}.
-#'
-#' \code{$newSession(restore)} Create a new DataSHIELD session and restore workspace image if \code{restore} workspace name argument is provided.
-#'
-#' \code{$hasSession(sid)} Check a DataSHIELD session is alive.
-#'
-#' \code{$getSessionData(sid, symbol)} Get the symbol value from the DataSHIELD session's environment.
-#'
-#' \code{$closeSession(sid, save)} Destroy DataSHIELD session and save workspace image if \code{save} workspace name argument is provided.
-#'
-#' \code{$tableNames()} List the names of the tables that can be assigned.
-#'
-#' \code{$hasTable(name)} Check the table exists.
-#'
-#' \code{$resourceNames()} List the names of the \code{resourcer::ResourceClient} objects that can be assigned.
-#'
-#' \code{$hasResource(name)} Check the \code{resourcer::ResourceClient} object exists.
-#'
-#' \code{$symbols(sid)} List the symbols living in the DataSHIELD session identified by \code{sid}.
-#'
-#' \code{$symbol_rm(sid, name)} Remove a symbol from the DataSHIELD session identified by \code{sid}.
-#'
-#' \code{$assignTable(sid, symbol, name, variables=NULL, id.name=NULL)} Assign a table to a symbol in the DataSHIELD session identified by \code{sid}. Filter
-#' table columns with the variables names provided.
-#'
-#' \code{$assignResource(sid, symbol, name)} Assign a resource to a symbol in the DataSHIELD session identified by \code{sid}.
-#'
-#' \code{$assignExpr(sid, symbol, expr)} Evaluate an assignment expression in the DataSHIELD session identified by \code{sid}.
-#'
-#' \code{$aggregate(sid, expr)} Evaluate an aggregation expression in the DataSHIELD session identified by \code{sid}.
 #'
 #' @family server-side items
 #' @docType class
@@ -105,6 +29,396 @@ newDSLiteServer <- function(tables = list(), resources = list(), config = DSLite
 #' @export
 DSLiteServer <- R6::R6Class(
   "DSLiteServer",
+  public = list(
+
+    #' @description Create new DSLiteServer instance. See \link{defaultDSConfiguration} function for including or excluding packages
+    #' when discovering the DataSHIELD configuration from the DataSHIELD server-side packages (meta-data from the DESCRIPTION files).
+    #' @param tables A named list of data.frames representing the harmonized tables.
+    #' @param resources A named list of \code{resourcer::Resource} objects representing accessible data or computation resources.
+    #' @param config The DataSHIELD configuration. Default is to discover it from the DataSHIELD server-side R packages.
+    #' @param strict Logical to specify whether the DataSHIELD configuration must be strictly applied. Default is TRUE.
+    #' @param home Folder location where are located the session work directory and where to read and dump workspace images.
+    #' Default is in a hidden folder of the user home.
+    #' @return A DSLiteServer object
+    initialize = function(tables = list(), resources = list(), config = DSLite::defaultDSConfiguration(), strict = TRUE, home = file.path("~", ".dslite")) {
+      private$.tables <- tables
+      private$.resources <- resources
+      private$.config <- config
+      private$.strict <- strict
+      private$.home <- home
+      private$.home.mkdir()
+      # resource default coercing functions
+      self$assignMethod(name = "as.resource.data.frame", value = function(x) { x$asDataFrame() })
+      self$assignMethod(name = "as.resource.tbl", value = function(x) { x$asTbl() })
+      self$assignMethod(name = "as.resource.object", value = function(x) { x$getValue() })
+    },
+
+    #' @description Get or set the DataSHIELD configuration.
+    #' @param value The DataSHIELD configuration: aggregate/assign methods in data frames and a named list of options.
+    #' @return The DataSHIELD configuration, if no parameter is provided.
+    config = function(value) {
+      if (missing(value)) {
+        private$.config
+      } else {
+        private$.config <- value
+      }
+    },
+
+    #' @description Get or set the level of strictness (stop when function call is not configured)
+    #' @param value The \code{strict} logical field.
+    #' @return The strict field if no parameter is provided.
+    strict = function(value) {
+      if (missing(value)) {
+        private$.strict
+      } else {
+        private$.strict <- value
+      }
+    },
+
+    #' @description Get or set the home folder location where are located the session work directories and where to read and dump workspace images.
+    #' @param value The path to the home folder.
+    #' @return The home folder path if no parameter is provided.
+    home = function(value) {
+      if (missing(value)) {
+        private$.home
+      } else {
+        private$.home <- value
+        private$.home.mkdir()
+      }
+    },
+
+    #
+    # Workspaces
+    #
+
+    #' @description List the saved workspaces in the \code{home} folder.
+    #' @param prefix Filter workspaces starting with provided prefix (optional).
+    workspaces = function(prefix = NULL) {
+      private$.home.mkdir()
+      path <- file.path(private$.home, "workspaces")
+      name <- c()
+      size <- c()
+      user <- c()
+      lastAccessDate <- c()
+      if (dir.exists(path)) {
+        dirs <- list.dirs(path, full.names = FALSE)
+        for (dir in dirs) {
+          if (dir != "") {
+            data <- file.path(private$.home, "workspaces", dir, ".RData")
+            if (file.exists(data) && (is.null(prefix) || startsWith(dir, prefix))) {
+              name <- append(name, dir)
+              info <- file.info(data)
+              size <- append(size, info$size)
+              user <- append(user, info$uname)
+              lastAccessDate <- append(lastAccessDate, format(info$atime, format = "%FT%T%z"))
+            }
+          }
+        }
+      }
+      data.frame(name=name, user=user, lastAccessDate=lastAccessDate, size=size)
+    },
+
+    #' @description Save the session's workspace image identified by the \code{sid} identifier
+    #'   with the provided \code{name} in the \code{home} folder.
+    #' @param sid, Session ID
+    #' @param name The name to be given to the workspace's image.
+    workspace_save = function(sid, name) {
+      ws <- private$.as.ws.path(name)
+      if (dir.exists(ws)) {
+        unlink(ws, recursive = TRUE)
+      }
+      path <- private$.as.ws.image.path(name)
+      # save working directory content
+      wd <- private$.as.wd.path(sid)
+      origwd <- setwd(wd)
+      tryCatch(file.copy(from = list.files(wd), to = ws, recursive = TRUE, copy.mode = TRUE), finally = { setwd(origwd) })
+      # save environment image
+      env <- private$.sessions[[sid]]
+      save(list = ls(all.names = TRUE, envir = env), file=path, envir = env)
+    },
+
+    #' @description Remove the workspace image with the provided \code{name} from the \code{home} folder.
+    #' @param name The name of the workspace.
+    workspace_rm = function(name) {
+      path <- private$.as.ws.path(name)
+      unlink(path, recursive = TRUE)
+    },
+
+    #
+    # DataSHIELD configuration
+    #
+
+    #' @description Get or set the aggregate methods.
+    #' @param value A \code{data.frame} with columns: \code{name} (the client function call),
+    #' \code{value} (the translated server call), \code{package} (relevant when extracted from a DataSHIELD server-side package),
+    #' \code{version} (relevant when extracted from a DataSHIELD server-side package), \code{type} ("aggregate"),
+    #' \code{class} ("function" for package functions or "script" for custom scripts).
+    #' @return The aggregate methods when no parameter is provided.
+    aggregateMethods = function(value) {
+      if (missing(value)) {
+        private$.config$AggregateMethods
+      } else {
+        private$.config$AggregateMethods <- value
+      }
+    },
+
+    #' @description Get or set an aggregate method.
+    #' @param name The client function call.
+    #' @param value The translated server call: either a package function reference or function expression. Remove the method when \code{NULL}.
+    #' @return The aggregate method when no \code{value} parameter is provided.
+    aggregateMethod = function(name, value) {
+      if (missing(value)) {
+        private$.get.method(private$.config$AggregateMethods, name)
+      } else {
+        private$.config$AggregateMethods <- private$.set.method(private$.config$AggregateMethods, "aggregate", name, value)
+        invisible(TRUE)
+      }
+    },
+
+    #' @description Get or set the assign methods.
+    #' @param value A \code{data.frame} with columns: \code{name} (the client function call), \code{value} (the translated server call),
+    #' \code{package} (relevant when extracted from a DataSHIELD server-side package), \code{version} (relevant when extracted from a DataSHIELD server-side package),
+    #' \code{type} ("assign"), \code{class} ("function" for package functions or "script" for custom scripts).
+    #' @return The assign methods when no parameter is provided.
+    assignMethods = function(value) {
+      if (missing(value)) {
+        private$.config$AssignMethods
+      } else {
+        private$.config$AssignMethods <- value
+      }
+    },
+
+    #' @description Get or set an assign method.
+    #' @param name The client function call
+    #' @param value The translated server call: either a package function reference or function expression. Remove the method when \code{NULL}.
+    #' @return The assign method when no \code{value} parameter is provided.
+    assignMethod = function(name, value) {
+      if (missing(value)) {
+        private$.get.method(private$.config$AssignMethods, name)
+      } else {
+        private$.config$AssignMethods <- private$.set.method(private$.config$AssignMethods, "assign", name, value)
+        invisible(TRUE)
+      }
+    },
+
+    #' @description Get or set the DataSHIELD R options that are applied when a new DataSHIELD session is started.
+    #' @param value A named list of options.
+    #' @return The R options when no parameter is provided.
+    options = function(value) {
+      if (missing(value)) {
+        private$.config$Options
+      } else {
+        private$.config$Options <- value
+      }
+    },
+
+    #' @description Get or set a R option.
+    #' @param key The R option's name.
+    #' @param value The R option's value. Remove the option when \code{NULL}.
+    #' @return The R option's value when only \code{key} parameter is provided.
+    option = function(key, value) {
+      if (missing(value)) {
+        if (is.null(private$.config$Options) || is.null(key)) {
+          NULL
+        } else {
+          private$.config$Options[[key]]
+        }
+      } else if (is.null(key)) {
+        invisible(FALSE)
+      } else {
+        if (is.null(private$.config$Options)) {
+          private$.config$Options <- list()
+        }
+        private$.config$Options[[key]] <- value
+        invisible(TRUE)
+      }
+    },
+
+    #
+    # DataSHIELD sessions
+    #
+
+    #' @description Create a new DataSHIELD session (contained execution environment) and restore workspace image
+    #' if \code{restore} workspace name argument is provided.
+    #' @param restore The workspace image to be restored (optional).
+    newSession = function(restore = NULL) {
+      sid <- as.character(sample(1000:9999, 1))
+      env <- new.env()
+      parent.env(env) <- parent.env(globalenv())
+      private$.sessions[[sid]] <- env
+      wd <- private$.as.wd.path(sid)
+      # prepare options
+      if (!is.null(private$.config$Options)) {
+        opts <- lapply(names(private$.config$Options), function(opt) { paste0(opt, "=", private$.config$Options[[opt]]) })
+        if (length(opts)>0) {
+          opts <- paste(opts, collapse = ",")
+          opts <- paste0("options(", opts, ")")
+          eval(parse(text = opts), envir = private$.sessions[[sid]])
+        }
+        if (!("datashield.seed") %in% names(private$.config$Options)) {
+          opt <- getOption("datashield.seed", 1234)
+          eval(parse(text = paste0("options(datashield.seed=",opt,")")), envir = private$.sessions[[sid]])
+        }
+      }
+      # restore workspace
+      if (!is.null(restore)) {
+        # restore image
+        path <- private$.as.ws.image.path(restore)
+        if (file.exists(path)) {
+          load(path, envir = private$.sessions[[sid]])
+        }
+        # restore files
+        ws <- private$.as.ws.path(restore)
+        files <- list.files(ws)
+        files <- files[files != ".RData"]
+        if (length(files)>0) {
+          files <- unlist(lapply(files, function(f) { file.path(ws, f) }))
+          file.copy(from = files, to = wd, recursive = TRUE, copy.mode = TRUE)
+        }
+      }
+      sid
+    },
+
+    #' @description Check a DataSHIELD session is alive.
+    #' @param sid The session ID.
+    hasSession = function(sid) {
+      sid %in% names(private$.sessions)
+    },
+
+    #' @description Get the DataSHIELD session's environment.
+    #' @param sid The session ID.
+    getSession = function(sid) {
+      private$.sessions[[sid]]
+    },
+
+    #' @description Get the symbol value from the DataSHIELD session's environment.
+    #' @param sid The session ID.
+    #' @param symbol The symbol name.
+    getSessionData = function(sid, symbol) {
+      base::get(symbol, envir = private$.sessions[[sid]])
+    },
+
+    #' @description Destroy DataSHIELD session and save workspace image if \code{save} workspace name argument is provided.
+    #' @param sid The session ID.
+    #' @param save The name of the workspace image to be saved (optional).
+    closeSession = function(sid, save = NULL) {
+      # save workspace image
+      if (!is.null(save)) {
+        self$workspace_rm(save)
+        self$workspace_save(sid, save)
+      }
+      # remove working dir
+      wd <- private$.as.wd.path(sid)
+      if (dir.exists(wd)) {
+        unlink(wd, recursive = TRUE)
+      }
+      private$.sessions[[sid]] <- NULL
+    },
+
+    #
+    # DataSHIELD operations
+    #
+
+    #' @description List the names of the tables that can be assigned.
+    tableNames = function() {
+      names(private$.tables)
+    },
+
+    #' @description Check a table exists.
+    #' @param name The table name to be looked for.
+    hasTable = function(name) {
+      name %in% names(private$.tables)
+    },
+
+    #' @description List the names of the resources (\code{resourcer::Resource} objects) that can be assigned.
+    resourceNames = function() {
+      names(private$.resources)
+    },
+
+    #' @description Check a resource (\code{resourcer::Resource} object) exists.
+    #' @param name The resource name to be looked for.
+    hasResource = function(name) {
+      name %in% names(private$.resources)
+    },
+
+    #' @description List the symbols living in a DataSHIELD session.
+    #' @param sid The session ID.
+    symbols = function(sid) {
+      ls(envir = private$.session(sid))
+    },
+
+    #' @description Remove a symbol from a DataSHIELD session.
+    #' @param sid The session ID.
+    #' @param name The symbol name.
+    symbol_rm = function(sid, name) {
+      invisible(rm(list=c(name), envir = private$.session(sid)))
+    },
+
+    #' @description Assign a table to a symbol in a DataSHIELD session. Filter
+    #' table columns with the variables names provided.
+    #' @param sid The session ID.
+    #' @param symbol The symbol to be assigned.
+    #' @param name The table's name.
+    #' @param variables The variable names to be filtered in (optional).
+    #' @param id.name The column name to be used for the entity's identifier (optional).
+    assignTable = function(sid, symbol, name, variables=NULL, id.name=NULL) {
+      df <- private$.tables[[name]]
+      if (!is.null(variables)) {
+        vars <- variables
+        if (is.list(variables)) {
+          vars <- unlist(variables)
+        }
+        if (is.character(vars)) {
+          # make sure variables specified are existing column names
+          cols <- colnames(df)
+          vars <- vars[sapply(vars, function(v) v %in% cols)]
+          df <- subset(df, select = vars)
+        }
+      }
+      if (!is.null(id.name) && id.name != "" && !(id.name %in% colnames(df))) {
+        df[id.name] <- row.names(df)
+      }
+      if (getOption("dslite.verbose", FALSE)) {
+        message(paste0("Symbol to assign: ", symbol))
+      }
+      assign(symbol, df, envir = private$.session(sid))
+    },
+
+    #' @description Assign a resource as a \code{resourcer::ResourceClient} object to a symbol in a DataSHIELD session.
+    #' @param sid The session ID.
+    #' @param symbol The symbol name.
+    #' @param name The name of the resource.
+    assignResource = function(sid, symbol, name) {
+      res <- private$.resources[[name]]
+      if (getOption("dslite.verbose", FALSE)) {
+        message(paste0("Symbol to assign: ", symbol))
+      }
+      assign(symbol, resourcer::newResourceClient(res), envir = private$.session(sid))
+    },
+
+    #' @description Evaluate an assignment expression in a DataSHIELD session.
+    #' @param sid The session ID.
+    #' @param symbol The symbol name.
+    #' @param expr The R expression to evaluate.
+    assignExpr = function(sid, symbol, expr) {
+      exprr <- private$.as.language(sid, expr, private$.config$AssignMethods)
+      origwd <- private$.set.wd(sid)
+      if (getOption("dslite.verbose", FALSE)) {
+        message(paste0("Symbol to assign: ", symbol))
+      }
+      tryCatch(assign(symbol, eval(exprr, envir = private$.session(sid)), envir = private$.session(sid)), finally = { setwd(origwd) })
+    },
+
+    #' @description Evaluate an aggregate expression in a DataSHIELD session.
+    #' @param sid The session ID.
+    #' @param expr The R expression to evaluate.
+    aggregate = function(sid, expr) {
+      exprr <- private$.as.language(sid, expr, private$.config$AggregateMethods)
+      origwd <- private$.set.wd(sid)
+      tryCatch(eval(exprr, envir = private$.session(sid)), finally = { setwd(origwd) })
+    }
+  ),
+
   private = list(
     # data frames representing the harmonized tables
     .tables = NULL,
@@ -123,7 +437,7 @@ DSLiteServer <- R6::R6Class(
       private$.sessions[[sid]]
     },
     # apply configuration to function calls in the expression
-    .as.language = function(expr, methods) {
+    .as.language = function(sid, expr, methods) {
       if (is.null(expr)) {
         stop("Invalid expression type: 'NULL'. Expected a call or character vector.",
              call. = FALSE)
@@ -143,7 +457,15 @@ DSLiteServer <- R6::R6Class(
         if (nrow(found) == 0) {
           NA
         } else {
-          as.character(found$value)
+          valueStr <- as.character(found$value)
+          if (found$class == "script") {
+            # case inlined function: assign function to a symbol in session's environment
+            assign(name, eval(str2lang(valueStr)), envir = private$.session(sid))
+            name
+          } else {
+            # case already defined function (in a package most likely)
+            valueStr
+          }
         }
       }
 
@@ -246,15 +568,23 @@ DSLiteServer <- R6::R6Class(
           df
         } else {
           row <- list()
+          valueStr <- value
+          if (is.function(value)) {
+            valueStr <- paste0(deparse(value), collapse = "")
+          }
           for (k in names) {
             if (k == "name") {
               row[["name"]] <- key
             } else if (k == "value") {
-              row[["value"]] <- value
+              row[["value"]] <- valueStr
             } else if (k == "type") {
               row[["type"]] <- type
             } else if (k == "class") {
-              row[["class"]] <- "function" # no custom script support
+              if (is.function(value)) {
+                row[["class"]] <- "script"
+              } else {
+                row[["class"]] <- "function"
+              }
             } else {
               row[[k]] <- NA
             }
@@ -267,295 +597,6 @@ DSLiteServer <- R6::R6Class(
     .set.wd = function(sid) {
       wd <- private$.as.wd.path(sid)
       setwd(wd)
-    }
-  ),
-  public = list(
-    initialize = function(tables = list(), resources = list(), config = DSLite::defaultDSConfiguration(), strict = TRUE, home = file.path("~", ".dslite")) {
-      private$.tables <- tables
-      private$.resources <- resources
-      private$.config <- config
-      private$.strict <- strict
-      private$.home <- home
-      private$.home.mkdir()
-    },
-    # get or set the configuration
-    config = function(value) {
-      if (missing(value)) {
-        private$.config
-      } else {
-        private$.config <- value
-      }
-    },
-    # get or set the level of strictness (stop when function call is not configured)
-    strict = function(value) {
-      if (missing(value)) {
-        private$.strict
-      } else {
-        private$.strict <- value
-      }
-    },
-    # get or set the home folder location
-    home = function(value) {
-      if (missing(value)) {
-        private$.home
-      } else {
-        private$.home <- value
-        private$.home.mkdir()
-      }
-    },
-
-    #
-    # Workspaces
-    #
-    # list the saved workspaces
-    workspaces = function(prefix = NULL) {
-      private$.home.mkdir()
-      path <- file.path(private$.home, "workspaces")
-      name <- c()
-      size <- c()
-      user <- c()
-      lastAccessDate <- c()
-      if (dir.exists(path)) {
-        dirs <- list.dirs(path, full.names = FALSE)
-        for (dir in dirs) {
-          if (dir != "") {
-            data <- file.path(private$.home, "workspaces", dir, ".RData")
-            if (file.exists(data) && (is.null(prefix) || startsWith(dir, prefix))) {
-              name <- append(name, dir)
-              info <- file.info(data)
-              size <- append(size, info$size)
-              user <- append(user, info$uname)
-              lastAccessDate <- append(lastAccessDate, format(info$atime, format = "%FT%T%z"))
-            }
-          }
-        }
-      }
-      data.frame(name=name, user=user, lastAccessDate=lastAccessDate, size=size)
-    },
-    # save a session's workspace
-    workspace_save = function(sid, name) {
-      ws <- private$.as.ws.path(name)
-      if (dir.exists(ws)) {
-        unlink(ws, recursive = TRUE)
-      }
-      path <- private$.as.ws.image.path(name)
-      # save working directory content
-      wd <- private$.as.wd.path(sid)
-      origwd <- setwd(wd)
-      tryCatch(file.copy(from = list.files(wd), to = ws, recursive = TRUE, copy.mode = TRUE), finally = { setwd(origwd) })
-      # save environment image
-      env <- private$.sessions[[sid]]
-      save(list = ls(all.names = TRUE, envir = env), file=path, envir = env)
-    },
-    # save a session's workspace
-    workspace_rm = function(name) {
-      path <- private$.as.ws.path(name)
-      unlink(path, recursive = TRUE)
-    },
-
-    #
-    # DataSHIELD configuration
-    #
-    # get or set the data.frame representing the aggregate methods
-    aggregateMethods = function(value) {
-      if (missing(value)) {
-        private$.config$AggregateMethods
-      } else {
-        private$.config$AggregateMethods <- value
-      }
-    },
-    # get or set an aggregate method
-    aggregateMethod = function(name, value) {
-      if (missing(value)) {
-        private$.get.method(private$.config$AggregateMethods, name)
-      } else {
-        private$.config$AggregateMethods <- private$.set.method(private$.config$AggregateMethods, "aggregate", name, value)
-        invisible(TRUE)
-      }
-    },
-    # get or set the data.frame representing the assign methods
-    assignMethods = function(value) {
-      if (missing(value)) {
-        private$.config$AssignMethods
-      } else {
-        private$.config$AssignMethods <- value
-      }
-    },
-    # get or set an aggregate method
-    assignMethod = function(name, value) {
-      if (missing(value)) {
-        private$.get.method(private$.config$AssignMethods, name)
-      } else {
-        private$.config$AssignMethods <- private$.set.method(private$.config$AssignMethods, "assign", name, value)
-        invisible(TRUE)
-      }
-    },
-    # get or set the named list of options
-    options = function(value) {
-      if (missing(value)) {
-        private$.config$Options
-      } else {
-        private$.config$Options <- value
-      }
-    },
-    # get or set an option, return NULL if it does not exist
-    option = function(key, value) {
-      if (missing(value)) {
-        if (is.null(private$.config$Options) || is.null(key)) {
-          NULL
-        } else {
-          private$.config$Options[[key]]
-        }
-      } else if (is.null(key)) {
-        invisible(FALSE)
-      } else {
-        if (is.null(private$.config$Options)) {
-          private$.config$Options <- list()
-        }
-        private$.config$Options[[key]] <- value
-        invisible(TRUE)
-      }
-    },
-
-    #
-    # DataSHIELD sessions
-    #
-    # create a new DataSHIELD session (contained execution environment)
-    newSession = function(restore = NULL) {
-      sid <- as.character(sample(1000:9999, 1))
-      env <- new.env()
-      parent.env(env) <- parent.env(globalenv())
-      private$.sessions[[sid]] <- env
-      wd <- private$.as.wd.path(sid)
-      # prepare options
-      if (!is.null(private$.config$Options)) {
-        opts <- lapply(names(private$.config$Options), function(opt) { paste0(opt, "=", private$.config$Options[[opt]]) })
-        if (length(opts)>0) {
-          opts <- paste(opts, collapse = ",")
-          opts <- paste0("options(", opts, ")")
-          eval(parse(text = opts), envir = private$.sessions[[sid]])
-        }
-        if (!("datashield.seed") %in% names(private$.config$Options)) {
-          opt <- getOption("datashield.seed", 1234)
-          eval(parse(text = paste0("options(datashield.seed=",opt,")")), envir = private$.sessions[[sid]])
-        }
-      }
-      # restore workspace
-      if (!is.null(restore)) {
-        # restore image
-        path <- private$.as.ws.image.path(restore)
-        if (file.exists(path)) {
-          load(path, envir = private$.sessions[[sid]])
-        }
-        # restore files
-        ws <- private$.as.ws.path(restore)
-        files <- list.files(ws)
-        files <- files[files != ".RData"]
-        if (length(files)>0) {
-          files <- unlist(lapply(files, function(f) { file.path(ws, f) }))
-          file.copy(from = files, to = wd, recursive = TRUE, copy.mode = TRUE)
-        }
-      }
-      sid
-    },
-    # check a DataSHIELD session exists
-    hasSession = function(sid) {
-      sid %in% names(private$.sessions)
-    },
-    # get the DataSHIELD session's environment
-    getSession = function(sid) {
-      private$.sessions[[sid]]
-    },
-    # get a data value from a symbol name in the DataSHIELD session
-    getSessionData = function(sid, symbol) {
-      base::get(symbol, envir = private$.sessions[[sid]])
-    },
-    # close a DataSHIELD session and save image if a name is provided
-    closeSession = function(sid, save = NULL) {
-      # save workspace image
-      if (!is.null(save)) {
-        self$workspace_rm(save)
-        self$workspace_save(sid, save)
-      }
-      # remove working dir
-      wd <- private$.as.wd.path(sid)
-      if (dir.exists(wd)) {
-        unlink(wd, recursive = TRUE)
-      }
-      private$.sessions[[sid]] <- NULL
-    },
-
-    #
-    # DataSHIELD operations
-    #
-    # list tables hold by the server
-    tableNames = function() {
-      names(private$.tables)
-    },
-    # check server has a table
-    hasTable = function(name) {
-      name %in% names(private$.tables)
-    },
-    resourceNames = function() {
-      names(private$.resources)
-    },
-    # check server has a resource
-    hasResource = function(name) {
-      name %in% names(private$.resources)
-    },
-    # list the symbols in the DataSHIELD session
-    symbols = function(sid) {
-      ls(envir = private$.session(sid))
-    },
-    # remove a symbol from the DataSHIELD session
-    symbol_rm = function(sid, name) {
-      invisible(rm(list=c(name), envir = private$.session(sid)))
-    },
-    # apply table assignment operation in the DataSHIELD session
-    assignTable = function(sid, symbol, name, variables=NULL, id.name=NULL) {
-      df <- private$.tables[[name]]
-      if (!is.null(variables)) {
-        vars <- variables
-        if (is.list(variables)) {
-          vars <- unlist(variables)
-        }
-        if (is.character(vars)) {
-          # make sure variables specified are existing column names
-          cols <- colnames(df)
-          vars <- vars[sapply(vars, function(v) v %in% cols)]
-          df <- subset(df, select = vars)
-        }
-      }
-      if (!is.null(id.name) && id.name != "" && !(id.name %in% colnames(df))) {
-        df[id.name] <- row.names(df)
-      }
-      if (getOption("dslite.verbose", FALSE)) {
-        message(paste0("Symbol to assign: ", symbol))
-      }
-      assign(symbol, df, envir = private$.session(sid))
-    },
-    # apply resource assignment operation in the DataSHIELD session
-    assignResource = function(sid, symbol, name) {
-      res <- private$.resources[[name]]
-      if (getOption("dslite.verbose", FALSE)) {
-        message(paste0("Symbol to assign: ", symbol))
-      }
-      assign(symbol, resourcer::newResourceClient(res), envir = private$.session(sid))
-    },
-    # apply expression assignement operation in the DataSHIELD session
-    assignExpr = function(sid, symbol, expr) {
-      exprr <- private$.as.language(expr, private$.config$AssignMethods)
-      origwd <- private$.set.wd(sid)
-      if (getOption("dslite.verbose", FALSE)) {
-        message(paste0("Symbol to assign: ", symbol))
-      }
-      tryCatch(assign(symbol, eval(exprr, envir = private$.session(sid)), envir = private$.session(sid)), finally = { setwd(origwd) })
-    },
-    # apply aggregate operation in the DataSHIELD session
-    aggregate = function(sid, expr) {
-      exprr <- private$.as.language(expr, private$.config$AggregateMethods)
-      origwd <- private$.set.wd(sid)
-      tryCatch(eval(exprr, envir = private$.session(sid)), finally = { setwd(origwd) })
     }
   )
 )

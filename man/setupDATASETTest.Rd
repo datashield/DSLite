@@ -21,10 +21,11 @@ Load the TESTING.DATASET datasets, the corresponding login data object, instanci
 hosting these datasets and verify that the required DataSHIELD server-side packages are installed.
 }
 \seealso{
-Other setup functions: \code{\link{setupCNSIMTest}},
-  \code{\link{setupDASIMTest}},
-  \code{\link{setupDISCORDANTTest}},
-  \code{\link{setupDSLiteServer}},
-  \code{\link{setupSURVIVALTest}}
+Other setup functions: 
+\code{\link{setupCNSIMTest}()},
+\code{\link{setupDASIMTest}()},
+\code{\link{setupDISCORDANTTest}()},
+\code{\link{setupDSLiteServer}()},
+\code{\link{setupSURVIVALTest}()}
 }
 \concept{setup functions}

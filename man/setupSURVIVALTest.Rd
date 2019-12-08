@@ -21,10 +21,11 @@ Load the SURVIVAL (EXPAND_WITH_MISSING) datasets, the corresponding login data o
 hosting these datasets and verify that the required DataSHIELD server-side packages are installed.
 }
 \seealso{
-Other setup functions: \code{\link{setupCNSIMTest}},
-  \code{\link{setupDASIMTest}},
-  \code{\link{setupDATASETTest}},
-  \code{\link{setupDISCORDANTTest}},
-  \code{\link{setupDSLiteServer}}
+Other setup functions: 
+\code{\link{setupCNSIMTest}()},
+\code{\link{setupDASIMTest}()},
+\code{\link{setupDATASETTest}()},
+\code{\link{setupDISCORDANTTest}()},
+\code{\link{setupDSLiteServer}()}
 }
 \concept{setup functions}

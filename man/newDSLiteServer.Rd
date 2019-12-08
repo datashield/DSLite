@@ -4,14 +4,18 @@
 \alias{newDSLiteServer}
 \title{Create a new DSLite server}
 \usage{
-newDSLiteServer(tables = list(), resources = list(),
-  config = DSLite::defaultDSConfiguration(), strict = TRUE,
-  home = file.path("~", ".dslite"))
+newDSLiteServer(
+  tables = list(),
+  resources = list(),
+  config = DSLite::defaultDSConfiguration(),
+  strict = TRUE,
+  home = file.path("~", ".dslite")
+)
 }
 \arguments{
 \item{tables}{A named list of data.frames representing the harmonized tables.}
 
-\item{resources}{A named list of \code{resourcer::ResourceClient} objects representing accessible data or computation resources.}
+\item{resources}{A named list of \code{resourcer::Resource} objects representing accessible data or computation resources.}
 
 \item{config}{The DataSHIELD configuration. Default is to discover it from the DataSHIELD server-side R packages.
 See \link{defaultDSConfiguration} function for including or excluding packages when discovering the DataSHIELD configuration
@@ -23,9 +27,10 @@ from the DataSHIELD server-side packages (meta-data from the DESCRIPTION files).
 Default is in a hidden folder of the user home.}
 }
 \description{
-Shortcut function to create a new \code{resourcer::DSLiteServer} instance.
+Shortcut function to create a new \code{DSLiteServer} instance.
 }
 \seealso{
-Other server-side items: \code{\link{DSLiteServer}}
+Other server-side items: 
+\code{\link{DSLiteServer}}
 }
 \concept{server-side items}

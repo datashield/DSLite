@@ -4,21 +4,71 @@
 \name{DSLiteServer}
 \alias{DSLiteServer}
 \title{Lightweight DataSHIELD server-side component}
-\format{An object of class \code{R6ClassGenerator} of length 24.}
-\usage{
-DSLiteServer
-}
 \description{
 DSLiteServer mimics a DataSHIELD server by holding datasets and exposing
 DataSHIELD-like functions: aggregate and assign. A DataSHIELD session is a R
 environment where the assignment and the operations happen.
 }
-\section{Fields}{
+\seealso{
+Other server-side items: 
+\code{\link{newDSLiteServer}()}
+}
+\concept{server-side items}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-new}{\code{DSLiteServer$new()}}
+\item \href{#method-config}{\code{DSLiteServer$config()}}
+\item \href{#method-strict}{\code{DSLiteServer$strict()}}
+\item \href{#method-home}{\code{DSLiteServer$home()}}
+\item \href{#method-workspaces}{\code{DSLiteServer$workspaces()}}
+\item \href{#method-workspace_save}{\code{DSLiteServer$workspace_save()}}
+\item \href{#method-workspace_rm}{\code{DSLiteServer$workspace_rm()}}
+\item \href{#method-aggregateMethods}{\code{DSLiteServer$aggregateMethods()}}
+\item \href{#method-aggregateMethod}{\code{DSLiteServer$aggregateMethod()}}
+\item \href{#method-assignMethods}{\code{DSLiteServer$assignMethods()}}
+\item \href{#method-assignMethod}{\code{DSLiteServer$assignMethod()}}
+\item \href{#method-options}{\code{DSLiteServer$options()}}
+\item \href{#method-option}{\code{DSLiteServer$option()}}
+\item \href{#method-newSession}{\code{DSLiteServer$newSession()}}
+\item \href{#method-hasSession}{\code{DSLiteServer$hasSession()}}
+\item \href{#method-getSession}{\code{DSLiteServer$getSession()}}
+\item \href{#method-getSessionData}{\code{DSLiteServer$getSessionData()}}
+\item \href{#method-closeSession}{\code{DSLiteServer$closeSession()}}
+\item \href{#method-tableNames}{\code{DSLiteServer$tableNames()}}
+\item \href{#method-hasTable}{\code{DSLiteServer$hasTable()}}
+\item \href{#method-resourceNames}{\code{DSLiteServer$resourceNames()}}
+\item \href{#method-hasResource}{\code{DSLiteServer$hasResource()}}
+\item \href{#method-symbols}{\code{DSLiteServer$symbols()}}
+\item \href{#method-symbol_rm}{\code{DSLiteServer$symbol_rm()}}
+\item \href{#method-assignTable}{\code{DSLiteServer$assignTable()}}
+\item \href{#method-assignResource}{\code{DSLiteServer$assignResource()}}
+\item \href{#method-assignExpr}{\code{DSLiteServer$assignExpr()}}
+\item \href{#method-aggregate}{\code{DSLiteServer$aggregate()}}
+\item \href{#method-clone}{\code{DSLiteServer$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-new"></a>}}
+\subsection{Method \code{new()}}{
+Create new DSLiteServer instance. See \link{defaultDSConfiguration} function for including or excluding packages
+when discovering the DataSHIELD configuration from the DataSHIELD server-side packages (meta-data from the DESCRIPTION files).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$new(
+  tables = list(),
+  resources = list(),
+  config = DSLite::defaultDSConfiguration(),
+  strict = TRUE,
+  home = file.path("~", ".dslite")
+)}\if{html}{\out{</div>}}
+}
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{tables}}{A named list of data.frames representing the harmonized tables.}
 
-\item{\code{resources}}{A named list of \code{resourcer::ResourceClient} objects representing accessible data or computation resources.}
+\item{\code{resources}}{A named list of \code{resourcer::Resource} objects representing accessible data or computation resources.}
 
 \item{\code{config}}{The DataSHIELD configuration. Default is to discover it from the DataSHIELD server-side R packages.}
 
@@ -26,81 +76,512 @@ environment where the assignment and the operations happen.
 
 \item{\code{home}}{Folder location where are located the session work directory and where to read and dump workspace images.
 Default is in a hidden folder of the user home.}
-}}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+A DSLiteServer object
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-config"></a>}}
+\subsection{Method \code{config()}}{
+Get or set the DataSHIELD configuration.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$config(value)}\if{html}{\out{</div>}}
+}
 
-\section{Methods}{
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{value}}{The DataSHIELD configuration: aggregate/assign methods in data frames and a named list of options.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+The DataSHIELD configuration, if no parameter is provided.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-strict"></a>}}
+\subsection{Method \code{strict()}}{
+Get or set the level of strictness (stop when function call is not configured)
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$strict(value)}\if{html}{\out{</div>}}
+}
 
-\code{$new(tables, resources, config, strict, home)} Create new DSLiteServer instance with the arguments described in the Fields section.
-See \link{defaultDSConfiguration} function for including or excluding packages when discovering the DataSHIELD configuration
-from the DataSHIELD server-side packages (meta-data from the DESCRIPTION files).
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{value}}{The \code{strict} logical field.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+The strict field if no parameter is provided.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-home"></a>}}
+\subsection{Method \code{home()}}{
+Get or set the home folder location where are located the session work directories and where to read and dump workspace images.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$home(value)}\if{html}{\out{</div>}}
+}
 
-\code{$config(value)} Get (if \code{value} argument is missing) or set the DataSHIELD configuration: aggregate/assign methods
-in data frames and a named list of options.
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{value}}{The path to the home folder.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+The home folder path if no parameter is provided.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-workspaces"></a>}}
+\subsection{Method \code{workspaces()}}{
+List the saved workspaces in the \code{home} folder.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$workspaces(prefix = NULL)}\if{html}{\out{</div>}}
+}
 
-\code{$strict(value)} Get (if \code{value} argument is missing) or set the \code{strict} logical field.
-
-\code{$home(value)} Get (if \code{value} argument is missing) or set the \code{home} field.
-
-\code{$workspaces()} List all the workspaces stored in the \code{home} folder.
-
-\code{$workspace_save(sid, name)} Save the session's workspace image identified by the \code{sid} identifier
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{prefix}}{Filter workspaces starting with provided prefix (optional).}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-workspace_save"></a>}}
+\subsection{Method \code{workspace_save()}}{
+Save the session's workspace image identified by the \code{sid} identifier
   with the provided \code{name} in the \code{home} folder.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$workspace_save(sid, name)}\if{html}{\out{</div>}}
+}
 
-\code{$workspace_rm(name)} Remove the workspace image with the provided \code{name} from the \code{home} folder.
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{sid, }}{Session ID}
 
-\code{$aggregateMethods(value)} Get (if \code{value} argument is missing) or set the aggregate methods, a \code{data.frame}
-with columns: \code{name} (the client function call), \code{value} (the translated server call), \code{package} (relevant when
-extracted from a DataSHIELD server-side package), \code{version} (relevant when extracted from a DataSHIELD server-side package),
-\code{type} ("aggregate"), \code{class} (always "function" as custom scripts are not supported).
+\item{\code{name}}{The name to be given to the workspace's image.}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-workspace_rm"></a>}}
+\subsection{Method \code{workspace_rm()}}{
+Remove the workspace image with the provided \code{name} from the \code{home} folder.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$workspace_rm(name)}\if{html}{\out{</div>}}
+}
 
-\code{$aggregateMethod(name, value)} Get (if \code{value} argument is missing) or set the aggregate method: \code{name} (the client
-function call), \code{value} (the translated server call). Remove the method when \code{value} is \code{NULL}.
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{name}}{The name of the workspace.}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-aggregateMethods"></a>}}
+\subsection{Method \code{aggregateMethods()}}{
+Get or set the aggregate methods.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$aggregateMethods(value)}\if{html}{\out{</div>}}
+}
 
-\code{$assignMethods(value)} Get (if \code{value} argument is missing) or set the assign methods, a \code{data.frame}
-with columns: \code{name} (the client function call), \code{value} (the translated server call), \code{package} (relevant when
-extracted from a DataSHIELD server-side package), \code{version} (relevant when extracted from a DataSHIELD server-side package),
-\code{type} ("aggregate"), \code{class} (always "function" as custom scripts are not supported).
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{value}}{A \code{data.frame} with columns: \code{name} (the client function call),
+\code{value} (the translated server call), \code{package} (relevant when extracted from a DataSHIELD server-side package),
+\code{version} (relevant when extracted from a DataSHIELD server-side package), \code{type} ("aggregate"),
+\code{class} ("function" for package functions or "script" for custom scripts).}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+The aggregate methods when no parameter is provided.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-aggregateMethod"></a>}}
+\subsection{Method \code{aggregateMethod()}}{
+Get or set an aggregate method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$aggregateMethod(name, value)}\if{html}{\out{</div>}}
+}
 
-\code{$assignMethod(name, value)} Get (if \code{value} argument is missing) or set the assign method: \code{name} (the client
-function call), \code{value} (the translated server call). Remove the method when \code{value} is \code{NULL}.
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{name}}{The client function call.}
 
-\code{$options(value)} Get (if \code{value} argument is missing) or set the DataSHIELD R options that are applied when a new
-DataSHIELD session is started.
+\item{\code{value}}{The translated server call: either a package function reference or function expression. Remove the method when \code{NULL}.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+The aggregate method when no \code{value} parameter is provided.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-assignMethods"></a>}}
+\subsection{Method \code{assignMethods()}}{
+Get or set the assign methods.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$assignMethods(value)}\if{html}{\out{</div>}}
+}
 
-\code{$option(key, value)} Get (if \code{value} argument is missing) or set the R option. Remove the option when \code{value} is \code{NULL}.
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{value}}{A \code{data.frame} with columns: \code{name} (the client function call), \code{value} (the translated server call),
+\code{package} (relevant when extracted from a DataSHIELD server-side package), \code{version} (relevant when extracted from a DataSHIELD server-side package),
+\code{type} ("assign"), \code{class} ("function" for package functions or "script" for custom scripts).}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+The assign methods when no parameter is provided.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-assignMethod"></a>}}
+\subsection{Method \code{assignMethod()}}{
+Get or set an assign method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$assignMethod(name, value)}\if{html}{\out{</div>}}
+}
 
-\code{$newSession(restore)} Create a new DataSHIELD session and restore workspace image if \code{restore} workspace name argument is provided.
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{name}}{The client function call}
 
-\code{$hasSession(sid)} Check a DataSHIELD session is alive.
+\item{\code{value}}{The translated server call: either a package function reference or function expression. Remove the method when \code{NULL}.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+The assign method when no \code{value} parameter is provided.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-options"></a>}}
+\subsection{Method \code{options()}}{
+Get or set the DataSHIELD R options that are applied when a new DataSHIELD session is started.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$options(value)}\if{html}{\out{</div>}}
+}
 
-\code{$getSessionData(sid, symbol)} Get the symbol value from the DataSHIELD session's environment.
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{value}}{A named list of options.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+The R options when no parameter is provided.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-option"></a>}}
+\subsection{Method \code{option()}}{
+Get or set a R option.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$option(key, value)}\if{html}{\out{</div>}}
+}
 
-\code{$closeSession(sid, save)} Destroy DataSHIELD session and save workspace image if \code{save} workspace name argument is provided.
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{key}}{The R option's name.}
 
-\code{$tableNames()} List the names of the tables that can be assigned.
+\item{\code{value}}{The R option's value. Remove the option when \code{NULL}.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+The R option's value when only \code{key} parameter is provided.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-newSession"></a>}}
+\subsection{Method \code{newSession()}}{
+Create a new DataSHIELD session (contained execution environment) and restore workspace image
+if \code{restore} workspace name argument is provided.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$newSession(restore = NULL)}\if{html}{\out{</div>}}
+}
 
-\code{$hasTable(name)} Check the table exists.
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{restore}}{The workspace image to be restored (optional).}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-hasSession"></a>}}
+\subsection{Method \code{hasSession()}}{
+Check a DataSHIELD session is alive.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$hasSession(sid)}\if{html}{\out{</div>}}
+}
 
-\code{$resourceNames()} List the names of the \code{resourcer::ResourceClient} objects that can be assigned.
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{sid}}{The session ID.}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-getSession"></a>}}
+\subsection{Method \code{getSession()}}{
+Get the DataSHIELD session's environment.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$getSession(sid)}\if{html}{\out{</div>}}
+}
 
-\code{$hasResource(name)} Check the \code{resourcer::ResourceClient} object exists.
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{sid}}{The session ID.}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-getSessionData"></a>}}
+\subsection{Method \code{getSessionData()}}{
+Get the symbol value from the DataSHIELD session's environment.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$getSessionData(sid, symbol)}\if{html}{\out{</div>}}
+}
 
-\code{$symbols(sid)} List the symbols living in the DataSHIELD session identified by \code{sid}.
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{sid}}{The session ID.}
 
-\code{$symbol_rm(sid, name)} Remove a symbol from the DataSHIELD session identified by \code{sid}.
+\item{\code{symbol}}{The symbol name.}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-closeSession"></a>}}
+\subsection{Method \code{closeSession()}}{
+Destroy DataSHIELD session and save workspace image if \code{save} workspace name argument is provided.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$closeSession(sid, save = NULL)}\if{html}{\out{</div>}}
+}
 
-\code{$assignTable(sid, symbol, name, variables=NULL, id.name=NULL)} Assign a table to a symbol in the DataSHIELD session identified by \code{sid}. Filter
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{sid}}{The session ID.}
+
+\item{\code{save}}{The name of the workspace image to be saved (optional).}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-tableNames"></a>}}
+\subsection{Method \code{tableNames()}}{
+List the names of the tables that can be assigned.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$tableNames()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-hasTable"></a>}}
+\subsection{Method \code{hasTable()}}{
+Check a table exists.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$hasTable(name)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{name}}{The table name to be looked for.}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-resourceNames"></a>}}
+\subsection{Method \code{resourceNames()}}{
+List the names of the resources (\code{resourcer::Resource} objects) that can be assigned.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$resourceNames()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-hasResource"></a>}}
+\subsection{Method \code{hasResource()}}{
+Check a resource (\code{resourcer::Resource} object) exists.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$hasResource(name)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{name}}{The resource name to be looked for.}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-symbols"></a>}}
+\subsection{Method \code{symbols()}}{
+List the symbols living in a DataSHIELD session.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$symbols(sid)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{sid}}{The session ID.}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-symbol_rm"></a>}}
+\subsection{Method \code{symbol_rm()}}{
+Remove a symbol from a DataSHIELD session.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$symbol_rm(sid, name)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{sid}}{The session ID.}
+
+\item{\code{name}}{The symbol name.}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-assignTable"></a>}}
+\subsection{Method \code{assignTable()}}{
+Assign a table to a symbol in a DataSHIELD session. Filter
 table columns with the variables names provided.
-
-\code{$assignResource(sid, symbol, name)} Assign a resource to a symbol in the DataSHIELD session identified by \code{sid}.
-
-\code{$assignExpr(sid, symbol, expr)} Evaluate an assignment expression in the DataSHIELD session identified by \code{sid}.
-
-\code{$aggregate(sid, expr)} Evaluate an aggregation expression in the DataSHIELD session identified by \code{sid}.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$assignTable(sid, symbol, name, variables = NULL, id.name = NULL)}\if{html}{\out{</div>}}
 }
 
-\seealso{
-Other server-side items: \code{\link{newDSLiteServer}}
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{sid}}{The session ID.}
+
+\item{\code{symbol}}{The symbol to be assigned.}
+
+\item{\code{name}}{The table's name.}
+
+\item{\code{variables}}{The variable names to be filtered in (optional).}
+
+\item{\code{id.name}}{The column name to be used for the entity's identifier (optional).}
 }
-\concept{server-side items}
-\keyword{datasets}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-assignResource"></a>}}
+\subsection{Method \code{assignResource()}}{
+Assign a resource as a \code{resourcer::ResourceClient} object to a symbol in a DataSHIELD session.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$assignResource(sid, symbol, name)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{sid}}{The session ID.}
+
+\item{\code{symbol}}{The symbol name.}
+
+\item{\code{name}}{The name of the resource.}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-assignExpr"></a>}}
+\subsection{Method \code{assignExpr()}}{
+Evaluate an assignment expression in a DataSHIELD session.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$assignExpr(sid, symbol, expr)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{sid}}{The session ID.}
+
+\item{\code{symbol}}{The symbol name.}
+
+\item{\code{expr}}{The R expression to evaluate.}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-aggregate"></a>}}
+\subsection{Method \code{aggregate()}}{
+Evaluate an aggregate expression in a DataSHIELD session.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$aggregate(sid, expr)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{sid}}{The session ID.}
+
+\item{\code{expr}}{The R expression to evaluate.}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-clone"></a>}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
