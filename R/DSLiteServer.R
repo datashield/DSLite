@@ -570,7 +570,7 @@ DSLiteServer <- R6::R6Class(
           row <- list()
           valueStr <- value
           if (is.function(value)) {
-            valueStr <- paste0(deparse(value), collapse = "")
+            valueStr <- paste0(deparse(value), collapse = "\n")
           }
           for (k in names) {
             if (k == "name") {
