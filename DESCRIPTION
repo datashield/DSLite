@@ -16,14 +16,15 @@ Depends:
 Suggests:
     resourcer,
     knitr,
-    testthat
+    testthat,
+    rmarkdown
 Description: DataSHIELD implementation based on datasets living in the 
     current R session. The purpose of this is to enable distributed 
     meta-analysis with datasets that cannot be shared or for lightweight testing.
 License: LGPL (>= 2.1)
 URL: http://www.datashield.ac.uk https://doi.org/10.1093/ije/dyu188
 BugReports: https://github.com/datashield/DSLite
-RoxygenNote: 7.0.1
+RoxygenNote: 7.0.2
 VignetteBuilder: knitr
 Encoding: UTF-8
 Collate: 

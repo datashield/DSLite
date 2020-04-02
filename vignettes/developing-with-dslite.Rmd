@@ -1,0 +1,141 @@
+---
+title: "DataSHIELD Development with DSLite"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{DataSHIELD Development with DSLite}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Introduction
+
+DSLite is a serverless [DataSHIELD Interface (DSI)](https://github.com/datashield/DSI/) implementation which purpose is to mimic
+the behavior of a distant (virtualized or barebone) data repository server (see [DSOpal](https://github.com/datashield/DSOpal) for instance). The
+datasets that are being analyzed must be fully accessible in the local environment and then the non-disclosive constraint of the analysis is not relevant for DSLite: some DSLite functionalities allows to inspect what is under the hood of the DataSHIELD computation nodes, making it a perfect tool for DataSHIELD analysis package developers.
+
+
+## Development Environment Setup
+
+### DataSHIELD Packages
+
+Both client and server side packages must be installed in your local R session. The entry point is still the client side package and DSLite will automatically load the corresponding server side package on DataSHIELD aggregate and assignment functions call, based on the DataSHIELD configuration.
+
+### Test Datasets
+
+DSLite comes with a set of datasets that can be easily loaded. You can also provide your own to illustrate a specific data analysis function.
+
+### R Package Development Tools
+
+We recommend using the following tools to facilitate R package development:
+
+* [devtools](https://www.rdocumentation.org/packages/devtools), the collection of package development tools,
+* [usethis](https://www.rdocumentation.org/packages/usethis), automate package and project setup tasks that are otherwise performed manually,
+* [testthat](https://www.rdocumentation.org/packages/testthat), for unit testing,
+* [roxygen2](https://www.rdocumentation.org/packages/roxygen2), for writing documentation in-line with code,
+* [Rstudio](https://rstudio.com/), the R editor that integrates the tools mentioned above and more.
+
+## DataSHIELD Development Flow
+
+The typical development flow, using DSLite, is:
+
+1. Build and install your client and/or server side DataSHIELD packages.
+2. Create a new DSLiteServer object instance, refering test datasets. Use or alter the default DataSHIELD configuration.
+3. Test your DataSHIELD client/server functions.
+4. Debug DataSHIELD server nodes using DSLiteServer methods.
+
+### DSLiteServer
+
+After your client and/or server side DataSHIELD packages have been built and installed, a new DSLiteServer object instance must be created. 
+
+Some DSLiteServer methods can be used to verify or modify the DSLiteServer behaviour:
+
+* `DSLiteServer$strict()`
+* `DSLiteServer$home()`
+
+See the R documentation of the DSLiteServer class for details.
+
+As an example:
+
+```{r eval=FALSE}
+library(DSLite)
+
+# prepare test data in a light DS server
+data("CNSIM1")
+data("CNSIM2")
+data("CNSIM3")
+dslite.server <- newDSLiteServer(tables=list(CNSIM1=CNSIM1, CNSIM2=CNSIM2, CNSIM3=CNSIM3))
+```
+
+### DataSHIELD Configuration
+
+The DataSHIELD configuration (aggregate and assign functions, R options) is automatically discovered by inspecting the R packages installed and having some DataSHIELD settings defined, either in their `DESCRIPTION` file or in a `DATASHIELD` file. 
+
+This default configuration extracting function is:
+
+```{r eval=FALSE}
+DSLite::defaultDSConfiguration()
+```
+
+The list of the DataSHIELD R packages to be inspected (or excluded) when building the default configuration can be specified as parameters of `defaultDSConfiguration()`.
+
+The DataSHIELD configuration can be specified at DSLiteServer creation time or afterwards with some DSLiteServer methods that can be used to verify or modify the DSLiteServer configuration:
+
+* `DSLiteServer$config()`
+* `DSLiteServer$aggregateMethods()`
+* `DSLiteServer$aggregateMethod()`
+* `DSLiteServer$assignMethods()`
+* `DSLiteServer$assignMethod()`
+* `DSLiteServer$options()`
+* `DSLiteServer$option()`
+
+See the R documentation of the DSLiteServer class for details.
+
+As an example:
+
+```{r eval=FALSE}
+# verify configuration
+dslite.server$config()
+```
+
+### DataSHIELD Sessions
+
+After performing the login DataSHIELD phase, the DSLiteServer holds the different DataSHIELD server side sessions, i.e. R environments identified by an ID.
+
+As an example, using the provided test datasets and the login data.frame:
+
+```{r eval=FALSE}
+# datashield logins and assignments
+data("logindata.dslite.cnsim")
+conns <- datashield.login(logindata.dslite.cnsim, assign=TRUE)
+```
+
+
+
+### Debugging
+
+Thanks to the DSLiteServer capability to have its configuration modified at any time, it is possible to add some debugging functions without polluting in the DataSHIELD package you are developping.
+
+For instance, this code adds an aggregate function `print()`: 
+
+```{r eval=FALSE}
+# add a print method to configuration
+dslite.server$aggregateMethod("print", function(x){ print(x) })
+
+# and use it to print the D symbol
+datashield.aggregate(conns, quote(print(D)))
+```
+
+Another option is to get a symbol value from the server into the client environment. This can be very helpful for complex data structures. For this you will need the session ID of the server node. The following example iterates over all the session IDs and get the corresponding symbol value:
+
+```{r eval=FALSE}
+# get data represented by symbol D for each session
+data <- lapply(dslite.server$getSessionIds(), function(id) { dslite.server$getSessionData(id, "D") })
+```
+
