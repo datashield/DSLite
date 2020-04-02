@@ -7,5 +7,5 @@ addons:
 r_packages:
   - devtools
 r_github_packages:
-  - datashield/DSI@resources
+  - datashield/DSI
 warnings_are_errors: true
