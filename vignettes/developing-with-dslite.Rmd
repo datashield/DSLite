@@ -116,8 +116,6 @@ data("logindata.dslite.cnsim")
 conns <- datashield.login(logindata.dslite.cnsim, assign=TRUE)
 ```
 
-
-
 ### Debugging
 
 Thanks to the DSLiteServer capability to have its configuration modified at any time, it is possible to add some debugging functions without polluting in the DataSHIELD package you are developping.
@@ -138,4 +136,16 @@ Another option is to get a symbol value from the server into the client environm
 # get data represented by symbol D for each session
 data <- lapply(dslite.server$getSessionIds(), function(id) { dslite.server$getSessionData(id, "D") })
 ```
+
+### Limitations
+
+The main difference with a regular DSI implementation (such as the one of DSOpal) is that the arguments of the DataSHIELD functional calls are not parsed in DSLite. The only R language element that is inspected and handled is the name of the functions, that are replaced by the ones defined in the DataSHIELD configuration.
+
+For instance the following expression, which includes a function call in the formula, is valid for the DSLiteServer but not for Opal:
+
+```{r eval=FALSE}
+someregression(D$height ~ D$diameter + poly(D$length,3,raw=TRUE))
+```
+
+As a consequence, DataSHIELD R package development can take advantage of DSLite flexibility for speeding development but will never replace testing on a regular DataSHIELD infrastructure using DSOpal.
 
