@@ -4,8 +4,14 @@
 \alias{setupDSLiteServer}
 \title{Setup an environment based on named datasets and logindata}
 \usage{
-setupDSLiteServer(packages = c(), datasets, logindata, pkgs = NULL,
-  dslite.server = NULL, env = globalenv())
+setupDSLiteServer(
+  packages = c(),
+  datasets,
+  logindata,
+  pkgs = NULL,
+  dslite.server = NULL,
+  env = globalenv()
+)
 }
 \arguments{
 \item{packages}{DataSHIELD server-side packages which local installation must be verified so that the \link{DSLiteServer}
@@ -33,10 +39,11 @@ hosting these datasets, verifies that the required DataSHIELD server-side packag
 All the data structures are loaded by \link{data} which supports various formats (see data() documentation).
 }
 \seealso{
-Other setup functions: \code{\link{setupCNSIMTest}},
-  \code{\link{setupDASIMTest}},
-  \code{\link{setupDATASETTest}},
-  \code{\link{setupDISCORDANTTest}},
-  \code{\link{setupSURVIVALTest}}
+Other setup functions: 
+\code{\link{setupCNSIMTest}()},
+\code{\link{setupDASIMTest}()},
+\code{\link{setupDATASETTest}()},
+\code{\link{setupDISCORDANTTest}()},
+\code{\link{setupSURVIVALTest}()}
 }
 \concept{setup functions}
