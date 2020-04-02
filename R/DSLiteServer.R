@@ -47,10 +47,6 @@ DSLiteServer <- R6::R6Class(
       private$.strict <- strict
       private$.home <- home
       private$.home.mkdir()
-      # resource default coercing functions
-      self$assignMethod(name = "as.resource.data.frame", value = function(x) { x$asDataFrame() })
-      self$assignMethod(name = "as.resource.tbl", value = function(x) { x$asTbl() })
-      self$assignMethod(name = "as.resource.object", value = function(x) { x$getValue() })
     },
 
     #' @description Get or set the DataSHIELD configuration.
