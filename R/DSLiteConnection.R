@@ -67,20 +67,6 @@ setMethod("dsListTables", "DSLiteConnection", function(conn) {
   conn@server$tableNames()
 })
 
-#' List DSLite server resources
-#'
-#' List resource names living in the DSLite server for performing DataSHIELD operations.
-#'
-#' @param conn \code{\link{DSLiteConnection-class}} class object
-#'
-#' @return The fully qualified names of the resources.
-#'
-#' @import methods
-#' @export
-setMethod("dsListResources", "DSLiteConnection", function(conn) {
-  conn@server$resourceNames()
-})
-
 #' Verify DSLite server dataset
 #'
 #' Verify dataset exists and can be accessible for performing DataSHIELD operations.
@@ -96,21 +82,6 @@ setMethod("dsHasTable", "DSLiteConnection", function(conn, table) {
   conn@server$hasTable(table)
 })
 
-#' Verify DSLite server resource
-#'
-#' Verify resource exists and can be accessible for performing DataSHIELD operations.
-#'
-#' @param conn \code{\link{DSLiteConnection-class}} class object.
-#' @param resource The fully qualified name of the resource.
-#'
-#' @return TRUE if dataset exists.
-#'
-#' @import methods
-#' @export
-setMethod("dsHasResource", "DSLiteConnection", function(conn, resource) {
-  conn@server$hasResource(resource)
-})
-
 #' DSLite asynchronous support
 #'
 #' No asynchronicity on any DataSHIELD operations.
@@ -122,7 +93,7 @@ setMethod("dsHasResource", "DSLiteConnection", function(conn, resource) {
 #' @import methods
 #' @export
 setMethod("dsIsAsync", "DSLiteConnection", function(conn) {
-  list(aggregate = FALSE, assignTable = FALSE, assignExpr = FALSE, assignResource = FALSE)
+  list(aggregate = FALSE, assignTable = FALSE, assignExpr = FALSE)
 })
 
 #' List R symbols
@@ -253,29 +224,6 @@ setMethod("dsAssignTable", "DSLiteConnection", function(conn, symbol, table, var
       warning("Identifiers mapping is currently not supported by DSLite")
     }
     conn@server$assignTable(conn@sid, symbol, table, variables=variables, id.name=id.name)
-    rval <- TRUE
-  }
-  new("DSLiteResult", conn = conn, rval = list(status = ifelse(rval, "COMPLETED", "FAILED"), result = NULL))
-})
-
-#' Assign a resource
-#'
-#' Assign a DSLite resource in the DataSHIELD R session.
-#'
-#' @param conn \code{\link{DSLiteConnection-class}} object.
-#' @param symbol Name of the R symbol.
-#' @param resource Fully qualified name of a resource object living in the DSLite server.
-#' @param async Whether the result of the call should be retrieved asynchronously. When TRUE (default) the calls are parallelized over
-#'   the connections, when the connection supports that feature, with an extra overhead of requests.
-#'
-#' @return A \code{\link{DSLiteResult-class}} object.
-#'
-#' @import methods
-#' @export
-setMethod("dsAssignResource", "DSLiteConnection", function(conn, symbol, resource, async=TRUE) {
-  rval <- FALSE
-  if (conn@server$hasResource(resource)) {
-    conn@server$assignResource(conn@sid, symbol, resource)
     rval <- TRUE
   }
   new("DSLiteResult", conn = conn, rval = list(status = ifelse(rval, "COMPLETED", "FAILED"), result = NULL))

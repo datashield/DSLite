@@ -7,6 +7,5 @@ addons:
 r_packages:
   - devtools
 r_github_packages:
-  - obiba/resourcer
-  - datashield/DSI
+  - datashield/DSI@dsi-1.0.x
 warnings_are_errors: true

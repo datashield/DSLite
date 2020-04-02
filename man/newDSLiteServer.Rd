@@ -6,7 +6,6 @@
 \usage{
 newDSLiteServer(
   tables = list(),
-  resources = list(),
   config = DSLite::defaultDSConfiguration(),
   strict = TRUE,
   home = file.path("~", ".dslite")
@@ -14,8 +13,6 @@ newDSLiteServer(
 }
 \arguments{
 \item{tables}{A named list of data.frames representing the harmonized tables.}
-
-\item{resources}{A named list of \code{resourcer::Resource} objects representing accessible data or computation resources.}
 
 \item{config}{The DataSHIELD configuration. Default is to discover it from the DataSHIELD server-side R packages.
 See \link{defaultDSConfiguration} function for including or excluding packages when discovering the DataSHIELD configuration

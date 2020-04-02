@@ -3,7 +3,6 @@
 #' Shortcut function to create a new \code{DSLiteServer} instance.
 #'
 #' @param tables A named list of data.frames representing the harmonized tables.
-#' @param resources A named list of \code{resourcer::Resource} objects representing accessible data or computation resources.
 #' @param config The DataSHIELD configuration. Default is to discover it from the DataSHIELD server-side R packages.
 #' See \link{defaultDSConfiguration} function for including or excluding packages when discovering the DataSHIELD configuration
 #' from the DataSHIELD server-side packages (meta-data from the DESCRIPTION files).
@@ -13,8 +12,8 @@
 #'
 #' @family server-side items
 #' @export
-newDSLiteServer <- function(tables = list(), resources = list(), config = DSLite::defaultDSConfiguration(), strict = TRUE, home = file.path("~", ".dslite")) {
-  DSLiteServer$new(tables = tables, resources = resources, config = config, strict = strict, home = home)
+newDSLiteServer <- function(tables = list(), config = DSLite::defaultDSConfiguration(), strict = TRUE, home = file.path("~", ".dslite")) {
+  DSLiteServer$new(tables = tables, config = config, strict = strict, home = home)
 }
 
 #' @title Lightweight DataSHIELD server-side component
@@ -34,15 +33,13 @@ DSLiteServer <- R6::R6Class(
     #' @description Create new DSLiteServer instance. See \link{defaultDSConfiguration} function for including or excluding packages
     #' when discovering the DataSHIELD configuration from the DataSHIELD server-side packages (meta-data from the DESCRIPTION files).
     #' @param tables A named list of data.frames representing the harmonized tables.
-    #' @param resources A named list of \code{resourcer::Resource} objects representing accessible data or computation resources.
     #' @param config The DataSHIELD configuration. Default is to discover it from the DataSHIELD server-side R packages.
     #' @param strict Logical to specify whether the DataSHIELD configuration must be strictly applied. Default is TRUE.
     #' @param home Folder location where are located the session work directory and where to read and dump workspace images.
     #' Default is in a hidden folder of the user home.
     #' @return A DSLiteServer object
-    initialize = function(tables = list(), resources = list(), config = DSLite::defaultDSConfiguration(), strict = TRUE, home = file.path("~", ".dslite")) {
+    initialize = function(tables = list(), config = DSLite::defaultDSConfiguration(), strict = TRUE, home = file.path("~", ".dslite")) {
       private$.tables <- tables
-      private$.resources <- resources
       private$.config <- config
       private$.strict <- strict
       private$.home <- home
@@ -331,17 +328,6 @@ DSLiteServer <- R6::R6Class(
       name %in% names(private$.tables)
     },
 
-    #' @description List the names of the resources (\code{resourcer::Resource} objects) that can be assigned.
-    resourceNames = function() {
-      names(private$.resources)
-    },
-
-    #' @description Check a resource (\code{resourcer::Resource} object) exists.
-    #' @param name The resource name to be looked for.
-    hasResource = function(name) {
-      name %in% names(private$.resources)
-    },
-
     #' @description List the symbols living in a DataSHIELD session.
     #' @param sid The session ID.
     symbols = function(sid) {
@@ -385,18 +371,6 @@ DSLiteServer <- R6::R6Class(
       assign(symbol, df, envir = private$.session(sid))
     },
 
-    #' @description Assign a resource as a \code{resourcer::ResourceClient} object to a symbol in a DataSHIELD session.
-    #' @param sid The session ID.
-    #' @param symbol The symbol name.
-    #' @param name The name of the resource.
-    assignResource = function(sid, symbol, name) {
-      res <- private$.resources[[name]]
-      if (getOption("dslite.verbose", FALSE)) {
-        message(paste0("Symbol to assign: ", symbol))
-      }
-      assign(symbol, resourcer::newResourceClient(res), envir = private$.session(sid))
-    },
-
     #' @description Evaluate an assignment expression in a DataSHIELD session.
     #' @param sid The session ID.
     #' @param symbol The symbol name.
@@ -423,8 +397,6 @@ DSLiteServer <- R6::R6Class(
   private = list(
     # data frames representing the harmonized tables
     .tables = NULL,
-    # ResourceClient objects representing accessible data or computation resources
-    .resources = NULL,
     # DataSHIELD configuration: aggregate/assign methods and options
     .config = NULL,
     # if TRUE, stop when function call is not one of the configured ones

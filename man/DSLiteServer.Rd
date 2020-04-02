@@ -38,12 +38,9 @@ Other server-side items:
 \item \href{#method-closeSession}{\code{DSLiteServer$closeSession()}}
 \item \href{#method-tableNames}{\code{DSLiteServer$tableNames()}}
 \item \href{#method-hasTable}{\code{DSLiteServer$hasTable()}}
-\item \href{#method-resourceNames}{\code{DSLiteServer$resourceNames()}}
-\item \href{#method-hasResource}{\code{DSLiteServer$hasResource()}}
 \item \href{#method-symbols}{\code{DSLiteServer$symbols()}}
 \item \href{#method-symbol_rm}{\code{DSLiteServer$symbol_rm()}}
 \item \href{#method-assignTable}{\code{DSLiteServer$assignTable()}}
-\item \href{#method-assignResource}{\code{DSLiteServer$assignResource()}}
 \item \href{#method-assignExpr}{\code{DSLiteServer$assignExpr()}}
 \item \href{#method-aggregate}{\code{DSLiteServer$aggregate()}}
 \item \href{#method-clone}{\code{DSLiteServer$clone()}}
@@ -57,7 +54,6 @@ when discovering the DataSHIELD configuration from the DataSHIELD server-side pa
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$new(
   tables = list(),
-  resources = list(),
   config = DSLite::defaultDSConfiguration(),
   strict = TRUE,
   home = file.path("~", ".dslite")
@@ -68,8 +64,6 @@ when discovering the DataSHIELD configuration from the DataSHIELD server-side pa
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{tables}}{A named list of data.frames representing the harmonized tables.}
-
-\item{\code{resources}}{A named list of \code{resourcer::Resource} objects representing accessible data or computation resources.}
 
 \item{\code{config}}{The DataSHIELD configuration. Default is to discover it from the DataSHIELD server-side R packages.}
 
@@ -437,31 +431,6 @@ Check a table exists.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-resourceNames"></a>}}
-\subsection{Method \code{resourceNames()}}{
-List the names of the resources (\code{resourcer::Resource} objects) that can be assigned.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$resourceNames()}\if{html}{\out{</div>}}
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-hasResource"></a>}}
-\subsection{Method \code{hasResource()}}{
-Check a resource (\code{resourcer::Resource} object) exists.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$hasResource(name)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{name}}{The resource name to be looked for.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-symbols"></a>}}
 \subsection{Method \code{symbols()}}{
 List the symbols living in a DataSHIELD session.
@@ -516,26 +485,6 @@ table columns with the variables names provided.
 \item{\code{variables}}{The variable names to be filtered in (optional).}
 
 \item{\code{id.name}}{The column name to be used for the entity's identifier (optional).}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-assignResource"></a>}}
-\subsection{Method \code{assignResource()}}{
-Assign a resource as a \code{resourcer::ResourceClient} object to a symbol in a DataSHIELD session.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$assignResource(sid, symbol, name)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{sid}}{The session ID.}
-
-\item{\code{symbol}}{The symbol name.}
-
-\item{\code{name}}{The name of the resource.}
 }
 \if{html}{\out{</div>}}
 }
