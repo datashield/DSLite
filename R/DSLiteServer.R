@@ -287,6 +287,11 @@ DSLiteServer <- R6::R6Class(
       private$.sessions[[sid]]
     },
 
+    #' @description Get the DataSHIELD session IDs.
+    getSessionIds = function() {
+      names(private$.sessions)
+    },
+
     #' @description Get the symbol value from the DataSHIELD session's environment.
     #' @param sid The session ID.
     #' @param symbol The symbol name.

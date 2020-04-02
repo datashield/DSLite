@@ -33,6 +33,7 @@ Other server-side items:
 \item \href{#method-newSession}{\code{DSLiteServer$newSession()}}
 \item \href{#method-hasSession}{\code{DSLiteServer$hasSession()}}
 \item \href{#method-getSession}{\code{DSLiteServer$getSession()}}
+\item \href{#method-getSessionIds}{\code{DSLiteServer$getSessionIds()}}
 \item \href{#method-getSessionData}{\code{DSLiteServer$getSessionData()}}
 \item \href{#method-closeSession}{\code{DSLiteServer$closeSession()}}
 \item \href{#method-tableNames}{\code{DSLiteServer$tableNames()}}
@@ -364,6 +365,15 @@ Get the DataSHIELD session's environment.
 }
 \if{html}{\out{</div>}}
 }
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-getSessionIds"></a>}}
+\subsection{Method \code{getSessionIds()}}{
+Get the DataSHIELD session IDs.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$getSessionIds()}\if{html}{\out{</div>}}
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getSessionData"></a>}}
