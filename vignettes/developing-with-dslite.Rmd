@@ -106,14 +106,21 @@ dslite.server$config()
 
 ### DataSHIELD Sessions
 
-After performing the login DataSHIELD phase, the DSLiteServer holds the different DataSHIELD server side sessions, i.e. R environments identified by an ID.
+The following figure illustrates a setup where a single DSLiteServer holds several data frames and is used by two different DataSHIELD Connection ([DSConnection](https://github.com/datashield/DSI)) objects. All these objects live in the same R environment (usually the Global Environment). The "server" is responsible for managing DataSHIELD sessions that are implemented as distinct R environments inside of which R symbols are assigned and R functions are evaluated. Using the [R environment](https://adv-r.hadley.nz/environments.html) paradigm ensures that the different DataSHIELD execution context (client and servers) are contained and exclusive from each other.
 
-As an example, using the provided test datasets and the login data.frame:
+![DSLite architecture](https://raw.githubusercontent.com/datashield/DSLite/master/inst/images/dslite.png)
+
+After performing the login DataSHIELD phase, the DSLiteServer holds the different DataSHIELD server side sessions, i.e. R environments identified by an ID. These IDs are also stored within the DataSHIELD connection objects that are the result of the `datashield.login()` call. The folllowing example shows how to access these session IDs:
 
 ```{r eval=FALSE}
 # datashield logins and assignments
 data("logindata.dslite.cnsim")
 conns <- datashield.login(logindata.dslite.cnsim, assign=TRUE)
+
+# get the session ID of "sim1" node connection object
+conns$sim1@sid
+# the same ID is in the DSLiteServer
+dslite.server$hasSession(conns$sim1@sid)
 ```
 
 ### Debugging
@@ -130,14 +137,23 @@ dslite.server$aggregateMethod("print", function(x){ print(x) })
 datashield.aggregate(conns, quote(print(D)))
 ```
 
-Another option is to get a symbol value from the server into the client environment. This can be very helpful for complex data structures. For this you will need the session ID of the server node. The following example iterates over all the session IDs and get the corresponding symbol value:
+Another option is to get a symbol value from the server into the client environment. This can be very helpful for complex data structures. For this you will need the session ID of the server node:
 
 ```{r eval=FALSE}
-# get data represented by symbol D for each session
-data <- lapply(dslite.server$getSessionIds(), function(id) { dslite.server$getSessionData(id, "D") })
+# get data represented by symbol D in "sim1" DataSHIELD node
+dslite.server$getSessionData(conns$sim1@sid, "D")
+```
+
+The following example iterates over all the connection objects and get the corresponding symbol value:
+
+```{r eval=FALSE}
+# get data represented by symbol D for each DataSHIELD connection
+data <- lapply(conns, function(conn) { dslite.server$getSessionData(conn@sid, "D") })
 ```
 
 ### Limitations
+
+#### Function Parameters Parser
 
 The main difference with a regular DSI implementation (such as the one of DSOpal) is that the arguments of the DataSHIELD functional calls are not parsed in DSLite. The only R language element that is inspected and handled is the name of the functions, that are replaced by the ones defined in the DataSHIELD configuration.
 
@@ -148,4 +164,17 @@ someregression(D$height ~ D$diameter + poly(D$length,3,raw=TRUE))
 ```
 
 As a consequence, DataSHIELD R package development can take advantage of DSLite flexibility for speeding development but will never replace testing on a regular DataSHIELD infrastructure using DSOpal.
+
+#### Server Side Environments
+
+For each of the DataSHIELD node, the server side code is evaluated within an environment that has no parent, i.e. detached from the global environment where the client code is executed. Some R functions have a parameter that allows to specify to which environment they apply, for instance `assign()`, `get()`, `eval()`, `as.formula()`, etc. Their `env` (or `envir`) parameter default value is `parent.frame()` which is the global environment when executed in Opal's R server, because it is the parent frame of the package's namespace where the function is defined. In DSLiteServer, the parent frame must be the environment where the server code is evaluated. In order to be consistent between these two execution contexts (Opal R server and DSLiteServer), you must specify the `env` (or `envir`) value explicitly to be `parent.frame()`, which is the parent frame of the block being executed (either the global environment in Opal context, or the environment defined in DSLiteServer).
+
+Example of a valid server side piece of code that assigns a value to a symbol in the DataSHIELD server's environment (being the Opal R server's global environment or a DSLiteServer's environment):
+
+```{r eval=FALSE}
+base::assign(x = "D", value = someValue, envir = parent.frame())
+```
+
+See also the [Advanced R - Environments](http://adv-r.had.co.nz/Environments.html) documentation to learn more about environments.
+
 
