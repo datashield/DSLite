@@ -1,7 +1,7 @@
 Package: DSLite
 Type: Package
 Version: 1.1.0
-Title: 'DataSHIELD' implementation on local datasets
+Title: 'DataSHIELD' Implementation on Local Datasets
 Authors@R:
     c(person(given = "Yannick",
              family = "Marcon",
@@ -18,10 +18,11 @@ Suggests:
     knitr,
     testthat,
     rmarkdown
-Description: 'DataSHIELD' implementation based on datasets living in the 
-    current R session. The purpose of this is to enable distributed 
-    meta-analysis with datasets that cannot be shared or for lightweight
-    'DataSHIELD' package development.
+Description: 'DataSHIELD' is an infrastructure and series of R packages that 
+    enables the remote and 'non-disclosive' analysis of sensitive research data.
+    This 'DataSHIELD Interface' implementation is for analyzing datasets living
+    in the current R session. The purpose of this is primarily for lightweight
+    'DataSHIELD' analysis package development.
 License: LGPL (>= 2.1)
 URL: http://www.datashield.ac.uk https://doi.org/10.1093/ije/dyu188
 BugReports: https://github.com/datashield/DSLite
