@@ -126,15 +126,19 @@ defaultDSConfiguration <- function(include=NULL, exclude=NULL) {
 #' Parse a key pairs string to a list
 #' @keywords internal
 .strToList <- function(str, pack=NULL) {
-  entries <- strsplit(gsub("[\r\n]", "", str), ",")[[1]]
   rval <- list()
-  trim <- function (x) gsub("^\\s+|\\s+$", "", x)
-  for (i in 1:length(entries)) {
-    if (grepl("=", entries[i])) {
-      tokens <- strsplit(entries[i], "=")[[1]]
-      rval[[trim(tokens[[1]])]] <- trim(tokens[[2]])
-    } else if (!is.null(pack)) {
-      rval[[trim(entries[i])]] <- paste0(pack, "::", trim(entries[i]))
+  if (!is.null(str)) {
+    entries <- strsplit(gsub("[\r\n]", "", str), ",")[[1]]
+    if (length(entries)>0) {
+      trim <- function (x) gsub("^\\s+|\\s+$", "", x)
+      for (i in 1:length(entries)) {
+        if (grepl("=", entries[i])) {
+          tokens <- strsplit(entries[i], "=")[[1]]
+          rval[[trim(tokens[[1]])]] <- trim(tokens[[2]])
+        } else if (!is.null(pack)) {
+          rval[[trim(entries[i])]] <- paste0(pack, "::", trim(entries[i]))
+        }
+      }
     }
   }
   rval
