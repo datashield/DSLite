@@ -5,6 +5,7 @@
 \alias{DISCORDANT_STUDY3}
 \title{Simulated dataset DISCORDANT 3}
 \description{
-Simulated dataset DISCORDANT 3
+Simulated dataset DISCORDANT 3, in a data.frame with 12 observations of 2 discordant variables:
+B, C.
 }
 \keyword{data}

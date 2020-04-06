@@ -5,6 +5,7 @@
 \alias{SURVIVAL.EXPAND_WITH_MISSING1}
 \title{Simulated survival expand-with-missing dataset 1}
 \description{
-Simulated survival expand-with-missing dataset 1
+Simulated dataset SURVIVAL.EXPAND_WITH_MISSING 1, in a data.frame with 2060 observations of 12 harmonized variables:
+id, study.id, time.id, starttime, endtime, survtime, cens, age.60, female, noise.56, pm10.16, bmi.26.
 }
 \keyword{data}

@@ -71,6 +71,17 @@ data("CNSIM1")
 data("CNSIM2")
 data("CNSIM3")
 dslite.server <- newDSLiteServer(tables=list(CNSIM1=CNSIM1, CNSIM2=CNSIM2, CNSIM3=CNSIM3))
+# load corresponding DataSHIELD login data
+data("logindata.dslite.cnsim")
+```
+
+The previous example can be simplified using the set-up functions based on the provided test datasets:
+
+```{r eval=FALSE}
+library(DSLite)
+
+# load CNSIM test data
+logindata.dslite.cnsim <- setupCNSIMTest()
 ```
 
 ### DataSHIELD Configuration
@@ -114,7 +125,6 @@ After performing the login DataSHIELD phase, the DSLiteServer holds the differen
 
 ```{r eval=FALSE}
 # datashield logins and assignments
-data("logindata.dslite.cnsim")
 conns <- datashield.login(logindata.dslite.cnsim, assign=TRUE)
 
 # get the session ID of "sim1" node connection object
@@ -137,18 +147,13 @@ dslite.server$aggregateMethod("print", function(x){ print(x) })
 datashield.aggregate(conns, quote(print(D)))
 ```
 
-Another option is to get a symbol value from the server into the client environment. This can be very helpful for complex data structures. For this you will need the session ID of the server node:
-
-```{r eval=FALSE}
-# get data represented by symbol D in "sim1" DataSHIELD node
-dslite.server$getSessionData(conns$sim1@sid, "D")
-```
-
-The following example iterates over all the connection objects and get the corresponding symbol value:
+Another option is to get a symbol value from the server into the client environment. This can be very helpful for complex data structures. The following example illustrates usage of a shortcut function that iterates over all the connection objects and get the corresponding symbol value:
 
 ```{r eval=FALSE}
 # get data represented by symbol D for each DataSHIELD connection
-data <- lapply(conns, function(conn) { dslite.server$getSessionData(conn@sid, "D") })
+data <- getDSLiteData(conns, "D")
+# get data represented by symbol D from a specific DataSHIELD connection
+data1 <- getDSLiteData(conns$sim1, "D")
 ```
 
 ### Limitations

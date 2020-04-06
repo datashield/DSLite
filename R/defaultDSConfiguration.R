@@ -8,13 +8,14 @@
 #' @param include Character vector of package names to be explicitly included. If NULL, do not filter packages.
 #' @param exclude Character vector of package names to be explicitly excluded. If NULL, do not filter packages.
 #'
-#' @examples {
-#'   # detect DS packages
-#'   defaultDSConfiguration()
-#'   # exclude a DS package
-#'   defaultDSConfiguration(exclude="dsBase")
-#'   # include explicitely some DS packages
-#'   defaultDSConfiguration(include=c("dsBase", "dsOmics"))
+#' @examples
+#' {
+#' # detect DS packages
+#' defaultDSConfiguration()
+#' # exclude a DS package
+#' defaultDSConfiguration(exclude="dsBase")
+#' # include explicitely some DS packages
+#' defaultDSConfiguration(include=c("dsBase", "dsOmics"))
 #' }
 #'
 #' @import utils

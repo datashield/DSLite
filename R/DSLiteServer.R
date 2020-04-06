@@ -8,11 +8,11 @@
 #' from the DataSHIELD server-side packages (meta-data from the DESCRIPTION files).
 #' @param strict Logical to specify whether the DataSHIELD configuration must be strictly applied. Default is TRUE.
 #' @param home Folder location where are located the session work directory and where to read and dump workspace images.
-#' Default is in a hidden folder of the user home.
+#' Default is in a hidden folder of the R session's temporary directory.
 #'
 #' @family server-side items
 #' @export
-newDSLiteServer <- function(tables = list(), config = DSLite::defaultDSConfiguration(), strict = TRUE, home = file.path("~", ".dslite")) {
+newDSLiteServer <- function(tables = list(), config = DSLite::defaultDSConfiguration(), strict = TRUE, home = file.path(tempdir(), ".dslite")) {
   DSLiteServer$new(tables = tables, config = config, strict = strict, home = home)
 }
 
@@ -36,9 +36,9 @@ DSLiteServer <- R6::R6Class(
     #' @param config The DataSHIELD configuration. Default is to discover it from the DataSHIELD server-side R packages.
     #' @param strict Logical to specify whether the DataSHIELD configuration must be strictly applied. Default is TRUE.
     #' @param home Folder location where are located the session work directory and where to read and dump workspace images.
-    #' Default is in a hidden folder of the user home.
+    #' Default is in a hidden folder of the R session's temporary directory.
     #' @return A DSLiteServer object
-    initialize = function(tables = list(), config = DSLite::defaultDSConfiguration(), strict = TRUE, home = file.path("~", ".dslite")) {
+    initialize = function(tables = list(), config = DSLite::defaultDSConfiguration(), strict = TRUE, home = file.path(tempdir(), ".dslite")) {
       private$.tables <- tables
       private$.config <- config
       private$.strict <- strict
@@ -238,7 +238,7 @@ DSLiteServer <- R6::R6Class(
     newSession = function(restore = NULL) {
       sid <- as.character(sample(1000:9999, 1))
       env <- new.env()
-      parent.env(env) <- parent.env(globalenv())
+      parent.env(env) <- parent.env(parent.frame())
       private$.sessions[[sid]] <- env
       wd <- private$.as.wd.path(sid)
       private$.apply.options()

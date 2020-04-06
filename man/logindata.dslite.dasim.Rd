@@ -3,8 +3,8 @@
 \docType{data}
 \name{logindata.dslite.dasim}
 \alias{logindata.dslite.dasim}
-\title{Login data for the DASIM simulated datasets}
+\title{DataSHIELD login data for the DASIM simulated datasets}
 \description{
-Login data for the DASIM simulated datasets
+DataSHIELD login data.frame for connecting with DASIM datasets.
 }
 \keyword{data}

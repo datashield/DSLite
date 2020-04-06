@@ -3,8 +3,9 @@
 \docType{data}
 \name{logindata.dslite.testing.dataset}
 \alias{logindata.dslite.testing.dataset}
-\title{Login data for the TESTING.DATASET simulated datasets}
+\title{DataSHIELD login data for the TESTING.DATASET simulated datasets}
 \description{
-Login data for the TESTING.DATASET simulated datasets
+DataSHIELD login data.frame for connecting with TESTING.DATASET datasets which purpose is to
+evaluate each base data types.
 }
 \keyword{data}

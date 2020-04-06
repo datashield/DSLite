@@ -10,7 +10,7 @@ setupDSLiteServer(
   logindata,
   pkgs = NULL,
   dslite.server = NULL,
-  env = globalenv()
+  env = parent.frame()
 )
 }
 \arguments{
@@ -37,6 +37,18 @@ The login data for the \link{datashield.login} function.
 Load the provided datasets and the corresponding logindata object, instanciate a new \link{DSLiteServer}
 hosting these datasets, verifies that the required DataSHIELD server-side packages are installed.
 All the data structures are loaded by \link{data} which supports various formats (see data() documentation).
+}
+\examples{
+{
+logindata <- setupDSLiteServer(
+                 datasets = c("CNSIM1", "CNSIM2", "CNSIM3"),
+                 logindata = "logindata.dslite.cnsim", pkgs = "DSLite",
+                 dslite.server = "dslite.server")
+conns <- datashield.login(logindata, assign=TRUE)
+# do DataSHIELD analysis
+datashield.logout(conns)
+}
+
 }
 \seealso{
 Other setup functions: 

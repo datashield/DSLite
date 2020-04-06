@@ -57,7 +57,7 @@ when discovering the DataSHIELD configuration from the DataSHIELD server-side pa
   tables = list(),
   config = DSLite::defaultDSConfiguration(),
   strict = TRUE,
-  home = file.path("~", ".dslite")
+  home = file.path(tempdir(), ".dslite")
 )}\if{html}{\out{</div>}}
 }
 
@@ -71,7 +71,7 @@ when discovering the DataSHIELD configuration from the DataSHIELD server-side pa
 \item{\code{strict}}{Logical to specify whether the DataSHIELD configuration must be strictly applied. Default is TRUE.}
 
 \item{\code{home}}{Folder location where are located the session work directory and where to read and dump workspace images.
-Default is in a hidden folder of the user home.}
+Default is in a hidden folder of the R session's temporary directory.}
 }
 \if{html}{\out{</div>}}
 }

@@ -8,7 +8,7 @@ newDSLiteServer(
   tables = list(),
   config = DSLite::defaultDSConfiguration(),
   strict = TRUE,
-  home = file.path("~", ".dslite")
+  home = file.path(tempdir(), ".dslite")
 )
 }
 \arguments{
@@ -21,7 +21,7 @@ from the DataSHIELD server-side packages (meta-data from the DESCRIPTION files).
 \item{strict}{Logical to specify whether the DataSHIELD configuration must be strictly applied. Default is TRUE.}
 
 \item{home}{Folder location where are located the session work directory and where to read and dump workspace images.
-Default is in a hidden folder of the user home.}
+Default is in a hidden folder of the R session's temporary directory.}
 }
 \description{
 Shortcut function to create a new \code{DSLiteServer} instance.
