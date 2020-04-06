@@ -48,6 +48,7 @@ Other server-side items:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-new"></a>}}
+\if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
 Create new DSLiteServer instance. See \link{defaultDSConfiguration} function for including or excluding packages
 when discovering the DataSHIELD configuration from the DataSHIELD server-side packages (meta-data from the DESCRIPTION files).
@@ -80,6 +81,7 @@ A DSLiteServer object
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-config"></a>}}
+\if{latex}{\out{\hypertarget{method-config}{}}}
 \subsection{Method \code{config()}}{
 Get or set the DataSHIELD configuration.
 \subsection{Usage}{
@@ -99,6 +101,7 @@ The DataSHIELD configuration, if no parameter is provided.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-strict"></a>}}
+\if{latex}{\out{\hypertarget{method-strict}{}}}
 \subsection{Method \code{strict()}}{
 Get or set the level of strictness (stop when function call is not configured)
 \subsection{Usage}{
@@ -118,6 +121,7 @@ The strict field if no parameter is provided.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-home"></a>}}
+\if{latex}{\out{\hypertarget{method-home}{}}}
 \subsection{Method \code{home()}}{
 Get or set the home folder location where are located the session work directories and where to read and dump workspace images.
 \subsection{Usage}{
@@ -137,6 +141,7 @@ The home folder path if no parameter is provided.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-workspaces"></a>}}
+\if{latex}{\out{\hypertarget{method-workspaces}{}}}
 \subsection{Method \code{workspaces()}}{
 List the saved workspaces in the \code{home} folder.
 \subsection{Usage}{
@@ -153,6 +158,7 @@ List the saved workspaces in the \code{home} folder.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-workspace_save"></a>}}
+\if{latex}{\out{\hypertarget{method-workspace_save}{}}}
 \subsection{Method \code{workspace_save()}}{
 Save the session's workspace image identified by the \code{sid} identifier
   with the provided \code{name} in the \code{home} folder.
@@ -172,6 +178,7 @@ Save the session's workspace image identified by the \code{sid} identifier
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-workspace_rm"></a>}}
+\if{latex}{\out{\hypertarget{method-workspace_rm}{}}}
 \subsection{Method \code{workspace_rm()}}{
 Remove the workspace image with the provided \code{name} from the \code{home} folder.
 \subsection{Usage}{
@@ -188,6 +195,7 @@ Remove the workspace image with the provided \code{name} from the \code{home} fo
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-aggregateMethods"></a>}}
+\if{latex}{\out{\hypertarget{method-aggregateMethods}{}}}
 \subsection{Method \code{aggregateMethods()}}{
 Get or set the aggregate methods.
 \subsection{Usage}{
@@ -210,6 +218,7 @@ The aggregate methods when no parameter is provided.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-aggregateMethod"></a>}}
+\if{latex}{\out{\hypertarget{method-aggregateMethod}{}}}
 \subsection{Method \code{aggregateMethod()}}{
 Get or set an aggregate method.
 \subsection{Usage}{
@@ -231,6 +240,7 @@ The aggregate method when no \code{value} parameter is provided.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-assignMethods"></a>}}
+\if{latex}{\out{\hypertarget{method-assignMethods}{}}}
 \subsection{Method \code{assignMethods()}}{
 Get or set the assign methods.
 \subsection{Usage}{
@@ -252,6 +262,7 @@ The assign methods when no parameter is provided.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-assignMethod"></a>}}
+\if{latex}{\out{\hypertarget{method-assignMethod}{}}}
 \subsection{Method \code{assignMethod()}}{
 Get or set an assign method.
 \subsection{Usage}{
@@ -273,6 +284,7 @@ The assign method when no \code{value} parameter is provided.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-options"></a>}}
+\if{latex}{\out{\hypertarget{method-options}{}}}
 \subsection{Method \code{options()}}{
 Get or set the DataSHIELD R options that are applied when a new DataSHIELD session is started.
 \subsection{Usage}{
@@ -292,6 +304,7 @@ The R options when no parameter is provided.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-option"></a>}}
+\if{latex}{\out{\hypertarget{method-option}{}}}
 \subsection{Method \code{option()}}{
 Get or set a R option.
 \subsection{Usage}{
@@ -313,6 +326,7 @@ The R option's value when only \code{key} parameter is provided.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-newSession"></a>}}
+\if{latex}{\out{\hypertarget{method-newSession}{}}}
 \subsection{Method \code{newSession()}}{
 Create a new DataSHIELD session (contained execution environment) and restore workspace image
 if \code{restore} workspace name argument is provided.
@@ -330,6 +344,7 @@ if \code{restore} workspace name argument is provided.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-hasSession"></a>}}
+\if{latex}{\out{\hypertarget{method-hasSession}{}}}
 \subsection{Method \code{hasSession()}}{
 Check a DataSHIELD session is alive.
 \subsection{Usage}{
@@ -346,6 +361,7 @@ Check a DataSHIELD session is alive.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getSession"></a>}}
+\if{latex}{\out{\hypertarget{method-getSession}{}}}
 \subsection{Method \code{getSession()}}{
 Get the DataSHIELD session's environment.
 \subsection{Usage}{
@@ -362,6 +378,7 @@ Get the DataSHIELD session's environment.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getSessionIds"></a>}}
+\if{latex}{\out{\hypertarget{method-getSessionIds}{}}}
 \subsection{Method \code{getSessionIds()}}{
 Get the DataSHIELD session IDs.
 \subsection{Usage}{
@@ -371,6 +388,7 @@ Get the DataSHIELD session IDs.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getSessionData"></a>}}
+\if{latex}{\out{\hypertarget{method-getSessionData}{}}}
 \subsection{Method \code{getSessionData()}}{
 Get the symbol value from the DataSHIELD session's environment.
 \subsection{Usage}{
@@ -389,6 +407,7 @@ Get the symbol value from the DataSHIELD session's environment.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-closeSession"></a>}}
+\if{latex}{\out{\hypertarget{method-closeSession}{}}}
 \subsection{Method \code{closeSession()}}{
 Destroy DataSHIELD session and save workspace image if \code{save} workspace name argument is provided.
 \subsection{Usage}{
@@ -407,6 +426,7 @@ Destroy DataSHIELD session and save workspace image if \code{save} workspace nam
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-tableNames"></a>}}
+\if{latex}{\out{\hypertarget{method-tableNames}{}}}
 \subsection{Method \code{tableNames()}}{
 List the names of the tables that can be assigned.
 \subsection{Usage}{
@@ -416,6 +436,7 @@ List the names of the tables that can be assigned.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-hasTable"></a>}}
+\if{latex}{\out{\hypertarget{method-hasTable}{}}}
 \subsection{Method \code{hasTable()}}{
 Check a table exists.
 \subsection{Usage}{
@@ -432,6 +453,7 @@ Check a table exists.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-symbols"></a>}}
+\if{latex}{\out{\hypertarget{method-symbols}{}}}
 \subsection{Method \code{symbols()}}{
 List the symbols living in a DataSHIELD session.
 \subsection{Usage}{
@@ -448,6 +470,7 @@ List the symbols living in a DataSHIELD session.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-symbol_rm"></a>}}
+\if{latex}{\out{\hypertarget{method-symbol_rm}{}}}
 \subsection{Method \code{symbol_rm()}}{
 Remove a symbol from a DataSHIELD session.
 \subsection{Usage}{
@@ -466,6 +489,7 @@ Remove a symbol from a DataSHIELD session.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-assignTable"></a>}}
+\if{latex}{\out{\hypertarget{method-assignTable}{}}}
 \subsection{Method \code{assignTable()}}{
 Assign a table to a symbol in a DataSHIELD session. Filter
 table columns with the variables names provided.
@@ -491,6 +515,7 @@ table columns with the variables names provided.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-assignExpr"></a>}}
+\if{latex}{\out{\hypertarget{method-assignExpr}{}}}
 \subsection{Method \code{assignExpr()}}{
 Evaluate an assignment expression in a DataSHIELD session.
 \subsection{Usage}{
@@ -511,6 +536,7 @@ Evaluate an assignment expression in a DataSHIELD session.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-aggregate"></a>}}
+\if{latex}{\out{\hypertarget{method-aggregate}{}}}
 \subsection{Method \code{aggregate()}}{
 Evaluate an aggregate expression in a DataSHIELD session.
 \subsection{Usage}{
@@ -529,6 +555,7 @@ Evaluate an aggregate expression in a DataSHIELD session.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{
