@@ -232,8 +232,8 @@ DSLiteServer <- R6::R6Class(
     # DataSHIELD sessions
     #
 
-    #' @description Create a new DataSHIELD session (contained execution environment) and restore workspace image
-    #' if \code{restore} workspace name argument is provided.
+    #' @description Create a new DataSHIELD session (contained execution environment), apply options that are defined
+    #' in the DataSHIELD configuration and restore workspace image if \code{restore} workspace name argument is provided.
     #' @param restore The workspace image to be restored (optional).
     newSession = function(restore = NULL) {
       sid <- as.character(sample(1000:9999, 1))
@@ -241,19 +241,7 @@ DSLiteServer <- R6::R6Class(
       parent.env(env) <- parent.env(globalenv())
       private$.sessions[[sid]] <- env
       wd <- private$.as.wd.path(sid)
-      # prepare options
-      if (!is.null(private$.config$Options)) {
-        opts <- lapply(names(private$.config$Options), function(opt) { paste0(opt, "=", private$.config$Options[[opt]]) })
-        if (length(opts)>0) {
-          opts <- paste(opts, collapse = ",")
-          opts <- paste0("options(", opts, ")")
-          eval(parse(text = opts), envir = private$.sessions[[sid]])
-        }
-        if (!("datashield.seed") %in% names(private$.config$Options)) {
-          opt <- getOption("datashield.seed", 1234)
-          eval(parse(text = paste0("options(datashield.seed=",opt,")")), envir = private$.sessions[[sid]])
-        }
-      }
+      private$.apply.options()
       # restore workspace
       if (!is.null(restore)) {
         # restore image
@@ -483,6 +471,25 @@ DSLiteServer <- R6::R6Class(
         message(paste0("Expression to evaluate: ", exprStr))
       }
       parse(text=exprStr)
+    },
+    # apply datashield options
+    .apply.options = function() {
+      if (!is.null(private$.config$Options)) {
+        opts <- lapply(names(private$.config$Options), function(opt) { paste0(opt, "=", private$.config$Options[[opt]]) })
+        if (length(opts)>0) {
+          opts <- paste(opts, collapse = ",")
+          opts <- paste0("options(", opts, ")")
+          eval(parse(text = opts))
+        }
+      }
+      # the datashield.seed option is required
+      seedOpt <- getOption("datashield.seed")
+      if (is.null(seedOpt)) {
+        if (getOption("dslite.verbose", FALSE)) {
+          warning("Setting default datashield.seed option")
+        }
+        options(datashield.seed=1234)
+      }
     },
     # ensure home dir is defined and exists
     .home.mkdir = function() {
