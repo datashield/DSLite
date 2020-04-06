@@ -8,6 +8,15 @@
 #' @param include Character vector of package names to be explicitly included. If NULL, do not filter packages.
 #' @param exclude Character vector of package names to be explicitly excluded. If NULL, do not filter packages.
 #'
+#' @examples {
+#'   # detect DS packages
+#'   defaultDSConfiguration()
+#'   # exclude a DS package
+#'   defaultDSConfiguration(exclude="dsBase")
+#'   # include explicitely some DS packages
+#'   defaultDSConfiguration(include=c("dsBase", "dsOmics"))
+#' }
+#'
 #' @import utils
 #' @export
 defaultDSConfiguration <- function(include=NULL, exclude=NULL) {
@@ -26,27 +35,20 @@ defaultDSConfiguration <- function(include=NULL, exclude=NULL) {
       name %in% exclude
     }
   }
+  # all package names
+  packageNames <- unique(basename(path = list.dirs(path = .libPaths(), recursive = FALSE)))
 
-  #
   # DataSHIELD settings from the DATASHIELD file
-  #
-  dsPaths <- lapply(installed.packages()[,1], function(p) { system.file('DATASHIELD', package=p) })
+  dsPaths <- as.list(sapply(packageNames, function(p) { system.file("DATASHIELD", package = p) }))
   dsSettings <- lapply(dsPaths[lapply(dsPaths, nchar)>0], read.dcf)
 
-  #
-  # DataSHIELD settings from the DESCRIPTION file
-  #
-  fields <- c("Package", "Version", "AggregateMethods", "AssignMethods", "Options")
-  packs <- as.data.frame(utils::installed.packages(fields = fields))
-  dsPacks <- subset(packs, (isIncluded(packs$Package) & !isExcluded(packs$Package))
-                    & (!is.na(packs$AggregateMethods) | !is.na(packs$AssignMethods) | !is.na(packs$Options)
-                       | as.character(packs$Package) %in% names(dsSettings)))
+  # init
   aggregateMethods <- list(name=c(), value=c(), package=c(), version=c())
   assignMethods <- list(name=c(), value=c(), package=c(), version=c())
   options <- list()
 
   appendAggregateMethods <- function(package, version, methodsStr) {
-    methods <- .strToList(pack$AggregateMethods, pack$Package)
+    methods <- .strToList(methodsStr, package)
     for (m in names(methods)) {
       idx <- which(aggregateMethods$name %in% m)
       if (length(idx) > 0) {
@@ -87,34 +89,41 @@ defaultDSConfiguration <- function(include=NULL, exclude=NULL) {
     append(options, .strToList(opts))
   }
 
-  if (nrow(dsPacks)>0) {
-    for (i in 1:nrow(dsPacks)) {
-      pack <- dsPacks[i,]
+  dsPackageNames <- names(dsSettings)
+  dsLegacyPackageNames <- c("dsBase")
+  if (!is.null(include)) {
+    dsLegacyPackageNames <- unique(append(dsLegacyPackageNames, include))
+  }
+  for (pname in dsLegacyPackageNames) {
+    if (pname %in% packageNames && !pname %in% dsPackageNames && isIncluded(pname) && !isExcluded(pname)) {
+      # legacy
+      pack <- packageDescription(pkg = pname)
       # DESCRIPTION file
-      if (!is.na(pack$AggregateMethods)) {
+      if (!is.null(pack$AggregateMethods) && !is.na(pack$AggregateMethods)) {
         aggregateMethods <- appendAggregateMethods(pack$Package, pack$Version, pack$AggregateMethods)
       }
-      if (!is.na(pack$AssignMethods)) {
+      if (!is.null(pack$AssignMethods) && !is.na(pack$AssignMethods)) {
         assignMethods <- appendAssignMethods(pack$Package, pack$Version, pack$AssignMethods)
       }
-      if (!is.na(pack$Options)) {
+      if (!is.null(pack$Options) && !is.na(pack$Options)) {
         options <- appendOptions(pack$Options)
       }
-      # DATASHIELD file
-      pname <- as.character(pack$Package)
-      if (pname %in% names(dsSettings)) {
-        dsProperties <- dsSettings[[pname]]
-        propNames <- dimnames(dsProperties)[[2]]
-        for (i in 1:length(propNames)) {
-          if (propNames[[i]] == "AggregateMethods") {
-            aggregateMethods <- appendAggregateMethods(pack$Package, pack$Version, as.character(dsProperties[1,i]))
-          }
-          else if (propNames[[i]] == "AssignMethods") {
-            assignMethods <- appendAssignMethods(pack$Package, pack$Version, as.character(dsProperties[1,i]))
-          }
-          else if (propNames[[i]] == "Options") {
-            options <- appendOptions(as.character(dsProperties[1,i]))
-          }
+    }
+  }
+  for (pname in dsPackageNames) {
+    if (isIncluded(pname) && !isExcluded(pname)) {
+      pack <- packageDescription(pkg = pname)
+      dsProperties <- dsSettings[[pname]]
+      propNames <- dimnames(dsProperties)[[2]]
+      for (i in 1:length(propNames)) {
+        if (propNames[[i]] == "AggregateMethods") {
+          aggregateMethods <- appendAggregateMethods(pack$Package, pack$Version, as.character(dsProperties[1,i]))
+        }
+        else if (propNames[[i]] == "AssignMethods") {
+          assignMethods <- appendAssignMethods(pack$Package, pack$Version, as.character(dsProperties[1,i]))
+        }
+        else if (propNames[[i]] == "Options") {
+          options <- appendOptions(as.character(dsProperties[1,i]))
         }
       }
     }

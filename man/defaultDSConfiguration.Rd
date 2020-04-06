@@ -17,3 +17,14 @@ and extract this information in a data frame of aggregation/assignment methods a
 of R options. The DataSHIELD packages can be filtered by specifying explicitly the package names
 to be included or excluded. The package exclusion prevails over the inclusion.
 }
+\examples{
+{
+  # detect DS packages
+  defaultDSConfiguration()
+  # exclude a DS package
+  defaultDSConfiguration(exclude="dsBase")
+  # include explicitely some DS packages
+  defaultDSConfiguration(include=c("dsBase", "dsOmics"))
+}
+
+}
