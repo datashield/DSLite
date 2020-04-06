@@ -19,12 +19,12 @@ to be included or excluded. The package exclusion prevails over the inclusion.
 }
 \examples{
 {
-  # detect DS packages
-  defaultDSConfiguration()
-  # exclude a DS package
-  defaultDSConfiguration(exclude="dsBase")
-  # include explicitely some DS packages
-  defaultDSConfiguration(include=c("dsBase", "dsOmics"))
+# detect DS packages
+defaultDSConfiguration()
+# exclude a DS package
+defaultDSConfiguration(exclude="dsBase")
+# include explicitely some DS packages
+defaultDSConfiguration(include=c("dsBase", "dsOmics"))
 }
 
 }

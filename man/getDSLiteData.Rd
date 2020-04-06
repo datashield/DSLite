@@ -19,3 +19,15 @@ is not of class \code{\link{DSLiteConnection-class}}.
 Get the data value corresponding to the variable with the symbol name from the \link{DSLiteServer} associated
 to the \code{\link{DSConnection-class}} object(s). Can be useful when developping a DataSHIELD package.
 }
+\examples{
+{
+# DataSHIELD login
+logindata <- setupCNSIMTest()
+conns <- datashield.login(logindata, assign=TRUE)
+# retrieve symbol D value from each DataSHIELD connections
+getDSLiteData(conns, "D")
+# retrieve symbol D value from a specific DataSHIELD connection
+getDSLiteData(conns$sim1, "D")
+}
+
+}

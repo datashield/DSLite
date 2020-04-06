@@ -9,8 +9,15 @@
 #' the DSIConnection objects. Default is the Global environment.
 #' @return The login data for the \link{datashield.login} function.
 #' @family setup functions
+#' @examples
+#' {
+#' logindata <- setupCNSIMTest()
+#' conns <- datashield.login(logindata, assign=TRUE)
+#' # do DataSHIELD analysis
+#' datashield.logout(conns)
+#' }
 #' @export
-setupCNSIMTest <- function(packages = c(), env = globalenv()) {
+setupCNSIMTest <- function(packages = c(), env = parent.frame()) {
   setupDSLiteServer(packages, c("CNSIM1", "CNSIM2", "CNSIM3"),
                     "logindata.dslite.cnsim", "DSLite", "dslite.server", env)
 }

@@ -4,7 +4,7 @@
 \alias{setupSURVIVALTest}
 \title{Setup a test environment based on the SURVIVAL (EXPAND_WITH_MISSING) simulated datasets}
 \usage{
-setupSURVIVALTest(packages = c(), env = globalenv())
+setupSURVIVALTest(packages = c(), env = parent.frame())
 }
 \arguments{
 \item{packages}{DataSHIELD server-side packages which local installation must be verified so that the \link{DSLiteServer}
@@ -19,6 +19,14 @@ The login data for the \link{datashield.login} function.
 \description{
 Load the SURVIVAL (EXPAND_WITH_MISSING) datasets, the corresponding login data object, instanciate a new \link{DSLiteServer}
 hosting these datasets and verify that the required DataSHIELD server-side packages are installed.
+}
+\examples{
+{
+logindata <- setupSURVIVALTest()
+conns <- datashield.login(logindata, assign=TRUE)
+# do DataSHIELD analysis
+datashield.logout(conns)
+}
 }
 \seealso{
 Other setup functions: 

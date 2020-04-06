@@ -9,8 +9,15 @@
 #' the DSIConnection objects. Default is the Global environment.
 #' @return The login data for the \link{datashield.login} function.
 #' @family setup functions
+#' @examples
+#' {
+#' logindata <- setupDISCORDANTTest()
+#' conns <- datashield.login(logindata, assign=TRUE)
+#' # do DataSHIELD analysis
+#' datashield.logout(conns)
+#' }
 #' @export
-setupDISCORDANTTest <- function(packages = c(), env = globalenv()) {
+setupDISCORDANTTest <- function(packages = c(), env = parent.frame()) {
   setupDSLiteServer(packages, c("DISCORDANT_STUDY1", "DISCORDANT_STUDY2", "DISCORDANT_STUDY3"),
                     "logindata.dslite.discordant", "DSLite", "dslite.server", env)
 }

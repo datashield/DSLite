@@ -3,8 +3,8 @@
 \docType{data}
 \name{logindata.dslite.survival.expand_with_missing}
 \alias{logindata.dslite.survival.expand_with_missing}
-\title{Login data for the simulated survival expand-with-missing datasets}
+\title{DataSHIELD login data for the simulated survival expand-with-missing datasets}
 \description{
-Login data for the simulated survival expand-with-missing datasets
+DataSHIELD login data.frame for connecting with SURVIVAL datasets which purpose is to perform survival tests.
 }
 \keyword{data}

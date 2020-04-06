@@ -30,7 +30,7 @@ setClass("DSLiteConnection", contains = "DSConnection", slots = list(name = "cha
 setMethod("dsConnect", "DSLiteDriver",
           function(drv, name, url, restore = NULL, ...) {
             # get the R symbol value
-            server <- base::get(url, envir = getOption("datashield.env", globalenv()))
+            server <- base::get(url, envir = getOption("datashield.env", parent.frame()))
             if (is.null(server) || !("DSLiteServer" %in% class(server))) {
               stop(paste0("Not a valid DSLite server identified by '", url, "', expecting an object of class: DSLiteServer"))
             }

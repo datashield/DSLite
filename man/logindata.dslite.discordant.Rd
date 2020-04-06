@@ -3,8 +3,9 @@
 \docType{data}
 \name{logindata.dslite.discordant}
 \alias{logindata.dslite.discordant}
-\title{Login data for the DISCORDANT simulated datasets}
+\title{DataSHIELD login data for the DISCORDANT simulated datasets}
 \description{
-Login data for the DISCORDANT simulated datasets
+DataSHIELD login data.frame for connecting with DISCORDANT datasets which purpose is to test
+datasets that are NOT harmonized.
 }
 \keyword{data}

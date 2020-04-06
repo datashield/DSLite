@@ -7,6 +7,18 @@
 #' @param symbol Symbol name identifying the variable in the \link{DSLiteServer}'s "server-side" environment(s).
 #' @return The data value or a list of values depending on the connections parameter. The value is NA when the connection object
 #' is not of class \code{\link{DSLiteConnection-class}}.
+#'
+#' @examples
+#' {
+#' # DataSHIELD login
+#' logindata <- setupCNSIMTest()
+#' conns <- datashield.login(logindata, assign=TRUE)
+#' # retrieve symbol D value from each DataSHIELD connections
+#' getDSLiteData(conns, "D")
+#' # retrieve symbol D value from a specific DataSHIELD connection
+#' getDSLiteData(conns$sim1, "D")
+#' }
+#'
 #' @export
 getDSLiteData <- function(conns, symbol) {
   if (is.list(conns)) {

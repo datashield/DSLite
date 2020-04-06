@@ -9,8 +9,15 @@
 #' the DSIConnection objects. Default is the Global environment.
 #' @return The login data for the \link{datashield.login} function.
 #' @family setup functions
+#' @examples
+#' {
+#' logindata <- setupSURVIVALTest()
+#' conns <- datashield.login(logindata, assign=TRUE)
+#' # do DataSHIELD analysis
+#' datashield.logout(conns)
+#' }
 #' @export
-setupSURVIVALTest <- function(packages = c(), env = globalenv()) {
+setupSURVIVALTest <- function(packages = c(), env = parent.frame()) {
   setupDSLiteServer(packages, c("SURVIVAL.EXPAND_WITH_MISSING1", "SURVIVAL.EXPAND_WITH_MISSING2", "SURVIVAL.EXPAND_WITH_MISSING3"),
                     "logindata.dslite.survival.expand_with_missing", "DSLite", "dslite.server", env)
 }

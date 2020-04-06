@@ -16,8 +16,20 @@
 #' the DSIConnection objects. Default is the Global environment.
 #' @return The login data for the \link{datashield.login} function.
 #' @family setup functions
+#'
+#' @examples
+#' {
+#' logindata <- setupDSLiteServer(
+#'                  datasets = c("CNSIM1", "CNSIM2", "CNSIM3"),
+#'                  logindata = "logindata.dslite.cnsim", pkgs = "DSLite",
+#'                  dslite.server = "dslite.server")
+#' conns <- datashield.login(logindata, assign=TRUE)
+#' # do DataSHIELD analysis
+#' datashield.logout(conns)
+#' }
+#'
 #' @export
-setupDSLiteServer <- function(packages = c(), datasets, logindata, pkgs = NULL, dslite.server = NULL, env = globalenv()) {
+setupDSLiteServer <- function(packages = c(), datasets, logindata, pkgs = NULL, dslite.server = NULL, env = parent.frame()) {
   # check server-side package is installed
   for (package in packages) {
     if (!base::requireNamespace(package, quietly = TRUE)) {
