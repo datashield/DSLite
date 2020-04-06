@@ -334,8 +334,8 @@ The R option's value when only \code{key} parameter is provided.
 \if{html}{\out{<a id="method-newSession"></a>}}
 \if{latex}{\out{\hypertarget{method-newSession}{}}}
 \subsection{Method \code{newSession()}}{
-Create a new DataSHIELD session (contained execution environment) and restore workspace image
-if \code{restore} workspace name argument is provided.
+Create a new DataSHIELD session (contained execution environment), apply options that are defined
+in the DataSHIELD configuration and restore workspace image if \code{restore} workspace name argument is provided.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$newSession(restore = NULL)}\if{html}{\out{</div>}}
 }
