@@ -459,6 +459,7 @@ Check a table exists.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-resourceNames"></a>}}
+\if{latex}{\out{\hypertarget{method-resourceNames}{}}}
 \subsection{Method \code{resourceNames()}}{
 List the names of the resources (\code{resourcer::Resource} objects) that can be assigned.
 \subsection{Usage}{
@@ -468,6 +469,7 @@ List the names of the resources (\code{resourcer::Resource} objects) that can be
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-hasResource"></a>}}
+\if{latex}{\out{\hypertarget{method-hasResource}{}}}
 \subsection{Method \code{hasResource()}}{
 Check a resource (\code{resourcer::Resource} object) exists.
 \subsection{Usage}{
@@ -546,6 +548,7 @@ table columns with the variables names provided.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-assignResource"></a>}}
+\if{latex}{\out{\hypertarget{method-assignResource}{}}}
 \subsection{Method \code{assignResource()}}{
 Assign a resource as a \code{resourcer::ResourceClient} object to a symbol in a DataSHIELD session.
 \subsection{Usage}{
