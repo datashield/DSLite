@@ -127,7 +127,8 @@ DSLiteServer <- R6::R6Class(
       # save working directory content
       wd <- private$.as.wd.path(sid)
       origwd <- setwd(wd)
-      tryCatch(file.copy(from = list.files(wd), to = ws, recursive = TRUE, copy.mode = TRUE), finally = { setwd(origwd) })
+      on.exit(setwd(origwd))
+      tryCatch(file.copy(from = list.files(wd), to = ws, recursive = TRUE, copy.mode = TRUE))
       # save environment image
       env <- private$.sessions[[sid]]
       save(list = ls(all.names = TRUE, envir = env), file=path, envir = env)
@@ -403,11 +404,12 @@ DSLiteServer <- R6::R6Class(
     #' @param expr The R expression to evaluate.
     assignExpr = function(sid, symbol, expr) {
       exprr <- private$.as.language(sid, expr, private$.config$AssignMethods)
-      origwd <- private$.set.wd(sid)
+      origwd <- setwd(private$.get.wd(sid))
+      on.exit(setwd(origwd))
       if (getOption("dslite.verbose", FALSE)) {
         message(paste0("Symbol to assign: ", symbol))
       }
-      tryCatch(assign(symbol, eval(exprr, envir = private$.session(sid)), envir = private$.session(sid)), finally = { setwd(origwd) })
+      tryCatch(assign(symbol, eval(exprr, envir = private$.session(sid)), envir = private$.session(sid)))
     },
 
     #' @description Evaluate an aggregate expression in a DataSHIELD session.
@@ -415,8 +417,9 @@ DSLiteServer <- R6::R6Class(
     #' @param expr The R expression to evaluate.
     aggregate = function(sid, expr) {
       exprr <- private$.as.language(sid, expr, private$.config$AggregateMethods)
-      origwd <- private$.set.wd(sid)
-      tryCatch(eval(exprr, envir = private$.session(sid)), finally = { setwd(origwd) })
+      origwd <- setwd(private$.get.wd(sid))
+      on.exit(setwd(origwd))
+      tryCatch(eval(exprr, envir = private$.session(sid)))
     }
   ),
 
@@ -594,10 +597,9 @@ DSLiteServer <- R6::R6Class(
         }
       }
     },
-    # set working directory corresponding to the session and return the current working directory
-    .set.wd = function(sid) {
-      wd <- private$.as.wd.path(sid)
-      setwd(wd)
+    # get working directory corresponding to the session
+    .get.wd = function(sid) {
+      private$.as.wd.path(sid)
     }
   )
 )
