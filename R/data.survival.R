@@ -35,7 +35,7 @@ NULL
 #' | age.60             | Age centred at 60                | numeric  ||
 #' | female             | Gender                           | factor   | 0 = Male, 1 = Female |
 #' | noise.56           | Noise pollution centred at 56    | numeric  | dB |
-#' | pm10.16            | Particulate matter centred at 16 | numeric  | μg/m3 |
+#' | pm10.16            | Particulate matter centred at 16 | numeric  | &micro;g/m3 |
 #' | bmi.26             | Body mass index centred at 26    | numeric  | kg/m2 |
 #'
 #' @name SURVIVAL.EXPAND_WITH_MISSING1
@@ -60,7 +60,7 @@ NULL
 #' | age.60             | Age centred at 60                | numeric  ||
 #' | female             | Gender                           | factor   | 0 = Male, 1 = Female |
 #' | noise.56           | Noise pollution centred at 56    | numeric  | dB |
-#' | pm10.16            | Particulate matter centred at 16 | numeric  | μg/m3 |
+#' | pm10.16            | Particulate matter centred at 16 | numeric  | &micro;g/m3 |
 #' | bmi.26             | Body mass index centred at 26    | numeric  | kg/m2 |
 #'
 #' @name SURVIVAL.EXPAND_WITH_MISSING2
@@ -85,7 +85,7 @@ NULL
 #' | age.60             | Age centred at 60                | numeric  ||
 #' | female             | Gender                           | factor   | 0 = Male, 1 = Female |
 #' | noise.56           | Noise pollution centred at 56    | numeric  | dB |
-#' | pm10.16            | Particulate matter centred at 16 | numeric  | μg/m3 |
+#' | pm10.16            | Particulate matter centred at 16 | numeric  | &micro;g/m3 |
 #' | bmi.26             | Body mass index centred at 26    | numeric  | kg/m2 |
 #'
 #' @name SURVIVAL.EXPAND_WITH_MISSING3
