@@ -161,7 +161,7 @@ List the saved workspaces in the \code{home} folder.
 \if{latex}{\out{\hypertarget{method-workspace_save}{}}}
 \subsection{Method \code{workspace_save()}}{
 Save the session's workspace image identified by the \code{sid} identifier
-  with the provided \code{name} in the \code{home} folder.
+with the provided \code{name} in the \code{home} folder.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$workspace_save(sid, name)}\if{html}{\out{</div>}}
 }

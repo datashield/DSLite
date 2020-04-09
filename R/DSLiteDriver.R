@@ -13,7 +13,7 @@ setClass("DSLiteDriver", contains = "DSDriver")
 
 #' Create a DSLite driver
 #'
-#' Convenient function for creating a [DSLiteDriver] object.
+#' Convenient function for creating a DSLiteDriver object.
 #'
 #' @import methods
 #' @import DSI

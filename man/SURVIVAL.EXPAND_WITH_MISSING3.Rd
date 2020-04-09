@@ -5,7 +5,24 @@
 \alias{SURVIVAL.EXPAND_WITH_MISSING3}
 \title{Simulated survival expand-with-missing dataset 3}
 \description{
-Simulated dataset SURVIVAL.EXPAND_WITH_MISSING 3, in a data.frame with 2688 observations of 12 harmonized variables:
-id, study.id, time.id, starttime, endtime, survtime, cens, age.60, female, noise.56, pm10.16, bmi.26.
+Simulated dataset SURVIVAL.EXPAND_WITH_MISSING 3, in a data.frame with 2688 observations of 12 harmonized variables.
+The dataset contains synthetic data based on a simulated survival model, including a censoring indicator.
+}
+\details{
+\tabular{llll}{
+   \strong{Variable} \tab \strong{Description} \tab \strong{Type} \tab \strong{Note} \cr
+   id \tab Unique individual ID \tab integer \tab  \cr
+   study.id \tab Study ID \tab integer \tab  \cr
+   time.id \tab Time ID \tab integer \tab  \cr
+   starttime \tab Start of follow up \tab numeric \tab years \cr
+   endtime \tab End of follow up \tab numeric \tab years \cr
+   survtime \tab Survtime \tab numeric \tab years \cr
+   cens \tab Censoring status \tab factor \tab 0 = not censored, 1 = censored \cr
+   age.60 \tab Age centred at 60 \tab numeric \tab  \cr
+   female \tab Gender \tab factor \tab 0 = Male, 1 = Female \cr
+   noise.56 \tab Noise pollution centred at 56 \tab numeric \tab dB \cr
+   pm10.16 \tab Particulate matter centred at 16 \tab numeric \tab μg/m3 \cr
+   bmi.26 \tab Body mass index centred at 26 \tab numeric \tab kg/m2 \cr
+}
 }
 \keyword{data}

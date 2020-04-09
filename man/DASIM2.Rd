@@ -5,8 +5,24 @@
 \alias{DASIM2}
 \title{Simulated dataset DASIM 2}
 \description{
-Simulated dataset DASIM 2, in a data.frame with 10000 observations of 10 harmonized variables:
-LAB_TSC, LAB_TRIG, LAB_HDL, LAB_GLUC_FASTING, PM_BMI_CONTINUOUS, DIS_CVA, DIS_DIAB, DIS_AMI,
-GENDER, PM_BMI_CATEGORICAL.
+Simulated dataset DASIM 2, in a data.frame with 10000 observations of 10 harmonized variables.
+The DASIM dataset contains synthetic data based on a model derived from the participants of
+the 1958 Birth Cohort, as part of the obesity methodological development project. This dataset
+does not contain some NA values.
+}
+\details{
+\tabular{llll}{
+   \strong{Variable} \tab \strong{Description} \tab \strong{Type} \tab \strong{Note} \cr
+   LAB_TSC \tab Total Serum Cholesterol \tab numeric \tab mmol/L \cr
+   LAB_TRIG \tab Triglycerides \tab numeric \tab mmol/L \cr
+   LAB_HDL \tab HDL Cholesterol \tab numeric \tab mmol/L \cr
+   LAB_GLUC_FASTING \tab Fasting Glucose \tab numeric \tab mmol/L \cr
+   PM_BMI_CONTINUOUS \tab Body Mass Index (continuous) \tab numeric \tab kg/m2 \cr
+   DIS_CVA \tab History of Stroke \tab factor \tab 0 = Never had stroke, 1 = Has had stroke \cr
+   DIS_DIAB \tab History of Diabetes \tab factor \tab 0 = Never had diabetes, 1 = Has had diabetes \cr
+   DIS_AMI \tab History of Myocardial Infarction \tab factor \tab 0 = Never had myocardial infarction, 1 = Has had myocardial infarction \cr
+   GENDER \tab Gender \tab factor \tab 0 = Female, 1 = Male \cr
+   PM_BMI_CATEGORICAL \tab Body Mass Index (categorical) \tab factor \tab 1 = Less than 25 kg/m2, 2 = 25 to 30 kg/m2, 3 = Over 30 kg/m2 \cr
+}
 }
 \keyword{data}

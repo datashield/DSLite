@@ -5,8 +5,25 @@
 \alias{CNSIM1}
 \title{Simulated dataset CNSIM 1}
 \description{
-Simulated dataset CNSIM 1, in a data.frame with 2163 observations of 11 harmonized variables:
-LAB_TSC, LAB_TRIG, LAB_HDL, LAB_GLUC_ADJUSTED, PM_BMI_CONTINUOUS, DIS_CVA, MEDI_LPD, DIS_DIAB,
-DIS_AMI, GENDER, PM_BMI_CATEGORICAL.
+Simulated dataset CNSIM 1, in a data.frame with 2163 observations of 11 harmonized
+variables. The CNSIM dataset contains synthetic data based on a model derived from the
+participants of the 1958 Birth Cohort, as part of the obesity methodological development
+project. This dataset does contain some NA values.
+}
+\details{
+\tabular{llll}{
+   \strong{Variable} \tab \strong{Description} \tab \strong{Type} \tab \strong{Note} \cr
+   LAB_TSC \tab Total Serum Cholesterol \tab numeric \tab mmol/L \cr
+   LAB_TRIG \tab Triglycerides \tab numeric \tab mmol/L \cr
+   LAB_HDL \tab HDL Cholesterol \tab numeric \tab mmol/L \cr
+   LAB_GLUC_ADJUSTED \tab Non-Fasting Glucose \tab numeric \tab mmol/L \cr
+   PM_BMI_CONTINUOUS \tab Body Mass Index (continuous) \tab numeric \tab kg/m2 \cr
+   DIS_CVA \tab History of Stroke \tab factor \tab 0 = Never had stroke, 1 = Has had stroke \cr
+   MEDI_LPD \tab Current Use of Lipid Lowering Medication (from categorical assessment item) \tab factor \tab 0 = Not currently using lipid lowering medication, 1 = Currently using lipid lowering medication \cr
+   DIS_DIAB \tab History of Diabetes \tab factor \tab 0 = Never had diabetes, 1 = Has had diabetes \cr
+   DIS_AMI \tab History of Myocardial Infarction \tab factor \tab 0 = Never had myocardial infarction, 1 = Has had myocardial infarction \cr
+   GENDER \tab Gender \tab factor \tab 0 = Female, 1 = Male \cr
+   PM_BMI_CATEGORICAL \tab Body Mass Index (categorical) \tab factor \tab 1 = Less than 25 kg/m2, 2 = 25 to 30 kg/m2, 3 = Over 30 kg/m2 \cr
+}
 }
 \keyword{data}
