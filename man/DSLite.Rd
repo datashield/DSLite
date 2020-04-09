@@ -7,5 +7,5 @@
 DSLite()
 }
 \description{
-Convenient function for creating a [DSLiteDriver] object.
+Convenient function for creating a DSLiteDriver object.
 }

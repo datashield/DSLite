@@ -5,9 +5,28 @@
 \alias{TESTING.DATASET2}
 \title{Simulated dataset TESTING.DATASET 2}
 \description{
-Simulated dataset TESTING.DATASET 2, in a data.frame with 71 observations of 17 harmonized variables:
-ID, CHARACTER, LOGICAL, NA_VALUES, NULL_VALUES, INTEGER, NON_NEGATIVE_INTEGER, POSITIVE_INTEGER,
-NEGATIVE_INTEGER, NUMERIC, NON_NEGATIVE_NUMERIC, POSITIVE_NUMERIC, NEGATIVE_NUMERIC, FACTOR_CHARACTER,
-FACTOR_INTEGER, IDENTIFIER, CATEGORY.
+Simulated dataset TESTING.DATASET 2, in a data.frame with 71 observations of 17 harmonized variables.
+}
+\details{
+\tabular{lll}{
+   \strong{Variable} \tab \strong{Description} \tab \strong{Type} \cr
+   ID \tab Dummy data \tab integer \cr
+   CHARACTER \tab Dummy data \tab char \cr
+   LOGICAL \tab Dummy data \tab logical \cr
+   NA_VALUES \tab Dummy data \tab logical \cr
+   NULL_VALUES \tab Dummy data \tab logical \cr
+   INTEGER \tab Dummy data \tab integer \cr
+   NON_NEGATIVE_INTEGER \tab Dummy data \tab integer \cr
+   POSITIVE_INTEGER \tab Dummy data \tab integer \cr
+   NEGATIVE_INTEGER \tab Dummy data \tab integer \cr
+   NUMERIC \tab Dummy data \tab numeric \cr
+   NON_NEGATIVE_NUMERIC \tab Dummy data \tab numeric \cr
+   POSITIVE_NUMERIC \tab Dummy data \tab numeric \cr
+   NEGATIVE_NUMERIC \tab Dummy data \tab numeric \cr
+   FACTOR_CHARACTER \tab Dummy data \tab factor \cr
+   FACTOR_INTEGER \tab Dummy data \tab factor \cr
+   IDENTIFIER \tab Dummy data \tab integer \cr
+   CATEGORY \tab Dummy data \tab integer \cr
+}
 }
 \keyword{data}
