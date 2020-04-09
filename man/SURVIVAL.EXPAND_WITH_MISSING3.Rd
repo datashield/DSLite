@@ -21,7 +21,7 @@ The dataset contains synthetic data based on a simulated survival model, includi
    age.60 \tab Age centred at 60 \tab numeric \tab  \cr
    female \tab Gender \tab factor \tab 0 = Male, 1 = Female \cr
    noise.56 \tab Noise pollution centred at 56 \tab numeric \tab dB \cr
-   pm10.16 \tab Particulate matter centred at 16 \tab numeric \tab μg/m3 \cr
+   pm10.16 \tab Particulate matter centred at 16 \tab numeric \tab µg/m3 \cr
    bmi.26 \tab Body mass index centred at 26 \tab numeric \tab kg/m2 \cr
 }
 }
