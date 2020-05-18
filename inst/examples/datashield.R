@@ -17,6 +17,12 @@ dslite.server$config()
 data("logindata.dslite.cnsim")
 conns <- datashield.login(logindata.dslite.cnsim, assign=T, variables=c("GENDER","PM_BMI_CONTINUOUS"), id.name="ID")
 
+# list all available tables
+datashield.tables(conns)
+
+# list all available resources
+datashield.resources(conns)
+
 # check assigned variables
 datashield.symbols(conns)
 

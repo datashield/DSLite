@@ -311,7 +311,11 @@ DSLiteServer <- R6::R6Class(
 
     #' @description List the names of the tables that can be assigned.
     tableNames = function() {
-      names(private$.tables)
+      if (length(private$.tables)) {
+        names(private$.tables)
+      } else {
+        vector(mode="character", length = 0)
+      }
     },
 
     #' @description Check a table exists.
@@ -322,7 +326,11 @@ DSLiteServer <- R6::R6Class(
 
     #' @description List the names of the resources (\code{resourcer::Resource} objects) that can be assigned.
     resourceNames = function() {
-      names(private$.resources)
+      if (length(private$.resources)) {
+        names(private$.resources)
+      } else {
+        vector(mode="character", length = 0)
+      }
     },
 
     #' @description Check a resource (\code{resourcer::Resource} object) exists.
