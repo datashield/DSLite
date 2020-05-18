@@ -1,6 +1,6 @@
 Package: DSLite
 Type: Package
-Version: 1.1.0
+Version: 1.2.0
 Title: 'DataSHIELD' Implementation on Local Datasets
 Authors@R:
     c(person(given = "Yannick",
