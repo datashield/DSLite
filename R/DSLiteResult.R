@@ -28,6 +28,20 @@ setMethod("dsGetInfo", "DSLiteResult", function(dsObj, ...) {
   list(status=dsObj@rval$status)
 })
 
+#' Get whether the operation is completed
+#' 
+#' Always TRUE because of synchronous operations.
+#' 
+#' @param res \code{\link{DSLiteResult-class}} object.
+#' 
+#' @return Always TRUE.
+#' 
+#' @import methods
+#' @export
+setMethod("dsIsCompleted", "DSLiteResult", function(res) {
+  TRUE
+})
+
 #' Fetch the result
 #'
 #' Fetch the DataSHIELD operation result.

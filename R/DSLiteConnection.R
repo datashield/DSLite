@@ -39,6 +39,17 @@ setMethod("dsConnect", "DSLiteDriver",
             con
           })
 
+#' Keep connection with a DSLite server alive
+#' 
+#' No operation due to the DSLiteServer nature.
+#' 
+#' @param conn \code{\link{DSLiteConnection-class}} class object
+#' 
+#' @import opalr
+#' @import methods
+#' @export
+setMethod("dsKeepAlive", "DSLiteConnection", function(conn) {})
+
 #' Disconnect from a DSLite server
 #'
 #' Save the session in a local file if requested.
