@@ -258,6 +258,7 @@ DSLiteServer <- R6::R6Class(
       sid <- as.character(sample(1000:9999, 1))
       env <- new.env()
       parent.env(env) <- parent.env(parent.frame())
+      attr(env, "name") <- paste0("DSLiteEnv_", sid)
       private$.sessions[[sid]] <- env
       wd <- private$.as.wd.path(sid)
       private$.apply.options()
