@@ -24,8 +24,10 @@ Description: 'DataSHIELD' is an infrastructure and series of R packages that
     in the current R session. The purpose of this is primarily for lightweight
     'DataSHIELD' analysis package development.
 License: LGPL (>= 2.1)
-URL: https://github.com/datashield/DSLite/, https://datashield.github.com/DSLite/,
-    http://www.datashield.org, https://doi.org/10.1093/ije/dyu188
+URL: https://github.com/datashield/DSLite/,
+    https://datashield.github.io/DSLite/,
+    http://www.datashield.org,
+    https://doi.org/10.1093/ije/dyu188
 BugReports: https://github.com/datashield/DSLite/issues/
 RoxygenNote: 7.1.1
 Roxygen: list(markdown = TRUE)
