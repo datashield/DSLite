@@ -19,6 +19,7 @@ Other server-side items:
 \itemize{
 \item \href{#method-new}{\code{DSLiteServer$new()}}
 \item \href{#method-config}{\code{DSLiteServer$config()}}
+\item \href{#method-profile}{\code{DSLiteServer$profile()}}
 \item \href{#method-strict}{\code{DSLiteServer$strict()}}
 \item \href{#method-home}{\code{DSLiteServer$home()}}
 \item \href{#method-workspaces}{\code{DSLiteServer$workspaces()}}
@@ -61,7 +62,8 @@ when discovering the DataSHIELD configuration from the DataSHIELD server-side pa
   resources = list(),
   config = DSLite::defaultDSConfiguration(),
   strict = TRUE,
-  home = file.path(tempdir(), ".dslite")
+  home = file.path(tempdir(), ".dslite"),
+  profile = "default"
 )}\if{html}{\out{</div>}}
 }
 
@@ -76,7 +78,9 @@ when discovering the DataSHIELD configuration from the DataSHIELD server-side pa
 
 \item{\code{strict}}{Logical to specify whether the DataSHIELD configuration must be strictly applied. Default is TRUE.}
 
-\item{\code{home}}{Folder location where are located the session work directory and where to read and dump workspace images.
+\item{\code{home}}{Folder location where are located the session work directory and where to read and dump workspace images.}
+
+\item{\code{profile}}{The DataSHIELD profile name, used to give a name to the DS configuration. Default is "default".
 Default is in a hidden folder of the R session's temporary directory.}
 }
 \if{html}{\out{</div>}}
@@ -103,6 +107,26 @@ Get or set the DataSHIELD configuration.
 }
 \subsection{Returns}{
 The DataSHIELD configuration, if no parameter is provided.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-profile"></a>}}
+\if{latex}{\out{\hypertarget{method-profile}{}}}
+\subsection{Method \code{profile()}}{
+Get or set the DataSHIELD profile name.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$profile(value)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{value}}{The DataSHIELD profile name.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+The DataSHIELD profile, if no parameter is provided.
 }
 }
 \if{html}{\out{<hr>}}
@@ -337,13 +361,15 @@ The R option's value when only \code{key} parameter is provided.
 Create a new DataSHIELD session (contained execution environment), apply options that are defined
 in the DataSHIELD configuration and restore workspace image if \code{restore} workspace name argument is provided.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$newSession(restore = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$newSession(restore = NULL, profile = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{restore}}{The workspace image to be restored (optional).}
+
+\item{\code{profile}}{The requested profile name (optional). If provided, new session creation will fail in case it does not match the server's profile name.}
 }
 \if{html}{\out{</div>}}
 }

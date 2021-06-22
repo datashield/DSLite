@@ -22,9 +22,9 @@
 
 \item{table}{Fully qualified name of a dataset living in the DSLite server.}
 
-\item{variables}{List of variable names or Javascript expression that selects the variables of a table (ignored if value does not refere to a table). See javascript documentation: http://wiki.obiba.org/display/OPALDOC/Variable+Methods}
+\item{variables}{The variable names to be filtered in.}
 
-\item{missings}{If TRUE, missing values will be pushed from Opal to R, default is FALSE. Ignored if value is an R expression.}
+\item{missings}{Ignored.}
 
 \item{identifiers}{Name of the identifiers mapping to use when assigning entities to R (currently NOT supported by DSLite).}
 

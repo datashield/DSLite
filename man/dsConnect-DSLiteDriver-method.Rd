@@ -4,7 +4,7 @@
 \alias{dsConnect,DSLiteDriver-method}
 \title{Connect to a DSLite server}
 \usage{
-\S4method{dsConnect}{DSLiteDriver}(drv, name, url, restore = NULL, ...)
+\S4method{dsConnect}{DSLiteDriver}(drv, name, url, restore = NULL, profile = NULL, ...)
 }
 \arguments{
 \item{drv}{\code{\link{DSLiteDriver-class}} class object.}
@@ -16,6 +16,8 @@ option "datashield.env" can be used to specify where to search for this symbol v
 the environment is the global one.}
 
 \item{restore}{Workspace name to be restored in the newly created DataSHIELD R session.}
+
+\item{profile}{Name of the profile that will be given to the DSLiteServer configuration. Make different DSLiteServers to support different configurations.}
 
 \item{...}{Unused, needed for compatibility with generic.}
 }

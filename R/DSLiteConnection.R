@@ -21,6 +21,7 @@ setClass("DSLiteConnection", contains = "DSConnection", slots = list(name = "cha
 #' option "datashield.env" can be used to specify where to search for this symbol value. If not specified,
 #' the environment is the global one.
 #' @param restore Workspace name to be restored in the newly created DataSHIELD R session.
+#' @param profile Name of the profile that will be given to the DSLiteServer configuration. Make different DSLiteServers to support different configurations.
 #' @param ... Unused, needed for compatibility with generic.
 #'
 #' @return A \code{\link{DSLiteConnection-class}} object.
@@ -28,13 +29,13 @@ setClass("DSLiteConnection", contains = "DSConnection", slots = list(name = "cha
 #' @import methods
 #' @export
 setMethod("dsConnect", "DSLiteDriver",
-          function(drv, name, url, restore = NULL, ...) {
+          function(drv, name, url, restore = NULL, profile = NULL, ...) {
             # get the R symbol value
             server <- base::get(url, envir = getOption("datashield.env", parent.frame()))
             if (is.null(server) || !("DSLiteServer" %in% class(server))) {
               stop(paste0("Not a valid DSLite server identified by '", url, "', expecting an object of class: DSLiteServer"))
             }
-            sid <- server$newSession(restore = restore)
+            sid <- server$newSession(restore = restore, profile = profile)
             con <- new("DSLiteConnection", name = name, sid = sid, server = server)
             con
           })
@@ -45,7 +46,6 @@ setMethod("dsConnect", "DSLiteDriver",
 #' 
 #' @param conn \code{\link{DSLiteConnection-class}} class object
 #' 
-#' @import opalr
 #' @import methods
 #' @export
 setMethod("dsKeepAlive", "DSLiteConnection", function(conn) {})
@@ -163,6 +163,20 @@ setMethod("dsRmSymbol", "DSLiteConnection", function(conn, symbol) {
   conn@server$symbol_rm(conn@sid, symbol)
 })
 
+#' List profiles
+#' 
+#' List profiles defined in the DataSHIELD configuration.
+#' 
+#' @param conn \code{\link{DSLiteConnection-class}} class object
+#' 
+#' @return A list containing the "available" character vector of profile names and the "current" profile (in case a default one was assigned).
+#' 
+#' @import methods
+#' @export
+setMethod("dsListProfiles", "DSLiteConnection", function(conn) {
+  list(available = conn@server$profile(), current = conn@server$profile())
+})
+
 #' List methods
 #'
 #' List methods defined in the DataSHIELD configuration.
@@ -245,8 +259,8 @@ setMethod("dsRmWorkspace", "DSLiteConnection", function(conn, name) {
 #' @param conn \code{\link{DSLiteConnection-class}} object.
 #' @param symbol Name of the R symbol.
 #' @param table Fully qualified name of a dataset living in the DSLite server.
-#' @param variables List of variable names or Javascript expression that selects the variables of a table (ignored if value does not refere to a table). See javascript documentation: http://wiki.obiba.org/display/OPALDOC/Variable+Methods
-#' @param missings If TRUE, missing values will be pushed from Opal to R, default is FALSE. Ignored if value is an R expression.
+#' @param variables The variable names to be filtered in.
+#' @param missings Ignored.
 #' @param identifiers Name of the identifiers mapping to use when assigning entities to R (currently NOT supported by DSLite).
 #' @param id.name Name of the column that will contain the entity identifiers. If not specified, the identifiers
 #'   will be the data frame row names. When specified this column can be used to perform joins between data frames.

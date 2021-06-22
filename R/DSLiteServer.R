@@ -38,12 +38,14 @@ DSLiteServer <- R6::R6Class(
     #' @param config The DataSHIELD configuration. Default is to discover it from the DataSHIELD server-side R packages.
     #' @param strict Logical to specify whether the DataSHIELD configuration must be strictly applied. Default is TRUE.
     #' @param home Folder location where are located the session work directory and where to read and dump workspace images.
+    #' @param profile The DataSHIELD profile name, used to give a name to the DS configuration. Default is "default".
     #' Default is in a hidden folder of the R session's temporary directory.
     #' @return A DSLiteServer object
-    initialize = function(tables = list(), resources = list(), config = DSLite::defaultDSConfiguration(), strict = TRUE, home = file.path(tempdir(), ".dslite")) {
+    initialize = function(tables = list(), resources = list(), config = DSLite::defaultDSConfiguration(), strict = TRUE, home = file.path(tempdir(), ".dslite"), profile = "default") {
       private$.tables <- tables
       private$.resources <- resources
       private$.config <- config
+      private$.profile <- profile
       private$.strict <- strict
       private$.home <- home
       private$.home.mkdir()
@@ -59,7 +61,18 @@ DSLiteServer <- R6::R6Class(
         private$.config <- value
       }
     },
-
+    
+    #' @description Get or set the DataSHIELD profile name.
+    #' @param value The DataSHIELD profile name.
+    #' @return The DataSHIELD profile, if no parameter is provided.
+    profile = function(value) {
+      if (missing(value)) {
+        private$.profile
+      } else {
+        private$.profile <- value
+      }
+    },
+    
     #' @description Get or set the level of strictness (stop when function call is not configured)
     #' @param value The \code{strict} logical field.
     #' @return The strict field if no parameter is provided.
@@ -238,7 +251,10 @@ DSLiteServer <- R6::R6Class(
     #' @description Create a new DataSHIELD session (contained execution environment), apply options that are defined
     #' in the DataSHIELD configuration and restore workspace image if \code{restore} workspace name argument is provided.
     #' @param restore The workspace image to be restored (optional).
-    newSession = function(restore = NULL) {
+    #' @param profile The requested profile name (optional). If provided, new session creation will fail in case it does not match the server's profile name.
+    newSession = function(restore = NULL, profile = NULL) {
+      if (!is.null(profile) && !is.na(profile) && nchar(profile)>0 && private$.profile != profile)
+        stop("The requested DS profile '", profile, "' is different from the DSLiteServer's one: ", private$.profile)
       sid <- as.character(sample(1000:9999, 1))
       env <- new.env()
       parent.env(env) <- parent.env(parent.frame())
@@ -426,6 +442,8 @@ DSLiteServer <- R6::R6Class(
     .resources = NULL,
     # DataSHIELD configuration: aggregate/assign methods and options
     .config = NULL,
+    # DataSHIELD profile: name given to the configuration
+    .profile = "default",
     # if TRUE, stop when function call is not one of the configured ones
     .strict = TRUE,
     # home folder

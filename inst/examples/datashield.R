@@ -12,6 +12,7 @@ data("CNSIM2")
 data("CNSIM3")
 dslite.server <- newDSLiteServer(tables=list(CNSIM1=CNSIM1, CNSIM2=CNSIM2, CNSIM3=CNSIM3))
 dslite.server$config()
+dslite.server$profile()
 
 # datashield logins and assignments
 data("logindata.dslite.cnsim")
@@ -28,11 +29,11 @@ datashield.symbols(conns)
 
 # table assignment can also happen later
 datashield.assign(conns, "T", "CNSIM1", variables=c("GENDER"))
-datashield.aggregate(conns,'class(T)')
+datashield.aggregate(conns,'classDS(T)')
 
 # execute some aggregate calls (if these methods are available in the conns)
-datashield.aggregate(conns,'colnames(D)')
-datashield.aggregate(conns,quote(length(D$GENDER)))
+datashield.aggregate(conns,'colnamesDS(D)')
+datashield.aggregate(conns,quote(lengthDS(D$GENDER)))
 
 # clean symbols
 datashield.rm(conns,'D')
@@ -40,16 +41,18 @@ datashield.symbols(conns)
 
 # assign and aggregate arbitrary values
 datashield.assign(conns, "x", quote(c("1", "2", "3")))
-datashield.aggregate(conns,quote(length(x)))
-datashield.aggregate(conns,'class(x)')
+datashield.aggregate(conns,quote(lengthDS(x)))
+datashield.aggregate(conns,'classDS(x)')
 datashield.assign(conns, "xn", quote(as.numeric(x)))
-datashield.aggregate(conns,'class(xn)')
+datashield.aggregate(conns,'classDS(xn)')
 
 datashield.methods(conns, type="aggregate")
 datashield.methods(conns$sim1, type="aggregate")
 datashield.method_status(conns, type="assign")
 datashield.pkg_status(conns)
 datashield.table_status(conns, list(sim1="CNSIM1", sim2="CNSIM2", sim3="CNSIM3"))
+
+datashield.profiles(conns)
 
 datashield.logout(conns, save = "test")
 
@@ -62,4 +65,3 @@ datashield.workspaces(conns)
 datashield.workspace_rm(conns, "toto")
 datashield.workspaces(conns)
 datashield.logout(conns)
-
