@@ -4,7 +4,6 @@
 *.dll
 *.Rproj
 .Rproj.user
-*.html
 figure
 .RData
 inst/doc

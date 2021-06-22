@@ -12,3 +12,4 @@
 ^docs$
 ^appveyor\.yml$
 ^LICENSE\.md$
+^pkgdown$
