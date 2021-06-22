@@ -32,6 +32,7 @@ Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
 Encoding: UTF-8
 Collate: 
+    'DSLite-package.R'
     'DSLiteDriver.R'
     'DSLiteConnection.R'
     'DSLiteResult.R'
