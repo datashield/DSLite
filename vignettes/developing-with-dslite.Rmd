@@ -39,7 +39,7 @@ We recommend using the following tools to facilitate R package development:
 * [usethis](https://www.rdocumentation.org/packages/usethis), automate package and project setup tasks that are otherwise performed manually,
 * [testthat](https://www.rdocumentation.org/packages/testthat), for unit testing,
 * [roxygen2](https://www.rdocumentation.org/packages/roxygen2), for writing documentation in-line with code,
-* [Rstudio](https://rstudio.com/), the R editor that integrates the tools mentioned above and more.
+* [Rstudio](https://www.rstudio.com/), the R editor that integrates the tools mentioned above and more.
 
 ## DataSHIELD Development Flow
 
