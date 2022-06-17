@@ -10,7 +10,7 @@ Authors@R:
              comment = c(ORCID = "0000-0003-0138-2023")))
 Depends:
     R (>= 3.5.0),
-    DSI (>= 1.3),
+    DSI (>= 1.5),
     methods,
     R6
 Suggests:
@@ -29,7 +29,7 @@ URL: https://github.com/datashield/DSLite/,
     https://www.datashield.org/,
     https://doi.org/10.1093/ije/dyu188
 BugReports: https://github.com/datashield/DSLite/issues/
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.0
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
 Encoding: UTF-8

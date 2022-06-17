@@ -141,10 +141,32 @@ DSLiteServer <- R6::R6Class(
       wd <- private$.as.wd.path(sid)
       origwd <- setwd(wd)
       on.exit(setwd(origwd))
-      tryCatch(file.copy(from = list.files(wd), to = ws, recursive = TRUE, copy.mode = TRUE))
+      tryCatch(file.copy(from = list.files(wd), to = ws, recursive = TRUE, copy.mode = TRUE, overwrite = TRUE))
       # save environment image
       env <- private$.sessions[[sid]]
       save(list = ls(all.names = TRUE, envir = env), file=path, envir = env)
+    },
+    
+    #' @description Restore a saved session's workspace image into the session identified by the \code{sid} identifier
+    #'   with the provided \code{name} in the \code{home} folder.
+    #' @param sid, Session ID
+    #' @param name The name of the workspace's image to restore.
+    workspace_restore = function(sid, name) {
+      if (!is.null(name)) {
+        # restore image
+        path <- private$.as.ws.image.path(name)
+        if (file.exists(path)) {
+          load(path, envir = private$.sessions[[sid]])
+        }
+        # restore files
+        ws <- private$.as.ws.path(name)
+        files <- list.files(ws)
+        files <- files[files != ".RData"]
+        if (length(files)>0) {
+          files <- unlist(lapply(files, function(f) { file.path(ws, f) }))
+          file.copy(from = files, to = wd, recursive = TRUE, copy.mode = TRUE, overwrite = TRUE)
+        }
+      }
     },
 
     #' @description Remove the workspace image with the provided \code{name} from the \code{home} folder.
@@ -275,7 +297,7 @@ DSLiteServer <- R6::R6Class(
         files <- files[files != ".RData"]
         if (length(files)>0) {
           files <- unlist(lapply(files, function(f) { file.path(ws, f) }))
-          file.copy(from = files, to = wd, recursive = TRUE, copy.mode = TRUE)
+          file.copy(from = files, to = wd, recursive = TRUE, copy.mode = TRUE, overwrite = TRUE)
         }
       }
       sid
