@@ -3,7 +3,13 @@
 #' @param expr Expression
 #' @param debug Parser debug logger activated
 #' @return An Abstract Syntaxic Tree node
-#'
+#' @examples
+#' \dontrun{
+#' # a function call with a valid formula
+#' ast <- testParse("someregression(D$height ~ D$diameter + D$length)")
+#' # a function call with an invalid formula including a function call
+#' testParse("someregression(D$height ~ D$diameter + poly(D$length,3,raw=TRUE))")
+#' }
 #' @export
 #' @import rly
 testParse <- function(expr, debug = FALSE) {
