@@ -107,6 +107,10 @@ test_that("String with invalid chars", {
   expect_error(DSLite::testParse("'A(B)'"))
   expect_error(DSLite::testParse("'A[B]'"))
   expect_error(DSLite::testParse("'A*B'"))
+  expect_error(DSLite::testParse("'A\\B'"))
+  expect_error(DSLite::testParse("'A<-B'"))
+  expect_error(DSLite::testParse("'A\""))
+  expect_error(DSLite::testParse("\"A'"))
   # FIXME why not an error?
   #expect_error(ast <- DSLite::testParse("'A/B'"))
 })
@@ -123,6 +127,17 @@ test_that("A symbol", {
   ast <- DSLite::testParse("abc-DEF.123X$var_12")
   expect_true(inherits(ast, "SymbolNode"))
   expect_equal(ast$to_string(), "abc-DEF.123X$var_12")
+})
+
+test_that("Symbol with invalid chars", {
+  expect_error(DSLite::testParse("A[2, 1]"))
+  expect_error(DSLite::testParse("A[2, 1:2]"))
+  expect_error(DSLite::testParse("A[, 1]"))
+  expect_error(DSLite::testParse("A[1,]"))
+  expect_error(DSLite::testParse("A[, 1:2]"))
+  expect_error(DSLite::testParse("A[]"))
+  expect_error(DSLite::testParse("A[,]"))
+  expect_error(DSLite::testParse("A[[]]"))
 })
 
 #
