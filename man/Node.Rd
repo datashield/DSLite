@@ -10,8 +10,12 @@ DSLite parser simple AST node.
 \seealso{
 Other parser items: 
 \code{\link{BinaryOpNode}},
+\code{\link{FormulaNode}},
 \code{\link{FunctionNode}},
 \code{\link{GroupNode}},
+\code{\link{NumericNode}},
+\code{\link{ParameterNode}},
+\code{\link{RangeNode}},
 \code{\link{StringNode}},
 \code{\link{SymbolNode}},
 \code{\link{UnaryOpNode}}
@@ -36,6 +40,7 @@ Other parser items:
 \item \href{#method-Node-add_child}{\code{Node$add_child()}}
 \item \href{#method-Node-to_string}{\code{Node$to_string()}}
 \item \href{#method-Node-to_string_children}{\code{Node$to_string_children()}}
+\item \href{#method-Node-accept}{\code{Node$accept()}}
 \item \href{#method-Node-clone}{\code{Node$clone()}}
 }
 }
@@ -109,11 +114,28 @@ The string representation of the Node
 \if{html}{\out{<a id="method-Node-to_string_children"></a>}}
 \if{latex}{\out{\hypertarget{method-Node-to_string_children}{}}}
 \subsection{Method \code{to_string_children()}}{
-Cat the string representation of the Node's children
+Get the string representation of the Node's children
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Node$to_string_children()}\if{html}{\out{</div>}}
 }
 
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Node-accept"></a>}}
+\if{latex}{\out{\hypertarget{method-Node-accept}{}}}
+\subsection{Method \code{accept()}}{
+Accept visitor
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Node$accept(visitor)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{visitor}}{Node visitor object}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Node-clone"></a>}}

@@ -9,9 +9,13 @@ DSLite parser binary operation AST node.
 }
 \seealso{
 Other parser items: 
+\code{\link{FormulaNode}},
 \code{\link{FunctionNode}},
 \code{\link{GroupNode}},
 \code{\link{Node}},
+\code{\link{NumericNode}},
+\code{\link{ParameterNode}},
+\code{\link{RangeNode}},
 \code{\link{StringNode}},
 \code{\link{SymbolNode}},
 \code{\link{UnaryOpNode}}
@@ -31,6 +35,7 @@ Other parser items:
 \if{html}{\out{
 <details open><summary>Inherited methods</summary>
 <ul>
+<li><span class="pkg-link" data-pkg="DSLite" data-topic="Node" data-id="accept"><a href='../../DSLite/html/Node.html#method-Node-accept'><code>DSLite::Node$accept()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="DSLite" data-topic="Node" data-id="initialize"><a href='../../DSLite/html/Node.html#method-Node-initialize'><code>DSLite::Node$initialize()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="DSLite" data-topic="Node" data-id="set_parent"><a href='../../DSLite/html/Node.html#method-Node-set_parent'><code>DSLite::Node$set_parent()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="DSLite" data-topic="Node" data-id="to_string_children"><a href='../../DSLite/html/Node.html#method-Node-to_string_children'><code>DSLite::Node$to_string_children()</code></a></span></li>
@@ -58,7 +63,7 @@ Two children
 \if{html}{\out{<a id="method-BinaryOpNode-to_string"></a>}}
 \if{latex}{\out{\hypertarget{method-BinaryOpNode-to_string}{}}}
 \subsection{Method \code{to_string()}}{
-Cat the string representation of the BinaryOpNode
+Get the string representation of the BinaryOpNode
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BinaryOpNode$to_string()}\if{html}{\out{</div>}}
 }

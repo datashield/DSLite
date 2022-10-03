@@ -46,7 +46,6 @@ Collate:
     'data.survival.R'
     'data.testing.dataset.R'
     'defaultDSConfiguration.R'
-    'dsParse.R'
     'getDSLiteData.R'
     'lex-yacc.R'
     'setupCNSIMTest.R'
@@ -55,3 +54,4 @@ Collate:
     'setupDISCORDANTTest.R'
     'setupDSLiteServer.R'
     'setupSURVIVALTest.R'
+    'testParse.R'

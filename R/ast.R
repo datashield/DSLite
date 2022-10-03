@@ -56,7 +56,7 @@ Node <- R6::R6Class(
       paste0(str, self$to_string_children())
     },
     
-    #' @description Cat the string representation of the Node's children 
+    #' @description Get the string representation of the Node's children 
     to_string_children = function() {
       str <- ""
       if (!is.null(self$children)) {
@@ -67,6 +67,19 @@ Node <- R6::R6Class(
         }
       }
       str
+    },
+    
+    #' @description Accept visitor
+    #' @param visitor Node visitor object
+    accept = function(visitor) {
+      visitor$visit(self)
+      if (!is.null(self$children)) {
+        for (child in self$children) {
+          if (!is.null(child)) {
+            child$accept(visitor)
+          }
+        }
+      }
     }
   )
 )
@@ -84,7 +97,7 @@ FunctionNode <- R6::R6Class(
   inherit = Node,
   public = list(
     
-    #' @description Cat the string representation of the FunctionNode
+    #' @description Get the string representation of the FunctionNode
     to_string = function() {
       str <- paste0(self$name, "(")
       if (!is.null(self$children)) {
@@ -121,7 +134,33 @@ SymbolNode <- R6::R6Class(
       stop("Symbol node has no children")
     },
     
-    #' @description Cat the string representation of the SymbolNode
+    #' @description Get the string representation of the SymbolNode
+    to_string = function() {
+      as.character(self$name)
+    }
+  )
+)
+
+#' @title Numeric AST node
+#'
+#' @description DSLite parser numeric (integer or float) AST node.
+#'
+#' @family parser items
+#' @docType class
+#' @import R6
+#' @export
+NumericNode <- R6::R6Class(
+  "NumericNode",
+  inherit = Node,
+  public = list(
+    
+    #' @description No children
+    #' @param val Child Node
+    add_child = function(val) {
+      stop("Numeric node has no children")
+    },
+    
+    #' @description Get the string representation of the NumericNode
     to_string = function() {
       as.character(self$name)
     }
@@ -147,9 +186,9 @@ StringNode <- R6::R6Class(
       stop("String node has no children")
     },
     
-    #' @description Cat the string representation of the StringNode
+    #' @description Get the string representation of the StringNode
     to_string = function() {
-      paste0("\"", self$name, "\"")
+      self$name
     }
   )
 )
@@ -175,9 +214,63 @@ UnaryOpNode <- R6::R6Class(
       super$add_child(val)
     },
     
-    #' @description Cat the string representation of the UnaryOpNode
+    #' @description Get the string representation of the UnaryOpNode
     to_string = function() {
       paste0(self$name, self$children[[1]]$to_string())
+    }
+  )
+)
+
+#' @title Parameter AST node
+#'
+#' @description DSLite parser named parameter AST node.
+#'
+#' @family parser items
+#' @docType class
+#' @import R6
+ParameterNode <- R6::R6Class(
+  "ParameterNode",
+  inherit = Node,
+  public = list(
+    
+    #' @description Two children
+    #' @param val Child Node
+    add_child = function(val) {
+      if (length(self$children)>1)
+        stop("ParameterNode node has only two children")
+      super$add_child(val)
+    },
+    
+    #' @description Get the string representation of the BinaryOpNode
+    to_string = function() {
+      paste0(self$children[[1]]$to_string(), " = ", self$children[[2]]$to_string())
+    }
+  )
+)
+
+#' @title Formula AST node
+#'
+#' @description DSLite parser formula AST node.
+#'
+#' @family parser items
+#' @docType class
+#' @import R6
+FormulaNode <- R6::R6Class(
+  "FormulaNode",
+  inherit = Node,
+  public = list(
+    
+    #' @description Two children
+    #' @param val Child Node
+    add_child = function(val) {
+      if (length(self$children)>1)
+        stop("FormulaNode node has only two children")
+      super$add_child(val)
+    },
+    
+    #' @description Get the string representation of the BinaryOpNode
+    to_string = function() {
+      paste0(self$children[[1]]$to_string()," ~ ", self$children[[2]]$to_string())
     }
   )
 )
@@ -202,13 +295,40 @@ BinaryOpNode <- R6::R6Class(
       super$add_child(val)
     },
     
-    #' @description Cat the string representation of the BinaryOpNode
+    #' @description Get the string representation of the BinaryOpNode
     to_string = function() {
-      paste0(self$children[[1]]$to_string(), " ", self$name, " ", self$children[[2]]$to_string())
+      paste0(self$children[[1]]$to_string(), ifelse(self$name %in% c("^", ":"), self$name, paste0(" ", self$name, " ")), self$children[[2]]$to_string())
     }
   )
 )
 
+
+#' @title Range AST node
+#'
+#' @description DSLite parser numeric range AST node.
+#'
+#' @family parser items
+#' @docType class
+#' @import R6
+RangeNode <- R6::R6Class(
+  "RangeNode",
+  inherit = Node,
+  public = list(
+    
+    #' @description Two children
+    #' @param val Child Node
+    add_child = function(val) {
+      if (length(self$children)>1)
+        stop("Range node has only two operands")
+      super$add_child(val)
+    },
+    
+    #' @description Get the string representation of the BinaryOpNode
+    to_string = function() {
+      paste0(self$children[[1]]$to_string(), ":", self$children[[2]]$to_string())
+    }
+  )
+)
 #' @title Group AST node
 #'
 #' @description DSLite parser group AST node.
@@ -222,7 +342,7 @@ GroupNode <- R6::R6Class(
   inherit = Node,
   public = list(
     
-    #' @description Cat the string representation of the GroupNode
+    #' @description Get the string representation of the GroupNode
     to_string = function() {
       str <- "("
       if (!is.null(self$children)) {

@@ -10,8 +10,12 @@ DSLite parser function AST node.
 \seealso{
 Other parser items: 
 \code{\link{BinaryOpNode}},
+\code{\link{FormulaNode}},
 \code{\link{GroupNode}},
 \code{\link{Node}},
+\code{\link{NumericNode}},
+\code{\link{ParameterNode}},
+\code{\link{RangeNode}},
 \code{\link{StringNode}},
 \code{\link{SymbolNode}},
 \code{\link{UnaryOpNode}}
@@ -30,6 +34,7 @@ Other parser items:
 \if{html}{\out{
 <details open><summary>Inherited methods</summary>
 <ul>
+<li><span class="pkg-link" data-pkg="DSLite" data-topic="Node" data-id="accept"><a href='../../DSLite/html/Node.html#method-Node-accept'><code>DSLite::Node$accept()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="DSLite" data-topic="Node" data-id="add_child"><a href='../../DSLite/html/Node.html#method-Node-add_child'><code>DSLite::Node$add_child()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="DSLite" data-topic="Node" data-id="initialize"><a href='../../DSLite/html/Node.html#method-Node-initialize'><code>DSLite::Node$initialize()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="DSLite" data-topic="Node" data-id="set_parent"><a href='../../DSLite/html/Node.html#method-Node-set_parent'><code>DSLite::Node$set_parent()</code></a></span></li>
@@ -41,7 +46,7 @@ Other parser items:
 \if{html}{\out{<a id="method-FunctionNode-to_string"></a>}}
 \if{latex}{\out{\hypertarget{method-FunctionNode-to_string}{}}}
 \subsection{Method \code{to_string()}}{
-Cat the string representation of the FunctionNode
+Get the string representation of the FunctionNode
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{FunctionNode$to_string()}\if{html}{\out{</div>}}
 }
