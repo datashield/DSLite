@@ -111,8 +111,8 @@ test_that("String with invalid chars", {
   expect_error(DSLite::testParse("'A<-B'"))
   expect_error(DSLite::testParse("'A\""))
   expect_error(DSLite::testParse("\"A'"))
-  # FIXME why not an error?
-  #expect_error(ast <- DSLite::testParse("'A/B'"))
+  # FIXME why not an error? problem with R regexpr?
+  #expect_error(ast <- DSLite::testParse("'A/B'", debug = T))
 })
 
 #
@@ -206,9 +206,13 @@ test_that("A formula", {
   expect_true(inherits(ast, "FormulaNode"))
   expect_equal(ast$to_string(), "A ~ B")
   
-  ast <- DSLite::testParse("A ~ B + C")
+  ast <- DSLite::testParse("A ~ B.C_123$D")
   expect_true(inherits(ast, "FormulaNode"))
-  expect_equal(ast$to_string(), "A ~ B + C")
+  expect_equal(ast$to_string(), "A ~ B.C_123$D")
+
+  ast <- DSLite::testParse("A ~ 123")
+  expect_true(inherits(ast, "FormulaNode"))
+  expect_equal(ast$to_string(), "A ~ 123")
 })
 
 test_that("A formula with operators", {
@@ -225,16 +229,28 @@ test_that("A formula with operators", {
   expect_equal(ast$to_string(), "A ~ B^4")
   
   ast <- DSLite::testParse("A ~ B : C")
-  expect_true(inherits(ast, "RangeNode")) # FIXME should be FormulaNode
+  expect_true(inherits(ast, "FormulaNode"))
   expect_equal(ast$to_string(), "A ~ B:C")
   
+  ast <- DSLite::testParse("A ~ (B : C)")
+  expect_true(inherits(ast, "FormulaNode"))
+  expect_equal(ast$to_string(), "A ~ (B:C)")
+  
   ast <- DSLite::testParse("A ~ B %in% C")
-  expect_true(inherits(ast, "BinaryOpNode")) # FIXME should be FormulaNode
+  expect_true(inherits(ast, "FormulaNode"))
   expect_equal(ast$to_string(), "A ~ B %in% C")
   
+  ast <- DSLite::testParse("A ~ (B %in% C)")
+  expect_true(inherits(ast, "FormulaNode"))
+  expect_equal(ast$to_string(), "A ~ (B %in% C)")
+  
   ast <- DSLite::testParse("A ~ B + (C * D)^4 : E %in% F")
-  expect_true(inherits(ast, "BinaryOpNode")) # FIXME should be FormulaNode
+  expect_true(inherits(ast, "FormulaNode"))
   expect_equal(ast$to_string(), "A ~ B + (C * D)^4:E %in% F")
+})
+
+test_that("Formula with invalid syntax", {
+  expect_error(DSLite::testParse("someregression(D$height ~ D$diameter + poly(D$length, 3, raw=TRUE))"))
 })
 
 #

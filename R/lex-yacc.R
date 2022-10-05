@@ -1,4 +1,4 @@
-TOKENS = c('NAME', 'STRING', 'DBLSTRING', 'INTEGER', 'NUMBER', 'PCTOP', 'INOP', 'NOTOP')
+TOKENS = c('NAME', 'STRING', 'DBLSTRING', 'INTEGER', 'NUMBER', 'PCTOP', 'NOTOP')
 # these are "LEXEMES" (ref: https://stackoverflow.com/questions/14954721/what-is-the-difference-between-a-token-and-a-lexeme)
 LITERALS = c('=', '+', '-', '*', '/', '(', ')', ',', '~', '^', ':', '!')
 
@@ -22,8 +22,6 @@ Lexer <- R6::R6Class(
     
     t_NOTOP = '!',
     
-    t_INOP = '%in%',
-    
     t_ignore = " \t\n\r",
     
     t_error = function(t) {
@@ -41,9 +39,8 @@ Parser <- R6::R6Class(
     literals = LITERALS,
     # Parsing rules
     precedence = list(
-      c('left', '~'),
       c('left', '+', '-'),
-      c('left', '*', '/', 'PCTOP', 'INOP'),
+      c('left', '*', '/', 'PCTOP', ':', '^'),
       c('right', 'UMINUS', 'NOTOP')
     ),
     
@@ -61,6 +58,17 @@ Parser <- R6::R6Class(
       p$set(1, op)
     },
     
+    p_formula_term_binop = function(doc="formula_term : formula_term '+' formula_term
+                                                      | formula_term '-' formula_term
+                                                      | formula_term '*' formula_term
+                                                      | formula_term ':' formula_term
+                                                      | formula_term '^' formula_term
+                                                      | formula_term PCTOP formula_term", p) {
+      op <- BinaryOpNode$new(p$get(3))
+      op$add_child(p$get(2))
+      op$add_child(p$get(4))
+      p$set(1, op)
+    },
     
     p_formula_term_name = function(doc='formula_term : NAME', p) {
       p$set(1, SymbolNode$new(p$get(2)))
@@ -68,18 +76,6 @@ Parser <- R6::R6Class(
     
     p_formula_term_number = function(doc='formula_term : NUMBER', p) {
       p$set(1, NumericNode$new(p$get(2)))
-    },
-    
-    p_formula_term_binop = function(doc="formula_term : formula_term '+' formula_term
-                                                      | formula_term '-' formula_term
-                                                      | formula_term '*' formula_term
-                                                      | formula_term ':' formula_term
-                                                      | formula_term '^' formula_term
-                                                      | formula_term INOP formula_term", p) {
-      op <- BinaryOpNode$new(p$get(3))
-      op$add_child(p$get(2))
-      op$add_child(p$get(4))
-      p$set(1, op)
     },
     
     p_formula_term_not = function(doc='formula_term : NOTOP formula_term', p) {
