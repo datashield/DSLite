@@ -5,7 +5,7 @@
 \alias{StringNode}
 \title{String AST node}
 \description{
-DSLite parser string AST node.
+AST node that represent a string value, either single or double quoted.
 }
 \seealso{
 Other parser items: 

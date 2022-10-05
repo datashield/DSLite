@@ -5,7 +5,7 @@
 \alias{GroupNode}
 \title{Group AST node}
 \description{
-DSLite parser group AST node.
+AST node that reprsents a group of tokens enclosed by parenthesis.
 }
 \seealso{
 Other parser items: 

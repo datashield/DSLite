@@ -5,7 +5,7 @@
 \alias{ParameterNode}
 \title{Parameter AST node}
 \description{
-DSLite parser named parameter AST node.
+AST node that represents a function's named parameter (such as NAME = <expression>).
 }
 \seealso{
 Other parser items: 

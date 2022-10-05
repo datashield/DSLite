@@ -5,7 +5,7 @@
 \alias{SymbolNode}
 \title{Symbol AST node}
 \description{
-DSLite parser symbol AST node.
+AST node that represents a R symbol (variable name, function name etc.).
 }
 \seealso{
 Other parser items: 

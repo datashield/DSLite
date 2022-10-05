@@ -5,7 +5,7 @@
 \alias{FunctionNode}
 \title{Function AST node}
 \description{
-DSLite parser function AST node.
+AST node that represents a function with its arguments.
 }
 \seealso{
 Other parser items: 

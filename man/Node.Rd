@@ -5,7 +5,7 @@
 \alias{Node}
 \title{Simple AST node}
 \description{
-DSLite parser simple AST node.
+Abstract Syntaxic Tree (AST) node that will be created by the DSLite R parser.
 }
 \seealso{
 Other parser items: 

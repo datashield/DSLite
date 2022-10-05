@@ -5,7 +5,7 @@
 \alias{UnaryOpNode}
 \title{Unary operator AST node}
 \description{
-DSLite parser unary operator AST node.
+AST node that represents a unary operator (such as '-'), therefore having a single child node.
 }
 \seealso{
 Other parser items: 

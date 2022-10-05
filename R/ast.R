@@ -1,6 +1,6 @@
 #' @title Simple AST node
 #'
-#' @description DSLite parser simple AST node.
+#' @description Abstract Syntaxic Tree (AST) node that will be created by the DSLite R parser.
 #'
 #' @field name Token value
 #' @field parent Parent Node
@@ -86,7 +86,7 @@ Node <- R6::R6Class(
 
 #' @title Function AST node
 #'
-#' @description DSLite parser function AST node.
+#' @description AST node that represents a function with its arguments.
 #'
 #' @family parser items
 #' @docType class
@@ -117,7 +117,7 @@ FunctionNode <- R6::R6Class(
 
 #' @title Symbol AST node
 #'
-#' @description DSLite parser symbol AST node.
+#' @description AST node that represents a R symbol (variable name, function name etc.).
 #'
 #' @family parser items
 #' @docType class
@@ -143,7 +143,7 @@ SymbolNode <- R6::R6Class(
 
 #' @title Numeric AST node
 #'
-#' @description DSLite parser numeric (integer or float) AST node.
+#' @description AST node that reprsents a numeric (integer or float) value.
 #'
 #' @family parser items
 #' @docType class
@@ -169,7 +169,7 @@ NumericNode <- R6::R6Class(
 
 #' @title String AST node
 #'
-#' @description DSLite parser string AST node.
+#' @description AST node that represent a string value, either single or double quoted.
 #'
 #' @family parser items
 #' @docType class
@@ -195,7 +195,7 @@ StringNode <- R6::R6Class(
 
 #' @title Unary operator AST node
 #'
-#' @description DSLite parser unary operator AST node.
+#' @description AST node that represents a unary operator (such as '-'), therefore having a single child node.
 #'
 #' @family parser items
 #' @docType class
@@ -223,7 +223,7 @@ UnaryOpNode <- R6::R6Class(
 
 #' @title Parameter AST node
 #'
-#' @description DSLite parser named parameter AST node.
+#' @description AST node that represents a function's named parameter (such as NAME = <expression>).
 #'
 #' @family parser items
 #' @docType class
@@ -250,7 +250,7 @@ ParameterNode <- R6::R6Class(
 
 #' @title Formula AST node
 #'
-#' @description DSLite parser formula AST node.
+#' @description AST node that reprsents a formula (such as NAME ~ <terms>).
 #'
 #' @family parser items
 #' @docType class
@@ -277,7 +277,7 @@ FormulaNode <- R6::R6Class(
 
 #' @title Binary operation AST node
 #'
-#' @description DSLite parser binary operation AST node.
+#' @description AST node that represents a binary operation (such as '+', '-' etc.), and therefore having two child nodes.
 #'
 #' @family parser items
 #' @docType class
@@ -305,7 +305,7 @@ BinaryOpNode <- R6::R6Class(
 
 #' @title Range AST node
 #'
-#' @description DSLite parser numeric range AST node.
+#' @description AST node that represents a range of values (such as <min expression>:<max expression>), therefore having two child nodes.
 #'
 #' @family parser items
 #' @docType class
@@ -331,7 +331,7 @@ RangeNode <- R6::R6Class(
 )
 #' @title Group AST node
 #'
-#' @description DSLite parser group AST node.
+#' @description AST node that reprsents a group of tokens enclosed by parenthesis.
 #'
 #' @family parser items
 #' @docType class

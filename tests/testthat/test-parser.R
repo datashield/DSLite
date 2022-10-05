@@ -250,7 +250,8 @@ test_that("A formula with operators", {
 })
 
 test_that("Formula with invalid syntax", {
-  expect_error(DSLite::testParse("someregression(D$height ~ D$diameter + poly(D$length, 3, raw=TRUE))"))
+  expect_error(DSLite::testParse("A ~ 'abc'"))
+  expect_error(DSLite::testParse("D$height ~ D$diameter + poly(D$length, 3, raw=TRUE)"))
 })
 
 #

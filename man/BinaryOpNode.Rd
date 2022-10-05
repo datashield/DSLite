@@ -5,7 +5,7 @@
 \alias{BinaryOpNode}
 \title{Binary operation AST node}
 \description{
-DSLite parser binary operation AST node.
+AST node that represents a binary operation (such as '+', '-' etc.), and therefore having two child nodes.
 }
 \seealso{
 Other parser items: 

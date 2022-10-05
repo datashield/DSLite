@@ -5,7 +5,7 @@
 \alias{FormulaNode}
 \title{Formula AST node}
 \description{
-DSLite parser formula AST node.
+AST node that reprsents a formula (such as NAME ~ <terms>).
 }
 \seealso{
 Other parser items: 

@@ -1,4 +1,4 @@
-#' Parse an expression according DataSHIELD syntax rules and returns an Abstract Syntaxic Tree (AST) node.
+#' Parse an expression according to DataSHIELD syntax rules and returns an Abstract Syntaxic Tree (AST) node.
 #'
 #' @param expr Expression
 #' @param debug Parser debug logger activated

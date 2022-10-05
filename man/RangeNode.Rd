@@ -5,7 +5,7 @@
 \alias{RangeNode}
 \title{Range AST node}
 \description{
-DSLite parser numeric range AST node.
+AST node that represents a range of values (such as <min expression>:<max expression>), therefore having two child nodes.
 }
 \seealso{
 Other parser items: 

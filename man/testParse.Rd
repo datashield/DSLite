@@ -2,7 +2,7 @@
 % Please edit documentation in R/testParse.R
 \name{testParse}
 \alias{testParse}
-\title{Parse an expression according DataSHIELD syntax rules and returns an Abstract Syntaxic Tree (AST) node.}
+\title{Parse an expression according to DataSHIELD syntax rules and returns an Abstract Syntaxic Tree (AST) node.}
 \usage{
 testParse(expr, debug = FALSE)
 }
@@ -15,7 +15,7 @@ testParse(expr, debug = FALSE)
 An Abstract Syntaxic Tree node
 }
 \description{
-Parse an expression according DataSHIELD syntax rules and returns an Abstract Syntaxic Tree (AST) node.
+Parse an expression according to DataSHIELD syntax rules and returns an Abstract Syntaxic Tree (AST) node.
 }
 \examples{
 \dontrun{

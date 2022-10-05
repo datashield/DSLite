@@ -5,7 +5,7 @@
 \alias{NumericNode}
 \title{Numeric AST node}
 \description{
-DSLite parser numeric (integer or float) AST node.
+AST node that reprsents a numeric (integer or float) value.
 }
 \seealso{
 Other parser items: 
