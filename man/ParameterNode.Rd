@@ -5,7 +5,7 @@
 \alias{ParameterNode}
 \title{Parameter AST node}
 \description{
-AST node that represents a function's named parameter (such as NAME = <expression>).
+AST node that represents a function's named parameter (such as NAME = \emph{expression}).
 }
 \seealso{
 Other parser items: 

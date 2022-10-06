@@ -5,7 +5,7 @@
 \alias{RangeNode}
 \title{Range AST node}
 \description{
-AST node that represents a range of values (such as <min expression>:<max expression>), therefore having two child nodes.
+AST node that represents a range of values (such as \emph{min expression}:\emph{max expression}), therefore having two child nodes.
 }
 \seealso{
 Other parser items: 

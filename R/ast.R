@@ -223,7 +223,7 @@ UnaryOpNode <- R6::R6Class(
 
 #' @title Parameter AST node
 #'
-#' @description AST node that represents a function's named parameter (such as NAME = <expression>).
+#' @description AST node that represents a function's named parameter (such as NAME = _expression_).
 #'
 #' @family parser items
 #' @docType class
@@ -250,7 +250,7 @@ ParameterNode <- R6::R6Class(
 
 #' @title Formula AST node
 #'
-#' @description AST node that reprsents a formula (such as NAME ~ <terms>).
+#' @description AST node that reprsents a formula (such as NAME ~ _terms_).
 #'
 #' @family parser items
 #' @docType class
@@ -302,10 +302,9 @@ BinaryOpNode <- R6::R6Class(
   )
 )
 
-
 #' @title Range AST node
 #'
-#' @description AST node that represents a range of values (such as <min expression>:<max expression>), therefore having two child nodes.
+#' @description AST node that represents a range of values (such as _min expression_:_max expression_), therefore having two child nodes.
 #'
 #' @family parser items
 #' @docType class

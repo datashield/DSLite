@@ -5,7 +5,7 @@
 \alias{FormulaNode}
 \title{Formula AST node}
 \description{
-AST node that reprsents a formula (such as NAME ~ <terms>).
+AST node that reprsents a formula (such as NAME ~ \emph{terms}).
 }
 \seealso{
 Other parser items: 
