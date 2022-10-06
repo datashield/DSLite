@@ -239,6 +239,19 @@ setMethod("dsSaveWorkspace", "DSLiteConnection", function(conn, name) {
   conn@server$workspace_save(conn@sid, name)
 })
 
+#' Restore workspace
+#' 
+#' Restore workspace from the data repository.
+#'
+#' @param conn \code{\link{DSLiteConnection-class}} class object
+#' @param name Name of the workspace.
+#'
+#' @import methods
+#' @export
+setMethod("dsRestoreWorkspace", "DSLiteConnection", function(conn, name) {
+  conn@server$workspace_restore(conn@sid, name)
+})
+
 #' Remove a workspace
 #'
 #' Remove a workspace on the data repository.

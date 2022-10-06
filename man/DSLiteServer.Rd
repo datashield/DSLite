@@ -24,6 +24,7 @@ Other server-side items:
 \item \href{#method-DSLiteServer-home}{\code{DSLiteServer$home()}}
 \item \href{#method-DSLiteServer-workspaces}{\code{DSLiteServer$workspaces()}}
 \item \href{#method-DSLiteServer-workspace_save}{\code{DSLiteServer$workspace_save()}}
+\item \href{#method-DSLiteServer-workspace_restore}{\code{DSLiteServer$workspace_restore()}}
 \item \href{#method-DSLiteServer-workspace_rm}{\code{DSLiteServer$workspace_rm()}}
 \item \href{#method-DSLiteServer-aggregateMethods}{\code{DSLiteServer$aggregateMethods()}}
 \item \href{#method-DSLiteServer-aggregateMethod}{\code{DSLiteServer$aggregateMethod()}}
@@ -202,6 +203,26 @@ with the provided \code{name} in the \code{home} folder.
 \item{\code{sid, }}{Session ID}
 
 \item{\code{name}}{The name to be given to the workspace's image.}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DSLiteServer-workspace_restore"></a>}}
+\if{latex}{\out{\hypertarget{method-DSLiteServer-workspace_restore}{}}}
+\subsection{Method \code{workspace_restore()}}{
+Restore a saved session's workspace image into the session identified by the \code{sid} identifier
+with the provided \code{name} in the \code{home} folder.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$workspace_restore(sid, name)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{sid, }}{Session ID}
+
+\item{\code{name}}{The name of the workspace's image to restore.}
 }
 \if{html}{\out{</div>}}
 }
