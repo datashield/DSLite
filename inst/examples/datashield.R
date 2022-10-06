@@ -5,6 +5,7 @@
 #
 
 library(DSLite)
+library(dsBaseClient)
 
 # prepare data in a light DS server
 data("CNSIM1")
@@ -29,11 +30,14 @@ datashield.symbols(conns)
 
 # table assignment can also happen later
 datashield.assign(conns, "T", "CNSIM1", variables=c("GENDER"))
-datashield.aggregate(conns,'classDS(T)')
+ds.class("T")
+ds.colnames("T")
+ds.class("T$GENDER")
 
 # execute some aggregate calls (if these methods are available in the conns)
-datashield.aggregate(conns,'colnamesDS(D)')
-datashield.aggregate(conns,quote(lengthDS(D$GENDER)))
+ds.class("D")
+ds.colnames("D")
+ds.length("D$GENDER")
 
 # clean symbols
 datashield.rm(conns,'D')
@@ -41,10 +45,10 @@ datashield.symbols(conns)
 
 # assign and aggregate arbitrary values
 datashield.assign(conns, "x", quote(c("1", "2", "3")))
-datashield.aggregate(conns,quote(lengthDS(x)))
-datashield.aggregate(conns,'classDS(x)')
+ds.length("x")
+ds.class("x")
 datashield.assign(conns, "xn", quote(as.numeric(x)))
-datashield.aggregate(conns,'classDS(xn)')
+ds.class("xn")
 
 datashield.methods(conns, type="aggregate")
 datashield.methods(conns$sim1, type="aggregate")
