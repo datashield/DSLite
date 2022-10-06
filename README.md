@@ -1,6 +1,6 @@
 # DataSHIELD Lite
 
-[![Build Status](https://travis-ci.com/datashield/DSLite.svg?branch=master)](https://travis-ci.com/datashield/DSLite)
+[![Build Status](https://app.travis-ci.com/datashield/DSLite.svg?branch=master)](https://app.travis-ci.com/github/datashield/DSLite)
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/DSLite)](https://cran.r-project.org/package=DSLite)
 
 Serverless [DataSHIELD Interface (DSI)](https://datashield.github.io/DSI/) implementation which purpose is to mimic
