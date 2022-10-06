@@ -469,6 +469,10 @@ DSLiteServer <- R6::R6Class(
     .profile = "default",
     # if TRUE, stop when function call is not one of the configured ones
     .strict = TRUE,
+    # Generated lexer
+    .lexer = NULL,
+    # Generated parser
+    .parser = NULL,
     # home folder
     .home = NULL,
     # active DataSHIELD sessions (contained execution environments)
@@ -509,40 +513,44 @@ DSLiteServer <- R6::R6Class(
           }
         }
       }
-
-      if (!is.null(methods)) {
-        # develop function calls according to configured methods
-        parseExpr <- parse(text = exprStr, keep.source = TRUE)
-        parseData <- utils::getParseData(parseExpr)
-        if (getOption("dslite.debug", FALSE)) {
-          print(parseData)
-        }
-        parseData <- parseData[parseData$token != "expr",]
-
-        for (i in 1:length(parseData$token)) {
-          if (parseData[i,]$token == "SYMBOL_FUNCTION_CALL") {
-            method <- parseData[i,]$text
-            replacement <- replaceMethod(method)
-            if (getOption("dslite.debug", FALSE)) {
-              message("Replacement of '", method, "': '", replacement, "' (is.na=", is.na(replacement), ")")
-            }
-            if (!is.na(replacement)) {
-              parseData[i,]$text <- replacement
-            } else if (private$.strict) {
-              if (is.null(methods) || length(methods) == 0) {
-                stop(paste0("DataSHIELD configuration does not allow expression: ", method,
-                            "\nNo DataSHIELD methods have been configured (No DataSHIELD server-side package is installed)."),
-                     call. = FALSE)
-              } else {
-                stop(paste0("DataSHIELD configuration does not allow expression: ", method,
-                            "\nSupported function calls are: ", paste0(methods$name, collapse = ", ")),
-                     call. = FALSE)
-              }
+      
+      replaceFunctionNode <- function(node) {
+        if ("FunctionNode" %in% class(node)) {
+          method <- node$name
+          replacement <- replaceMethod(method)
+          if (getOption("dslite.debug", FALSE)) {
+            message("Replacement of '", method, "': '", replacement, "' (is.na=", is.na(replacement), ")")
+          }
+          if (!is.na(replacement)) {
+            node$name <- replacement
+          } else if (private$.strict) {
+            if (is.null(methods) || length(methods) == 0) {
+              stop(paste0("DataSHIELD configuration does not allow expression: ", method,
+                          "\nNo DataSHIELD methods have been configured (No DataSHIELD server-side package is installed)."),
+                   call. = FALSE)
+            } else {
+              stop(paste0("DataSHIELD configuration does not allow expression: ", method,
+                          "\nSupported function calls are: ", paste0(methods$name, collapse = ", ")),
+                   call. = FALSE)
             }
           }
         }
-        # text may be truncated
-        exprStr <- paste(unlist(lapply(rownames(parseData), function(id) utils::getParseText(parseData, id))), collapse = "")
+        
+        if (!is.null(self$children)) {
+          for (child in self$children) {
+            if (!is.null(child)) {
+              replaceFunctionNode(child)
+            }
+          }
+        }
+      }
+
+      if (!is.null(methods)) {
+        
+        # develop function calls according to configured methods
+        ast <- private$.parse(exprStr)
+        replaceFunctionNode(ast)
+        exprStr <- ast$to_string()
       }
       if (getOption("dslite.verbose", FALSE)) {
         message(paste0("Expression to evaluate: ", exprStr))
@@ -656,6 +664,24 @@ DSLiteServer <- R6::R6Class(
     # get working directory corresponding to the session
     .get.wd = function(sid) {
       private$.as.wd.path(sid)
+    },
+    # parse an expression string
+    .parse = function(exprStr) {
+      private$.get.parser()$parse(exprStr, private$.get.lexer())
+    },
+    # generate parser/lexer only once
+    .get.parser = function() {
+      if (is.null(private$.parser)) {
+        private$.parser <- rly::yacc(Parser)
+      }
+      private$.parser
+    },
+    # generate parser/lexer only once
+    .get.lexer = function() {
+      if (is.null(private$.lexer)) {
+        private$.lexer <- rly::lex(Lexer)
+      }
+      private$.lexer
     }
   )
 )

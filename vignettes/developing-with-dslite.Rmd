@@ -158,18 +158,6 @@ data1 <- getDSLiteData(conns$sim1, "D")
 
 ### Limitations
 
-#### Function Parameters Parser
-
-The main difference with a regular DSI implementation (such as the one of DSOpal) is that the arguments of the DataSHIELD functional calls are not parsed in DSLite. The only R language element that is inspected and handled is the name of the functions, that are replaced by the ones defined in the DataSHIELD configuration.
-
-For instance the following expression, which includes a function call in the formula, is valid for the DSLiteServer but not for Opal:
-
-```{r eval=FALSE}
-someregression(D$height ~ D$diameter + poly(D$length,3,raw=TRUE))
-```
-
-As a consequence, DataSHIELD R package development can take advantage of DSLite flexibility for speeding development but will never replace testing on a regular DataSHIELD infrastructure using DSOpal.
-
 #### Server Side Environments
 
 For each of the DataSHIELD node, the server side code is evaluated within an environment that has no parent, i.e. detached from the global environment where the client code is executed. Some R functions have a parameter that allows to specify to which environment they apply, for instance `assign()`, `get()`, `eval()`, `as.formula()`, etc. Their `env` (or `envir`) parameter default value is `parent.frame()` which is the global environment when executed in Opal's R server, because it is the parent frame of the package's namespace where the function is defined. In DSLiteServer, the parent frame must be the environment where the server code is evaluated. In order to be consistent between these two execution contexts (Opal R server and DSLiteServer), you must specify the `env` (or `envir`) value explicitly to be `parent.frame()`, which is the parent frame of the block being executed (either the global environment in Opal context, or the environment defined in DSLiteServer).
