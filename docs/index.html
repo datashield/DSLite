@@ -23,6 +23,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -35,23 +37,17 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">DSLite</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -65,7 +61,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/datashield/DSLite/">
+  <a href="https://github.com/datashield/DSLite/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -82,19 +78,21 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="datashield-lite" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#datashield-lite" class="anchor"></a>DataSHIELD Lite</h1></div>
+<div class="section level1">
+<div class="page-header"><h1 id="datashield-lite">DataSHIELD Lite<a class="anchor" aria-label="anchor" href="#datashield-lite"></a>
+</h1></div>
 
-<p>Serverless <a href="https://datashield.github.io/DSI/">DataSHIELD Interface (DSI)</a> implementation which purpose is to mimic the behavior of a distant (virtualized or barebone) data repository server (see <a href="https://datashield.github.io/DSOpal/">DSOpal</a> for instance). The datasets that are being analyzed are fully accessible in the local environment. The DataSHIELD configuration (set of allowed aggregation and assignment functions) is discovered at runtime by inspecting the DataSHIELD server-side R packages installed locally. This configuration can also be amended or provided explicitly.</p>
-<p>The DSLite “server” (see <a href="https://datashield.github.io/DSLite/reference/DSLiteServer.html">DSLiteServer</a>) is a <a href="https://adv-r.hadley.nz/r6.html">R6</a> class. An instance of this class will host the datasets to be analyzed and the DataSHIELD configuration and will perform the DataSHIELD operations in the context of a session (a contained R environment).</p>
+<p>Serverless <a href="https://datashield.github.io/DSI/" class="external-link">DataSHIELD Interface (DSI)</a> implementation which purpose is to mimic the behavior of a distant (virtualized or barebone) data repository server (see <a href="https://datashield.github.io/DSOpal/" class="external-link">DSOpal</a> for instance). The datasets that are being analyzed are fully accessible in the local environment. The DataSHIELD configuration (set of allowed aggregation and assignment functions) is discovered at runtime by inspecting the DataSHIELD server-side R packages installed locally. This configuration can also be amended or provided explicitly.</p>
+<p>The DSLite “server” (see <a href="https://datashield.github.io/DSLite/reference/DSLiteServer.html" class="external-link">DSLiteServer</a>) is a <a href="https://adv-r.hadley.nz/r6.html" class="external-link">R6</a> class. An instance of this class will host the datasets to be analyzed and the DataSHIELD configuration and will perform the DataSHIELD operations in the context of a session (a contained R environment).</p>
 <p><code>DSLite</code> can be used to:</p>
 <ul>
 <li>speed up development and testing cycle when developping new DataSHIELD functions (both at server and client side): no need to deploy a data repository infrastructure.</li>
 <li>allow DataSHIELD analysis with combined datasets, some of them being accessible remotely in secure data repositories, others being privatly accessible (in a governmental institution for instance).</li>
 </ul>
-<p>The following figure illustrates a setup where a single <a href="https://datashield.github.io/DSLite/reference/DSLiteServer.html">DSLiteServer</a> holds several data frames and is used by two different DataSHIELD Connection (<a href="https://datashield.github.io/DSI/reference/DSConnection-class.html">DSConnection</a>) objects. All these objects live in the same R environment (usually the Global Environment). The “server” is responsible for managing DataSHIELD sessions that are implemented as distinct R environments inside of which R symbols are assigned and R functions are evaluated. Using the <a href="https://adv-r.hadley.nz/environments.html">R environment</a> paradigm ensures that the different DataSHIELD execution context (client and servers) are contained and exclusive from each other.</p>
-<p><img src="https://raw.githubusercontent.com/datashield/DSLite/master/inst/images/dslite.png" alt="DSLite architecture"></p>
+<p>The following figure illustrates a setup where a single <a href="https://datashield.github.io/DSLite/reference/DSLiteServer.html" class="external-link">DSLiteServer</a> holds several data frames and is used by two different DataSHIELD Connection (<a href="https://datashield.github.io/DSI/reference/DSConnection-class.html" class="external-link">DSConnection</a>) objects. All these objects live in the same R environment (usually the Global Environment). The “server” is responsible for managing DataSHIELD sessions that are implemented as distinct R environments inside of which R symbols are assigned and R functions are evaluated. Using the <a href="https://adv-r.hadley.nz/environments.html" class="external-link">R environment</a> paradigm ensures that the different DataSHIELD execution context (client and servers) are contained and exclusive from each other.</p>
+<div class="figure">
+<img src="https://raw.githubusercontent.com/datashield/DSLite/master/inst/images/dslite.png" alt=""><p class="caption">DSLite architecture</p>
+</div>
 <p>The minimum steps to follow for this kind of setup:</p>
 <ul>
 <li>make sure that both DataSHIELD client-side and server-side R packages are installed in your local R session,</li>
@@ -103,57 +101,64 @@
 <li>prepare DataSHIELD logindata object where the <code>table</code> to assign is the name of one the data frames and the <code>url</code> is the symbol that refers to the <code>DSLiteServer</code> object,</li>
 <li>perform DataSHIELD login and do analysis.</li>
 </ul>
-<p>See usage <a href="https://github.com/datashield/DSLite/tree/master/inst/examples">examples</a>.</p>
-<p>Article about DataSHIELD:</p>
-<ul>
-<li><a href="https://doi.org/10.1093/ije/dyu188">DataSHIELD: taking the analysis to the data, not the data to the analysis</a></li>
-</ul>
+<p>See usage <a href="https://github.com/datashield/DSLite/tree/master/inst/examples" class="external-link">examples</a>.</p>
+<p>Article about DataSHIELD: * <a href="https://doi.org/10.1093/ije/dyu188" class="external-link">DataSHIELD: taking the analysis to the data, not the data to the analysis</a></p>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=DSLite">https://​cloud.r-project.org/​package=DSLite</a>
-</li>
-<li>Browse source code at <br><a href="https://github.com/datashield/DSLite/">https://​github.com/​datashield/​DSLite/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/datashield/DSLite/issues/">https://​github.com/​datashield/​DSLite/​issues/​</a>
-</li>
+<li><a href="https://cloud.r-project.org/package=DSLite" class="external-link">View on CRAN</a></li>
+<li><a href="https://github.com/datashield/DSLite/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/datashield/DSLite/issues/" class="external-link">Report a bug</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
 <li><small>LGPL (&gt;= 2.1)</small></li>
 </ul>
 </div>
-<div class="developers">
-<h2>Developers</h2>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
-<li>Yannick Marcon <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-0138-2023" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li><a href="authors.html#citation">Citing DSLite</a></li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="developers">
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li><a href="https://travis-ci.com/datashield/DSLite"><img src="https://travis-ci.com/datashield/DSLite.svg?branch=master" alt="Build Status"></a></li>
-<li><a href="https://cran.r-project.org/package=DSLite"><img src="https://www.r-pkg.org/badges/version/DSLite" alt="CRAN_Status_Badge"></a></li>
+<li>Yannick Marcon <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-0138-2023" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 </ul>
 </div>
+
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://travis-ci.com/datashield/DSLite" class="external-link"><img src="https://travis-ci.com/datashield/DSLite.svg?branch=master" alt="Build Status"></a></li>
+<li><a href="https://cran.r-project.org/package=DSLite" class="external-link"><img src="https://www.r-pkg.org/badges/version/DSLite" alt="CRAN_Status_Badge"></a></li>
+</ul>
 </div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Yannick Marcon.</p>
+  <p></p>
+<p>Developed by Yannick Marcon.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>
@@ -161,6 +166,8 @@
 
   
 
+
+  
 
   </body>
 </html>
