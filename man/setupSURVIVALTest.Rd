@@ -21,7 +21,7 @@ Load the SURVIVAL (EXPAND_WITH_MISSING) datasets, the corresponding login data o
 hosting these datasets and verify that the required DataSHIELD server-side packages are installed.
 }
 \examples{
-{
+\dontrun{
 logindata <- setupSURVIVALTest()
 conns <- datashield.login(logindata, assign=TRUE)
 # do DataSHIELD analysis

@@ -18,7 +18,7 @@
 #' @family setup functions
 #'
 #' @examples
-#' {
+#' \dontrun{
 #' logindata <- setupDSLiteServer(
 #'                  datasets = c("CNSIM1", "CNSIM2", "CNSIM3"),
 #'                  logindata = "logindata.dslite.cnsim", pkgs = "DSLite",

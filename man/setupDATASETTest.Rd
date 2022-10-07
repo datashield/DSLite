@@ -21,7 +21,7 @@ Load the TESTING.DATASET datasets, the corresponding login data object, instanci
 hosting these datasets and verify that the required DataSHIELD server-side packages are installed.
 }
 \examples{
-{
+\dontrun{
 logindata <- setupDATASETTest()
 conns <- datashield.login(logindata, assign=TRUE)
 # do DataSHIELD analysis

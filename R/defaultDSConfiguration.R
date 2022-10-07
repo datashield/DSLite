@@ -9,7 +9,7 @@
 #' @param exclude Character vector of package names to be explicitly excluded. If NULL, do not filter packages.
 #'
 #' @examples
-#' {
+#' \dontrun{
 #' # detect DS packages
 #' defaultDSConfiguration()
 #' # exclude a DS package

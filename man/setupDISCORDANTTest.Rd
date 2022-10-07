@@ -21,7 +21,7 @@ Load the DISCORDANT datasets, the corresponding login data object, instanciate a
 hosting these datasets and verify that the required DataSHIELD server-side packages are installed.
 }
 \examples{
-{
+\dontrun{
 logindata <- setupDISCORDANTTest()
 conns <- datashield.login(logindata, assign=TRUE)
 # do DataSHIELD analysis

@@ -21,7 +21,7 @@ Load the CNSIM datasets, the corresponding login data object, instanciate a new 
 hosting these datasets and verify that the required DataSHIELD server-side packages are installed.
 }
 \examples{
-{
+\dontrun{
 logindata <- setupCNSIMTest()
 conns <- datashield.login(logindata, assign=TRUE)
 # do DataSHIELD analysis

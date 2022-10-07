@@ -10,7 +10,7 @@
 #' @return The login data for the \link{datashield.login} function.
 #' @family setup functions
 #' @examples
-#' {
+#' \dontrun{
 #' logindata <- setupDASIMTest()
 #' conns <- datashield.login(logindata, assign=TRUE)
 #' # do DataSHIELD analysis

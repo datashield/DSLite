@@ -21,7 +21,7 @@ Load the DASIM datasets, the corresponding login data object, instanciate a new 
 hosting these datasets and verify that the required DataSHIELD server-side packages are installed.
 }
 \examples{
-{
+\dontrun{
 logindata <- setupDASIMTest()
 conns <- datashield.login(logindata, assign=TRUE)
 # do DataSHIELD analysis
