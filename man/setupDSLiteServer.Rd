@@ -39,7 +39,7 @@ hosting these datasets, verifies that the required DataSHIELD server-side packag
 All the data structures are loaded by \link{data} which supports various formats (see data() documentation).
 }
 \examples{
-{
+\dontrun{
 logindata <- setupDSLiteServer(
                  datasets = c("CNSIM1", "CNSIM2", "CNSIM3"),
                  logindata = "logindata.dslite.cnsim", pkgs = "DSLite",

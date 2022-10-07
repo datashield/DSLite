@@ -9,7 +9,7 @@
 #' is not of class \code{\link{DSLiteConnection-class}}.
 #'
 #' @examples
-#' {
+#' \dontrun{
 #' # DataSHIELD login
 #' logindata <- setupCNSIMTest()
 #' conns <- datashield.login(logindata, assign=TRUE)

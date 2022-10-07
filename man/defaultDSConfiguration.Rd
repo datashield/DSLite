@@ -18,7 +18,7 @@ of R options. The DataSHIELD packages can be filtered by specifying explicitly t
 to be included or excluded. The package exclusion prevails over the inclusion.
 }
 \examples{
-{
+\dontrun{
 # detect DS packages
 defaultDSConfiguration()
 # exclude a DS package

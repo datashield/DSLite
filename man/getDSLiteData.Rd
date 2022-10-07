@@ -20,7 +20,7 @@ Get the data value corresponding to the variable with the symbol name from the \
 to the \code{\link{DSConnection-class}} object(s). Can be useful when developping a DataSHIELD package.
 }
 \examples{
-{
+\dontrun{
 # DataSHIELD login
 logindata <- setupCNSIMTest()
 conns <- datashield.login(logindata, assign=TRUE)
