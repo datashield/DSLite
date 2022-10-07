@@ -19,22 +19,22 @@ dslite.server$profile()
 data("logindata.dslite.cnsim")
 conns <- datashield.login(logindata.dslite.cnsim, assign=T, variables=c("GENDER","PM_BMI_CONTINUOUS"), id.name="ID")
 
-# list all available tables
+# List all available tables
 datashield.tables(conns)
 
-# list all available resources
+# List all available resources
 datashield.resources(conns)
 
-# check assigned variables
+# Check assigned variables
 datashield.symbols(conns)
 
-# table assignment can also happen later
+# Table assignment can also happen later
 datashield.assign(conns, "T", "CNSIM1", variables=c("GENDER"))
 ds.class("T")
 ds.colnames("T")
 ds.class("T$GENDER")
 
-# execute some aggregate calls (if these methods are available in the conns)
+# Execute some aggregate calls (if these methods are available in the conns)
 ds.class("D")
 ds.colnames("D")
 ds.length("D$GENDER")
@@ -43,26 +43,49 @@ ds.length("D$GENDER")
 datashield.rm(conns,'D')
 datashield.symbols(conns)
 
-# assign and aggregate arbitrary values
+# Assign and aggregate arbitrary values
 datashield.assign(conns, "x", quote(c("1", "2", "3")))
 ds.length("x")
 ds.class("x")
 datashield.assign(conns, "xn", quote(as.numeric(x)))
 ds.class("xn")
 
+datashield.assign(conns, "D", list(sim1="CNSIM1", sim2="CNSIM2", sim3="CNSIM3"))
+ds.colnames("D")
+
+# Example 1: run a GLM without interaction (e.g. diabetes prediction using BMI and HDL levels and GENDER)
+mod <- ds.glm(formula='D$DIS_DIAB~D$GENDER+D$PM_BMI_CONTINUOUS+D$LAB_HDL', family='binomial')
+
+# Example 2: run the above GLM model without an intercept
+# (produces separate baseline estimates for Male and Female)
+mod <- ds.glm(formula='D$DIS_DIAB~0+D$GENDER+D$PM_BMI_CONTINUOUS+D$LAB_HDL', family='binomial')
+
+# Example 3: run the above GLM with interaction between GENDER and PM_BMI_CONTINUOUS
+mod <- ds.glm(formula='D$DIS_DIAB~D$GENDER*D$PM_BMI_CONTINUOUS+D$LAB_HDL', family='binomial')
+
+# Example 4: Fit a standard Gaussian linear model with an interaction
+mod <- ds.glm(formula='D$PM_BMI_CONTINUOUS~D$DIS_DIAB*D$GENDER+D$LAB_HDL', family='gaussian')
+
+# Example 5: now run a GLM where the error follows a poisson distribution
+# P.S: A poisson model requires a numeric vector as outcome so in this example we first convert
+# the categorical BMI, which is of type 'factor', into a numeric vector
+ds.asNumeric('D$PM_BMI_CATEGORICAL','BMI.123')
+mod <- ds.glm(formula='BMI.123~D$PM_BMI_CONTINUOUS+D$LAB_HDL+D$GENDER', family='poisson')
+
+# Datashield config and status
 datashield.methods(conns, type="aggregate")
 datashield.methods(conns$sim1, type="aggregate")
 datashield.method_status(conns, type="assign")
 datashield.pkg_status(conns)
 datashield.table_status(conns, list(sim1="CNSIM1", sim2="CNSIM2", sim3="CNSIM3"))
-
 datashield.profiles(conns)
 
+# Logout and save workspace
 datashield.logout(conns, save = "test")
 
+# Workspaces
 conns <- datashield.login(logindata.dslite.cnsim, assign=FALSE, restore = "test")
 datashield.symbols(conns)
-dsListWorkspaces(conns[[1]])
 datashield.workspaces(conns)
 datashield.workspace_save(conns, "toto")
 datashield.workspaces(conns)
