@@ -3,7 +3,7 @@ NULL
 
 #' Class DSLiteResult.
 #'
-#' An DSLite result implementing the DataSHIELD Interface (DSI) \code{\link{DSResult-class}}.
+#' An DSLite result implementing the DataSHIELD Interface (DSI) \code{\link[DSI]{DSResult-class}}.
 #'
 #' @import methods
 #' @import DSI
@@ -17,7 +17,7 @@ setClass("DSLiteResult", contains = "DSResult", slots = list(
 #'
 #' Get the information about a command (if still available).
 #'
-#' @param dsObj \code{\link{DSLiteResult-class}} class object
+#' @param dsObj \code{\linkS4class{DSLiteResult}} class object
 #' @param ... Unused, needed for compatibility with generic.
 #'
 #' @return The result information, including its status.
@@ -32,7 +32,7 @@ setMethod("dsGetInfo", "DSLiteResult", function(dsObj, ...) {
 #' 
 #' Always TRUE because of synchronous operations.
 #' 
-#' @param res \code{\link{DSLiteResult-class}} object.
+#' @param res \code{\linkS4class{DSLiteResult}} object.
 #' 
 #' @return Always TRUE.
 #' 
@@ -46,7 +46,7 @@ setMethod("dsIsCompleted", "DSLiteResult", function(res) {
 #'
 #' Fetch the DataSHIELD operation result.
 #'
-#' @param res \code{\link{DSLiteResult-class}} object.
+#' @param res \code{\linkS4class{DSLiteResult}} object.
 #'
 #' @return TRUE if table exists.
 #'

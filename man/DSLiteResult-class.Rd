@@ -5,6 +5,6 @@
 \alias{DSLiteResult-class}
 \title{Class DSLiteResult.}
 \description{
-An DSLite result implementing the DataSHIELD Interface (DSI) \code{\link{DSResult-class}}.
+An DSLite result implementing the DataSHIELD Interface (DSI) \code{\link[DSI]{DSResult-class}}.
 }
 \keyword{internal}

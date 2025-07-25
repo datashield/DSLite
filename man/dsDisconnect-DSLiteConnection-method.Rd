@@ -7,7 +7,7 @@
 \S4method{dsDisconnect}{DSLiteConnection}(conn, save = NULL)
 }
 \arguments{
-\item{conn}{\code{\link{DSLiteConnection-class}} class object}
+\item{conn}{\code{\linkS4class{DSLiteConnection}} class object}
 
 \item{save}{Save the DataSHIELD R session with provided ID (must be a character string).}
 }

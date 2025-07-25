@@ -7,7 +7,7 @@
 \S4method{dsFetch}{DSLiteResult}(res)
 }
 \arguments{
-\item{res}{\code{\link{DSLiteResult-class}} object.}
+\item{res}{\code{\linkS4class{DSLiteResult}} object.}
 }
 \value{
 TRUE if table exists.

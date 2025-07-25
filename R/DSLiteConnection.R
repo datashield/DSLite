@@ -3,7 +3,7 @@ setOldClass("DSLiteServer")
 
 #' Class DSLiteConnection.
 #'
-#' An DSLiteServer connection implementing the DataSHIELD Interface (DSI) \code{\link{DSConnection-class}}.
+#' A DSLiteServer connection implementing the DataSHIELD Interface (DSI) \code{\link[DSI]{DSConnection-class}}.
 #'
 #' @import methods
 #' @import DSI
@@ -15,7 +15,7 @@ setClass("DSLiteConnection", contains = "DSConnection", slots = list(name = "cha
 #'
 #' Connect to a DSLite server, with provided datasets symbol names.
 #'
-#' @param drv \code{\link{DSLiteDriver-class}} class object.
+#' @param drv \code{\linkS4class{DSLiteDriver}} class object.
 #' @param name Name of the connection, which must be unique among all the DataSHIELD connections.
 #' @param url A R symbol that refers to a \link{DSLiteServer} object that holds the datasets of interest. The
 #' option "datashield.env" can be used to specify where to search for this symbol value. If not specified,
@@ -24,7 +24,7 @@ setClass("DSLiteConnection", contains = "DSConnection", slots = list(name = "cha
 #' @param profile Name of the profile that will be given to the DSLiteServer configuration. Make different DSLiteServers to support different configurations.
 #' @param ... Unused, needed for compatibility with generic.
 #'
-#' @return A \code{\link{DSLiteConnection-class}} object.
+#' @return A \code{\linkS4class{DSLiteConnection}} object.
 #'
 #' @import methods
 #' @export
@@ -44,7 +44,7 @@ setMethod("dsConnect", "DSLiteDriver",
 #' 
 #' No operation due to the DSLiteServer nature.
 #' 
-#' @param conn \code{\link{DSLiteConnection-class}} class object
+#' @param conn \code{\linkS4class{DSLiteConnection}} class object
 #' 
 #' @import methods
 #' @export
@@ -54,7 +54,7 @@ setMethod("dsKeepAlive", "DSLiteConnection", function(conn) {})
 #'
 #' Save the session in a local file if requested.
 #'
-#' @param conn \code{\link{DSLiteConnection-class}} class object
+#' @param conn \code{\linkS4class{DSLiteConnection}} class object
 #' @param save Save the DataSHIELD R session with provided ID (must be a character string).
 #'
 #' @import methods
@@ -68,7 +68,7 @@ setMethod("dsDisconnect", "DSLiteConnection", function(conn, save = NULL) {
 #'
 #' List dataset names living in the DSLite server for performing DataSHIELD operations.
 #'
-#' @param conn \code{\link{DSLiteConnection-class}} class object
+#' @param conn \code{\linkS4class{DSLiteConnection}} class object
 #'
 #' @return The fully qualified names of the tables.
 #'
@@ -82,7 +82,7 @@ setMethod("dsListTables", "DSLiteConnection", function(conn) {
 #'
 #' List resource names living in the DSLite server for performing DataSHIELD operations.
 #'
-#' @param conn \code{\link{DSLiteConnection-class}} class object
+#' @param conn \code{\linkS4class{DSLiteConnection}} class object
 #'
 #' @return The fully qualified names of the resources.
 #'
@@ -96,7 +96,7 @@ setMethod("dsListResources", "DSLiteConnection", function(conn) {
 #'
 #' Verify dataset exists and can be accessible for performing DataSHIELD operations.
 #'
-#' @param conn \code{\link{DSLiteConnection-class}} class object.
+#' @param conn \code{\linkS4class{DSLiteConnection}} class object.
 #' @param table The fully qualified name of the dataset.
 #'
 #' @return TRUE if dataset exists.
@@ -111,7 +111,7 @@ setMethod("dsHasTable", "DSLiteConnection", function(conn, table) {
 #'
 #' Verify resource exists and can be accessible for performing DataSHIELD operations.
 #'
-#' @param conn \code{\link{DSLiteConnection-class}} class object.
+#' @param conn \code{\linkS4class{DSLiteConnection}} class object.
 #' @param resource The fully qualified name of the resource.
 #'
 #' @return TRUE if dataset exists.
@@ -126,7 +126,7 @@ setMethod("dsHasResource", "DSLiteConnection", function(conn, resource) {
 #'
 #' No asynchronicity on any DataSHIELD operations.
 #'
-#' @param conn \code{\link{DSLiteConnection-class}} class object
+#' @param conn \code{\linkS4class{DSLiteConnection}} class object
 #'
 #' @return The named list of logicals detailing the asynchronicity support.
 #'
@@ -140,7 +140,7 @@ setMethod("dsIsAsync", "DSLiteConnection", function(conn) {
 #'
 #' List symbols living in the DataSHIELD R session.
 #'
-#' @param conn \code{\link{DSLiteConnection-class}} class object
+#' @param conn \code{\linkS4class{DSLiteConnection}} class object
 #'
 #' @return A character vector.
 #'
@@ -154,7 +154,7 @@ setMethod("dsListSymbols", "DSLiteConnection", function(conn) {
 #'
 #' Remoe a symbol living in the DataSHIELD R session.
 #'
-#' @param conn \code{\link{DSLiteConnection-class}} class object
+#' @param conn \code{\linkS4class{DSLiteConnection}} class object
 #' @param symbol Name of the R symbol.
 #'
 #' @import methods
@@ -167,7 +167,7 @@ setMethod("dsRmSymbol", "DSLiteConnection", function(conn, symbol) {
 #' 
 #' List profiles defined in the DataSHIELD configuration.
 #' 
-#' @param conn \code{\link{DSLiteConnection-class}} class object
+#' @param conn \code{\linkS4class{DSLiteConnection}} class object
 #' 
 #' @return A list containing the "available" character vector of profile names and the "current" profile (in case a default one was assigned).
 #' 
@@ -181,7 +181,7 @@ setMethod("dsListProfiles", "DSLiteConnection", function(conn) {
 #'
 #' List methods defined in the DataSHIELD configuration.
 #'
-#' @param conn \code{\link{DSLiteConnection-class}} class object
+#' @param conn \code{\linkS4class{DSLiteConnection}} class object
 #' @param type Type of the method: "aggregate" (default) or "assign".
 #'
 #' @return A data frame.
@@ -200,7 +200,7 @@ setMethod("dsListMethods", "DSLiteConnection", function(conn, type = "aggregate"
 #'
 #' List packages defined in the DataSHIELD configuration.
 #'
-#' @param conn \code{\link{DSLiteConnection-class}} class object
+#' @param conn \code{\linkS4class{DSLiteConnection}} class object
 #'
 #' @return A data frame.
 #'
@@ -216,7 +216,7 @@ setMethod("dsListPackages", "DSLiteConnection", function(conn) {
 #'
 #' List workspaces saved in the data repository.
 #'
-#' @param conn \code{\link{DSLiteConnection-class}} class object
+#' @param conn \code{\linkS4class{DSLiteConnection}} class object
 #'
 #' @return A data frame.
 #'
@@ -230,7 +230,7 @@ setMethod("dsListWorkspaces", "DSLiteConnection", function(conn) {
 #'
 #' Save workspace on the data repository.
 #'
-#' @param conn \code{\link{DSLiteConnection-class}} class object
+#' @param conn \code{\linkS4class{DSLiteConnection}} class object
 #' @param name Name of the workspace.
 #'
 #' @import methods
@@ -243,7 +243,7 @@ setMethod("dsSaveWorkspace", "DSLiteConnection", function(conn, name) {
 #' 
 #' Restore workspace from the data repository.
 #'
-#' @param conn \code{\link{DSLiteConnection-class}} class object
+#' @param conn \code{\linkS4class{DSLiteConnection}} class object
 #' @param name Name of the workspace.
 #'
 #' @import methods
@@ -256,7 +256,7 @@ setMethod("dsRestoreWorkspace", "DSLiteConnection", function(conn, name) {
 #'
 #' Remove a workspace on the data repository.
 #'
-#' @param conn \code{\link{DSLiteConnection-class}} class object
+#' @param conn \code{\linkS4class{DSLiteConnection}} class object
 #' @param name Name of the workspace.
 #'
 #' @import methods
@@ -269,7 +269,7 @@ setMethod("dsRmWorkspace", "DSLiteConnection", function(conn, name) {
 #'
 #' Assign a DSLite dataset in the DataSHIELD R session.
 #'
-#' @param conn \code{\link{DSLiteConnection-class}} object.
+#' @param conn \code{\linkS4class{DSLiteConnection}} object.
 #' @param symbol Name of the R symbol.
 #' @param table Fully qualified name of a dataset living in the DSLite server.
 #' @param variables The variable names to be filtered in.
@@ -280,7 +280,7 @@ setMethod("dsRmWorkspace", "DSLiteConnection", function(conn, name) {
 #' @param async Whether the result of the call should be retrieved asynchronously. When TRUE (default) the calls are parallelized over
 #'   the connections, when the connection supports that feature, with an extra overhead of requests.
 #'
-#' @return A \code{\link{DSLiteResult-class}} object.
+#' @return A \code{\linkS4class{DSLiteResult}} object.
 #'
 #' @import methods
 #' @export
@@ -300,13 +300,13 @@ setMethod("dsAssignTable", "DSLiteConnection", function(conn, symbol, table, var
 #'
 #' Assign a DSLite resource in the DataSHIELD R session.
 #'
-#' @param conn \code{\link{DSLiteConnection-class}} object.
+#' @param conn \code{\linkS4class{DSLiteConnection}} object.
 #' @param symbol Name of the R symbol.
 #' @param resource Fully qualified name of a resource object living in the DSLite server.
 #' @param async Whether the result of the call should be retrieved asynchronously. When TRUE (default) the calls are parallelized over
 #'   the connections, when the connection supports that feature, with an extra overhead of requests.
 #'
-#' @return A \code{\link{DSLiteResult-class}} object.
+#' @return A \code{\linkS4class{DSLiteResult}} object.
 #'
 #' @import methods
 #' @export
@@ -323,13 +323,13 @@ setMethod("dsAssignResource", "DSLiteConnection", function(conn, symbol, resourc
 #'
 #' Assign a result of the execution of an expression in the DataSHIELD R session.
 #'
-#' @param conn \code{\link{DSLiteConnection-class}} object.
+#' @param conn \code{\linkS4class{DSLiteConnection}} object.
 #' @param symbol Name of the R symbol.
 #' @param expr A R expression with allowed assign functions calls.
 #' @param async Whether the result of the call should be retrieved asynchronously. When TRUE (default) the calls are parallelized over
 #'   the connections, when the connection supports that feature, with an extra overhead of requests.
 #'
-#' @return A \code{\link{DSLiteResult-class}} object.
+#' @return A \code{\linkS4class{DSLiteResult}} object.
 #'
 #' @import methods
 #' @export
@@ -343,7 +343,7 @@ setMethod("dsAssignExpr", "DSLiteConnection", function(conn, symbol, expr, async
 #' Aggregate some data from the DataSHIELD R session using a valid R expression. The aggregation expression
 #' must satisfy the data repository's DataSHIELD configuration.
 #'
-#' @param conn \code{\link{DSLiteConnection-class}} object.
+#' @param conn \code{\linkS4class{DSLiteConnection}} object.
 #' @param expr Expression to evaluate.
 #' @param async Whether the result of the call should be retrieved asynchronously. When TRUE (default) the calls are parallelized over
 #'   the connections, when the connection supports that feature, with an extra overhead of requests.

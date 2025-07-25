@@ -7,7 +7,7 @@
 \S4method{dsRmSymbol}{DSLiteConnection}(conn, symbol)
 }
 \arguments{
-\item{conn}{\code{\link{DSLiteConnection-class}} class object}
+\item{conn}{\code{\linkS4class{DSLiteConnection}} class object}
 
 \item{symbol}{Name of the R symbol.}
 }

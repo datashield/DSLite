@@ -7,7 +7,7 @@
 \S4method{dsAssignExpr}{DSLiteConnection}(conn, symbol, expr, async = TRUE)
 }
 \arguments{
-\item{conn}{\code{\link{DSLiteConnection-class}} object.}
+\item{conn}{\code{\linkS4class{DSLiteConnection}} object.}
 
 \item{symbol}{Name of the R symbol.}
 
@@ -17,7 +17,7 @@
 the connections, when the connection supports that feature, with an extra overhead of requests.}
 }
 \value{
-A \code{\link{DSLiteResult-class}} object.
+A \code{\linkS4class{DSLiteResult}} object.
 }
 \description{
 Assign a result of the execution of an expression in the DataSHIELD R session.

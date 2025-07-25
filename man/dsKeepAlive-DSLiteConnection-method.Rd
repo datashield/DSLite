@@ -7,7 +7,7 @@
 \S4method{dsKeepAlive}{DSLiteConnection}(conn)
 }
 \arguments{
-\item{conn}{\code{\link{DSLiteConnection-class}} class object}
+\item{conn}{\code{\linkS4class{DSLiteConnection}} class object}
 }
 \description{
 No operation due to the DSLiteServer nature.
