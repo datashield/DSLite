@@ -13,3 +13,4 @@
 ^appveyor\.yml$
 ^LICENSE\.md$
 ^pkgdown$
+^CRAN-SUBMISSION$
