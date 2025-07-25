@@ -5,6 +5,6 @@
 \alias{DSLiteConnection-class}
 \title{Class DSLiteConnection.}
 \description{
-An DSLiteServer connection implementing the DataSHIELD Interface (DSI) \code{\link{DSConnection-class}}.
+A DSLiteServer connection implementing the DataSHIELD Interface (DSI) \code{\link[DSI]{DSConnection-class}}.
 }
 \keyword{internal}

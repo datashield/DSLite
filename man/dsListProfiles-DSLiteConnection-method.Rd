@@ -7,7 +7,7 @@
 \S4method{dsListProfiles}{DSLiteConnection}(conn)
 }
 \arguments{
-\item{conn}{\code{\link{DSLiteConnection-class}} class object}
+\item{conn}{\code{\linkS4class{DSLiteConnection}} class object}
 }
 \value{
 A list containing the "available" character vector of profile names and the "current" profile (in case a default one was assigned).

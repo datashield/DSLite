@@ -7,17 +7,17 @@
 getDSLiteData(conns, symbol)
 }
 \arguments{
-\item{conns}{\code{\link{DSConnection-class}} object or a list of \code{\link{DSConnection-class}}s.}
+\item{conns}{\code{\link[DSI]{DSConnection-class}} object or a list of \code{\link[DSI]{DSConnection-class}}s.}
 
 \item{symbol}{Symbol name identifying the variable in the \link{DSLiteServer}'s "server-side" environment(s).}
 }
 \value{
 The data value or a list of values depending on the connections parameter. The value is NA when the connection object
-is not of class \code{\link{DSLiteConnection-class}}.
+is not of class \code{\linkS4class{DSLiteConnection}}.
 }
 \description{
 Get the data value corresponding to the variable with the symbol name from the \link{DSLiteServer} associated
-to the \code{\link{DSConnection-class}} object(s). Can be useful when developping a DataSHIELD package.
+to the \code{\link[DSI]{DSConnection-class}} object(s). Can be useful when developping a DataSHIELD package.
 }
 \examples{
 \dontrun{

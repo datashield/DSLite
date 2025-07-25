@@ -7,7 +7,7 @@
 \S4method{dsListMethods}{DSLiteConnection}(conn, type = "aggregate")
 }
 \arguments{
-\item{conn}{\code{\link{DSLiteConnection-class}} class object}
+\item{conn}{\code{\linkS4class{DSLiteConnection}} class object}
 
 \item{type}{Type of the method: "aggregate" (default) or "assign".}
 }

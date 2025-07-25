@@ -31,7 +31,7 @@ will be the first not null one specified in the 'url' column of the loaded login
 the DSIConnection objects. Default is the Global environment.}
 }
 \value{
-The login data for the \link{datashield.login} function.
+The login data for the \link[DSI]{datashield.login} function.
 }
 \description{
 Load the provided datasets and the corresponding logindata object, instanciate a new \link{DSLiteServer}

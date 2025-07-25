@@ -7,7 +7,7 @@
 \S4method{dsListSymbols}{DSLiteConnection}(conn)
 }
 \arguments{
-\item{conn}{\code{\link{DSLiteConnection-class}} class object}
+\item{conn}{\code{\linkS4class{DSLiteConnection}} class object}
 }
 \value{
 A character vector.

@@ -7,7 +7,7 @@
 \S4method{dsConnect}{DSLiteDriver}(drv, name, url, restore = NULL, profile = NULL, ...)
 }
 \arguments{
-\item{drv}{\code{\link{DSLiteDriver-class}} class object.}
+\item{drv}{\code{\linkS4class{DSLiteDriver}} class object.}
 
 \item{name}{Name of the connection, which must be unique among all the DataSHIELD connections.}
 
@@ -22,7 +22,7 @@ the environment is the global one.}
 \item{...}{Unused, needed for compatibility with generic.}
 }
 \value{
-A \code{\link{DSLiteConnection-class}} object.
+A \code{\linkS4class{DSLiteConnection}} object.
 }
 \description{
 Connect to a DSLite server, with provided datasets symbol names.

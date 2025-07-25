@@ -7,7 +7,7 @@
 \S4method{dsAggregate}{DSLiteConnection}(conn, expr, async = TRUE)
 }
 \arguments{
-\item{conn}{\code{\link{DSLiteConnection-class}} object.}
+\item{conn}{\code{\linkS4class{DSLiteConnection}} object.}
 
 \item{expr}{Expression to evaluate.}
 

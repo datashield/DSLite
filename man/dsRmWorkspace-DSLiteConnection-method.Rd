@@ -7,7 +7,7 @@
 \S4method{dsRmWorkspace}{DSLiteConnection}(conn, name)
 }
 \arguments{
-\item{conn}{\code{\link{DSLiteConnection-class}} class object}
+\item{conn}{\code{\linkS4class{DSLiteConnection}} class object}
 
 \item{name}{Name of the workspace.}
 }

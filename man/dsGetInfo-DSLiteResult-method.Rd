@@ -7,7 +7,7 @@
 \S4method{dsGetInfo}{DSLiteResult}(dsObj, ...)
 }
 \arguments{
-\item{dsObj}{\code{\link{DSLiteResult-class}} class object}
+\item{dsObj}{\code{\linkS4class{DSLiteResult}} class object}
 
 \item{...}{Unused, needed for compatibility with generic.}
 }

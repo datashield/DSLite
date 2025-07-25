@@ -14,7 +14,7 @@
 #' will be the first not null one specified in the 'url' column of the loaded login data.
 #' @param env The environment where DataSHIELD objects should be looked for: the \link{DSLiteServer} and
 #' the DSIConnection objects. Default is the Global environment.
-#' @return The login data for the \link{datashield.login} function.
+#' @return The login data for the \link[DSI]{datashield.login} function.
 #' @family setup functions
 #'
 #' @examples

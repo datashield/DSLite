@@ -14,7 +14,7 @@ can auto-configure itself and can execute the DataSHIELD operations. Default is 
 the DSIConnection objects. Default is the Global environment.}
 }
 \value{
-The login data for the \link{datashield.login} function.
+The login data for the \link[DSI]{datashield.login} function.
 }
 \description{
 Load the DASIM datasets, the corresponding login data object, instanciate a new \link{DSLiteServer}

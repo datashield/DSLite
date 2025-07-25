@@ -7,7 +7,7 @@
 \S4method{dsHasResource}{DSLiteConnection}(conn, resource)
 }
 \arguments{
-\item{conn}{\code{\link{DSLiteConnection-class}} class object.}
+\item{conn}{\code{\linkS4class{DSLiteConnection}} class object.}
 
 \item{resource}{The fully qualified name of the resource.}
 }

@@ -7,7 +7,7 @@
 \S4method{dsHasTable}{DSLiteConnection}(conn, table)
 }
 \arguments{
-\item{conn}{\code{\link{DSLiteConnection-class}} class object.}
+\item{conn}{\code{\linkS4class{DSLiteConnection}} class object.}
 
 \item{table}{The fully qualified name of the dataset.}
 }

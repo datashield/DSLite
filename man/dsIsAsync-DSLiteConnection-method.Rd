@@ -7,7 +7,7 @@
 \S4method{dsIsAsync}{DSLiteConnection}(conn)
 }
 \arguments{
-\item{conn}{\code{\link{DSLiteConnection-class}} class object}
+\item{conn}{\code{\linkS4class{DSLiteConnection}} class object}
 }
 \value{
 The named list of logicals detailing the asynchronicity support.
