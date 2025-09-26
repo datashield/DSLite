@@ -1,7 +1,7 @@
 # DataSHIELD Lite
 
-[![Build Status](https://app.travis-ci.com/datashield/DSLite.svg?branch=master)](https://app.travis-ci.com/github/datashield/DSLite)
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/DSLite)](https://cran.r-project.org/package=DSLite)
+[![R-CMD-check](https://github.com/datashield/DSLite/actions/workflows/ci.yml/badge.svg)](https://github.com/datashield/DSLite/actions/workflows/ci.yml)
 
 Serverless [DataSHIELD Interface (DSI)](https://datashield.github.io/DSI/) implementation which purpose is to mimic
 the behavior of a distant (virtualized or barebone) data repository server (see [DSOpal](https://datashield.github.io/DSOpal/) for instance). The
