@@ -17,7 +17,7 @@ dslite.server$profile()
 
 # datashield logins and assignments
 data("logindata.dslite.cnsim")
-conns <- datashield.login(logindata.dslite.cnsim, assign=T, variables=c("GENDER","PM_BMI_CONTINUOUS"), id.name="ID")
+conns <- datashield.login(logindata.dslite.cnsim, assign = TRUE)
 
 # List all available tables
 datashield.tables(conns)
@@ -27,12 +27,6 @@ datashield.resources(conns)
 
 # Check assigned variables
 datashield.symbols(conns)
-
-# Table assignment can also happen later
-datashield.assign(conns, "T", "CNSIM1", variables=c("GENDER"))
-ds.class("T")
-ds.colnames("T")
-ds.class("T$GENDER")
 
 # Execute some aggregate calls (if these methods are available in the conns)
 ds.class("D")
@@ -50,7 +44,8 @@ ds.class("x")
 datashield.assign(conns, "xn", quote(as.numeric(x)))
 ds.class("xn")
 
-datashield.assign(conns, "D", list(sim1="CNSIM1", sim2="CNSIM2", sim3="CNSIM3"))
+# Table assignment can also happen later
+datashield.assign.table(conns, "D", table = list(sim1="CNSIM1", sim2="CNSIM2", sim3="CNSIM3"))
 ds.colnames("D")
 
 # Example 1: run a GLM without interaction (e.g. diabetes prediction using BMI and HDL levels and GENDER)
