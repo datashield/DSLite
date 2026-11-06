@@ -29,11 +29,11 @@ datashield.logout(conns)
 }
 }
 \seealso{
-Other setup functions: 
-\code{\link{setupDASIMTest}()},
-\code{\link{setupDATASETTest}()},
-\code{\link{setupDISCORDANTTest}()},
-\code{\link{setupDSLiteServer}()},
-\code{\link{setupSURVIVALTest}()}
+Other setup functions:
+\code{\link[=setupDASIMTest]{setupDASIMTest()}},
+\code{\link[=setupDATASETTest]{setupDATASETTest()}},
+\code{\link[=setupDISCORDANTTest]{setupDISCORDANTTest()}},
+\code{\link[=setupDSLiteServer]{setupDSLiteServer()}},
+\code{\link[=setupSURVIVALTest]{setupSURVIVALTest()}}
 }
 \concept{setup functions}

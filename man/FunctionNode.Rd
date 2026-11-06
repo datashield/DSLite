@@ -8,7 +8,7 @@
 AST node that represents a function with its arguments.
 }
 \seealso{
-Other parser items: 
+Other parser items:
 \code{\link{BinaryOpNode}},
 \code{\link{FormulaNode}},
 \code{\link{GroupNode}},
@@ -22,51 +22,53 @@ Other parser items:
 }
 \concept{parser items}
 \section{Super class}{
-\code{\link[DSLite:Node]{DSLite::Node}} -> \code{FunctionNode}
+\code{\link[DSLite:Node]{Node}} -> \code{FunctionNode}
 }
 \section{Methods}{
 \subsection{Public methods}{
-\itemize{
-\item \href{#method-FunctionNode-to_string}{\code{FunctionNode$to_string()}}
-\item \href{#method-FunctionNode-clone}{\code{FunctionNode$clone()}}
+  \itemize{
+    \item \href{#method-FunctionNode-to_string}{\code{FunctionNode$to_string()}}
+    \item \href{#method-FunctionNode-clone}{\code{FunctionNode$clone()}}
+  }
 }
-}
-\if{html}{\out{
-<details open><summary>Inherited methods</summary>
+\if{html}{\out{<details open><summary>Inherited methods</summary>
 <ul>
-<li><span class="pkg-link" data-pkg="DSLite" data-topic="Node" data-id="accept"><a href='../../DSLite/html/Node.html#method-Node-accept'><code>DSLite::Node$accept()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="DSLite" data-topic="Node" data-id="add_child"><a href='../../DSLite/html/Node.html#method-Node-add_child'><code>DSLite::Node$add_child()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="DSLite" data-topic="Node" data-id="initialize"><a href='../../DSLite/html/Node.html#method-Node-initialize'><code>DSLite::Node$initialize()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="DSLite" data-topic="Node" data-id="set_parent"><a href='../../DSLite/html/Node.html#method-Node-set_parent'><code>DSLite::Node$set_parent()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="DSLite" data-topic="Node" data-id="to_string_children"><a href='../../DSLite/html/Node.html#method-Node-to_string_children'><code>DSLite::Node$to_string_children()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="DSLite" data-topic="Node" data-id="accept"><a href='../../DSLite/html/Node.html#method-Node-accept'><code>Node$accept()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="DSLite" data-topic="Node" data-id="add_child"><a href='../../DSLite/html/Node.html#method-Node-add_child'><code>Node$add_child()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="DSLite" data-topic="Node" data-id="initialize"><a href='../../DSLite/html/Node.html#method-Node-initialize'><code>Node$initialize()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="DSLite" data-topic="Node" data-id="set_parent"><a href='../../DSLite/html/Node.html#method-Node-set_parent'><code>Node$set_parent()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="DSLite" data-topic="Node" data-id="to_string_children"><a href='../../DSLite/html/Node.html#method-Node-to_string_children'><code>Node$to_string_children()</code></a></span></li>
 </ul>
-</details>
-}}
+</details>}}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-FunctionNode-to_string"></a>}}
 \if{latex}{\out{\hypertarget{method-FunctionNode-to_string}{}}}
-\subsection{Method \code{to_string()}}{
-Get the string representation of the FunctionNode
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{FunctionNode$to_string()}\if{html}{\out{</div>}}
+\subsection{\code{FunctionNode$to_string()}}{
+  Get the string representation of the FunctionNode
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{FunctionNode$to_string()}
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-FunctionNode-clone"></a>}}
 \if{latex}{\out{\hypertarget{method-FunctionNode-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{FunctionNode$clone(deep = FALSE)}\if{html}{\out{</div>}}
+\subsection{\code{FunctionNode$clone()}}{
+  The objects of this class are cloneable with this method.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{FunctionNode$clone(deep = FALSE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{deep}}{Whether to make a deep clone.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
-}
-\if{html}{\out{</div>}}
-}
-}
 }

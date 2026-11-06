@@ -10,665 +10,706 @@ DataSHIELD-like functions: aggregate and assign. A DataSHIELD session is a R
 environment where the assignment and the operations happen.
 }
 \seealso{
-Other server-side items: 
-\code{\link{newDSLiteServer}()}
+Other server-side items:
+\code{\link[=newDSLiteServer]{newDSLiteServer()}}
 }
 \concept{server-side items}
 \section{Methods}{
 \subsection{Public methods}{
-\itemize{
-\item \href{#method-DSLiteServer-new}{\code{DSLiteServer$new()}}
-\item \href{#method-DSLiteServer-config}{\code{DSLiteServer$config()}}
-\item \href{#method-DSLiteServer-profile}{\code{DSLiteServer$profile()}}
-\item \href{#method-DSLiteServer-strict}{\code{DSLiteServer$strict()}}
-\item \href{#method-DSLiteServer-home}{\code{DSLiteServer$home()}}
-\item \href{#method-DSLiteServer-workspaces}{\code{DSLiteServer$workspaces()}}
-\item \href{#method-DSLiteServer-workspace_save}{\code{DSLiteServer$workspace_save()}}
-\item \href{#method-DSLiteServer-workspace_restore}{\code{DSLiteServer$workspace_restore()}}
-\item \href{#method-DSLiteServer-workspace_rm}{\code{DSLiteServer$workspace_rm()}}
-\item \href{#method-DSLiteServer-aggregateMethods}{\code{DSLiteServer$aggregateMethods()}}
-\item \href{#method-DSLiteServer-aggregateMethod}{\code{DSLiteServer$aggregateMethod()}}
-\item \href{#method-DSLiteServer-assignMethods}{\code{DSLiteServer$assignMethods()}}
-\item \href{#method-DSLiteServer-assignMethod}{\code{DSLiteServer$assignMethod()}}
-\item \href{#method-DSLiteServer-options}{\code{DSLiteServer$options()}}
-\item \href{#method-DSLiteServer-option}{\code{DSLiteServer$option()}}
-\item \href{#method-DSLiteServer-newSession}{\code{DSLiteServer$newSession()}}
-\item \href{#method-DSLiteServer-hasSession}{\code{DSLiteServer$hasSession()}}
-\item \href{#method-DSLiteServer-getSession}{\code{DSLiteServer$getSession()}}
-\item \href{#method-DSLiteServer-getSessionIds}{\code{DSLiteServer$getSessionIds()}}
-\item \href{#method-DSLiteServer-getSessionData}{\code{DSLiteServer$getSessionData()}}
-\item \href{#method-DSLiteServer-closeSession}{\code{DSLiteServer$closeSession()}}
-\item \href{#method-DSLiteServer-tableNames}{\code{DSLiteServer$tableNames()}}
-\item \href{#method-DSLiteServer-hasTable}{\code{DSLiteServer$hasTable()}}
-\item \href{#method-DSLiteServer-resourceNames}{\code{DSLiteServer$resourceNames()}}
-\item \href{#method-DSLiteServer-hasResource}{\code{DSLiteServer$hasResource()}}
-\item \href{#method-DSLiteServer-symbols}{\code{DSLiteServer$symbols()}}
-\item \href{#method-DSLiteServer-symbol_rm}{\code{DSLiteServer$symbol_rm()}}
-\item \href{#method-DSLiteServer-assignTable}{\code{DSLiteServer$assignTable()}}
-\item \href{#method-DSLiteServer-assignResource}{\code{DSLiteServer$assignResource()}}
-\item \href{#method-DSLiteServer-assignExpr}{\code{DSLiteServer$assignExpr()}}
-\item \href{#method-DSLiteServer-aggregate}{\code{DSLiteServer$aggregate()}}
-\item \href{#method-DSLiteServer-clone}{\code{DSLiteServer$clone()}}
-}
+  \itemize{
+    \item \href{#method-DSLiteServer-initialize}{\code{DSLiteServer$new()}}
+    \item \href{#method-DSLiteServer-config}{\code{DSLiteServer$config()}}
+    \item \href{#method-DSLiteServer-profile}{\code{DSLiteServer$profile()}}
+    \item \href{#method-DSLiteServer-strict}{\code{DSLiteServer$strict()}}
+    \item \href{#method-DSLiteServer-home}{\code{DSLiteServer$home()}}
+    \item \href{#method-DSLiteServer-workspaces}{\code{DSLiteServer$workspaces()}}
+    \item \href{#method-DSLiteServer-workspace_save}{\code{DSLiteServer$workspace_save()}}
+    \item \href{#method-DSLiteServer-workspace_restore}{\code{DSLiteServer$workspace_restore()}}
+    \item \href{#method-DSLiteServer-workspace_rm}{\code{DSLiteServer$workspace_rm()}}
+    \item \href{#method-DSLiteServer-aggregateMethods}{\code{DSLiteServer$aggregateMethods()}}
+    \item \href{#method-DSLiteServer-aggregateMethod}{\code{DSLiteServer$aggregateMethod()}}
+    \item \href{#method-DSLiteServer-assignMethods}{\code{DSLiteServer$assignMethods()}}
+    \item \href{#method-DSLiteServer-assignMethod}{\code{DSLiteServer$assignMethod()}}
+    \item \href{#method-DSLiteServer-options}{\code{DSLiteServer$options()}}
+    \item \href{#method-DSLiteServer-option}{\code{DSLiteServer$option()}}
+    \item \href{#method-DSLiteServer-newSession}{\code{DSLiteServer$newSession()}}
+    \item \href{#method-DSLiteServer-hasSession}{\code{DSLiteServer$hasSession()}}
+    \item \href{#method-DSLiteServer-getSession}{\code{DSLiteServer$getSession()}}
+    \item \href{#method-DSLiteServer-getSessionIds}{\code{DSLiteServer$getSessionIds()}}
+    \item \href{#method-DSLiteServer-getSessionData}{\code{DSLiteServer$getSessionData()}}
+    \item \href{#method-DSLiteServer-closeSession}{\code{DSLiteServer$closeSession()}}
+    \item \href{#method-DSLiteServer-tableNames}{\code{DSLiteServer$tableNames()}}
+    \item \href{#method-DSLiteServer-hasTable}{\code{DSLiteServer$hasTable()}}
+    \item \href{#method-DSLiteServer-resourceNames}{\code{DSLiteServer$resourceNames()}}
+    \item \href{#method-DSLiteServer-hasResource}{\code{DSLiteServer$hasResource()}}
+    \item \href{#method-DSLiteServer-symbols}{\code{DSLiteServer$symbols()}}
+    \item \href{#method-DSLiteServer-symbol_rm}{\code{DSLiteServer$symbol_rm()}}
+    \item \href{#method-DSLiteServer-assignTable}{\code{DSLiteServer$assignTable()}}
+    \item \href{#method-DSLiteServer-assignResource}{\code{DSLiteServer$assignResource()}}
+    \item \href{#method-DSLiteServer-assignExpr}{\code{DSLiteServer$assignExpr()}}
+    \item \href{#method-DSLiteServer-aggregate}{\code{DSLiteServer$aggregate()}}
+    \item \href{#method-DSLiteServer-clone}{\code{DSLiteServer$clone()}}
+  }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-DSLiteServer-new"></a>}}
-\if{latex}{\out{\hypertarget{method-DSLiteServer-new}{}}}
-\subsection{Method \code{new()}}{
-Create new DSLiteServer instance. See \link{defaultDSConfiguration} function for including or excluding packages
+\if{html}{\out{<a id="method-DSLiteServer-initialize"></a>}}
+\if{latex}{\out{\hypertarget{method-DSLiteServer-initialize}{}}}
+\subsection{\code{DSLiteServer$new()}}{
+  Create new DSLiteServer instance. See \link{defaultDSConfiguration} function for including or excluding packages
 when discovering the DataSHIELD configuration from the DataSHIELD server-side packages (meta-data from the DESCRIPTION files).
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$new(
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{DSLiteServer$new(
   tables = list(),
   resources = list(),
   config = DSLite::defaultDSConfiguration(),
   strict = TRUE,
   home = file.path(tempdir(), ".dslite"),
   profile = "default"
-)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{tables}}{A named list of data.frames representing the harmonized tables.}
-
-\item{\code{resources}}{A named list of \code{resourcer::Resource} objects representing accessible data or computation resources.}
-
-\item{\code{config}}{The DataSHIELD configuration. Default is to discover it from the DataSHIELD server-side R packages.}
-
-\item{\code{strict}}{Logical to specify whether the DataSHIELD configuration must be strictly applied. Default is TRUE.}
-
-\item{\code{home}}{Folder location where are located the session work directory and where to read and dump workspace images.}
-
-\item{\code{profile}}{The DataSHIELD profile name, used to give a name to the DS configuration. Default is "default".
+)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{tables}}{A named list of data.frames representing the harmonized tables.}
+      \item{\code{resources}}{A named list of \code{resourcer::Resource} objects representing accessible data or computation resources.}
+      \item{\code{config}}{The DataSHIELD configuration. Default is to discover it from the DataSHIELD server-side R packages.}
+      \item{\code{strict}}{Logical to specify whether the DataSHIELD configuration must be strictly applied. Default is TRUE.}
+      \item{\code{home}}{Folder location where are located the session work directory and where to read and dump workspace images.}
+      \item{\code{profile}}{The DataSHIELD profile name, used to give a name to the DS configuration. Default is "default".
 Default is in a hidden folder of the R session's temporary directory.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A DSLiteServer object
+  }
 }
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-A DSLiteServer object
-}
-}
+
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DSLiteServer-config"></a>}}
 \if{latex}{\out{\hypertarget{method-DSLiteServer-config}{}}}
-\subsection{Method \code{config()}}{
-Get or set the DataSHIELD configuration.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$config(value)}\if{html}{\out{</div>}}
+\subsection{\code{DSLiteServer$config()}}{
+  Get or set the DataSHIELD configuration.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{DSLiteServer$config(value)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{value}}{The DataSHIELD configuration: aggregate/assign methods in data frames and a named list of options.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    The DataSHIELD configuration, if no parameter is provided.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{value}}{The DataSHIELD configuration: aggregate/assign methods in data frames and a named list of options.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-The DataSHIELD configuration, if no parameter is provided.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DSLiteServer-profile"></a>}}
 \if{latex}{\out{\hypertarget{method-DSLiteServer-profile}{}}}
-\subsection{Method \code{profile()}}{
-Get or set the DataSHIELD profile name.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$profile(value)}\if{html}{\out{</div>}}
+\subsection{\code{DSLiteServer$profile()}}{
+  Get or set the DataSHIELD profile name.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{DSLiteServer$profile(value)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{value}}{The DataSHIELD profile name.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    The DataSHIELD profile, if no parameter is provided.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{value}}{The DataSHIELD profile name.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-The DataSHIELD profile, if no parameter is provided.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DSLiteServer-strict"></a>}}
 \if{latex}{\out{\hypertarget{method-DSLiteServer-strict}{}}}
-\subsection{Method \code{strict()}}{
-Get or set the level of strictness (stop when function call is not configured)
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$strict(value)}\if{html}{\out{</div>}}
+\subsection{\code{DSLiteServer$strict()}}{
+  Get or set the level of strictness (stop when function call is not configured)
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{DSLiteServer$strict(value)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{value}}{The \code{strict} logical field.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    The strict field if no parameter is provided.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{value}}{The \code{strict} logical field.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-The strict field if no parameter is provided.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DSLiteServer-home"></a>}}
 \if{latex}{\out{\hypertarget{method-DSLiteServer-home}{}}}
-\subsection{Method \code{home()}}{
-Get or set the home folder location where are located the session work directories and where to read and dump workspace images.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$home(value)}\if{html}{\out{</div>}}
+\subsection{\code{DSLiteServer$home()}}{
+  Get or set the home folder location where are located the session work directories and where to read and dump workspace images.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{DSLiteServer$home(value)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{value}}{The path to the home folder.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    The home folder path if no parameter is provided.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{value}}{The path to the home folder.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-The home folder path if no parameter is provided.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DSLiteServer-workspaces"></a>}}
 \if{latex}{\out{\hypertarget{method-DSLiteServer-workspaces}{}}}
-\subsection{Method \code{workspaces()}}{
-List the saved workspaces in the \code{home} folder.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$workspaces(prefix = NULL)}\if{html}{\out{</div>}}
+\subsection{\code{DSLiteServer$workspaces()}}{
+  List the saved workspaces in the \code{home} folder.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{DSLiteServer$workspaces(prefix = NULL)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{prefix}}{Filter workspaces starting with provided prefix (optional).}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{prefix}}{Filter workspaces starting with provided prefix (optional).}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DSLiteServer-workspace_save"></a>}}
 \if{latex}{\out{\hypertarget{method-DSLiteServer-workspace_save}{}}}
-\subsection{Method \code{workspace_save()}}{
-Save the session's workspace image identified by the \code{sid} identifier
+\subsection{\code{DSLiteServer$workspace_save()}}{
+  Save the session's workspace image identified by the \code{sid} identifier
 with the provided \code{name} in the \code{home} folder.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$workspace_save(sid, name)}\if{html}{\out{</div>}}
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{DSLiteServer$workspace_save(sid, name)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{sid, }}{Session ID}
+      \item{\code{name}}{The name to be given to the workspace's image.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{sid, }}{Session ID}
-
-\item{\code{name}}{The name to be given to the workspace's image.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DSLiteServer-workspace_restore"></a>}}
 \if{latex}{\out{\hypertarget{method-DSLiteServer-workspace_restore}{}}}
-\subsection{Method \code{workspace_restore()}}{
-Restore a saved session's workspace image into the session identified by the \code{sid} identifier
+\subsection{\code{DSLiteServer$workspace_restore()}}{
+  Restore a saved session's workspace image into the session identified by the \code{sid} identifier
 with the provided \code{name} in the \code{home} folder.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$workspace_restore(sid, name)}\if{html}{\out{</div>}}
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{DSLiteServer$workspace_restore(sid, name)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{sid, }}{Session ID}
+      \item{\code{name}}{The name of the workspace's image to restore.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{sid, }}{Session ID}
-
-\item{\code{name}}{The name of the workspace's image to restore.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DSLiteServer-workspace_rm"></a>}}
 \if{latex}{\out{\hypertarget{method-DSLiteServer-workspace_rm}{}}}
-\subsection{Method \code{workspace_rm()}}{
-Remove the workspace image with the provided \code{name} from the \code{home} folder.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$workspace_rm(name)}\if{html}{\out{</div>}}
+\subsection{\code{DSLiteServer$workspace_rm()}}{
+  Remove the workspace image with the provided \code{name} from the \code{home} folder.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{DSLiteServer$workspace_rm(name)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{name}}{The name of the workspace.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{name}}{The name of the workspace.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DSLiteServer-aggregateMethods"></a>}}
 \if{latex}{\out{\hypertarget{method-DSLiteServer-aggregateMethods}{}}}
-\subsection{Method \code{aggregateMethods()}}{
-Get or set the aggregate methods.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$aggregateMethods(value)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{value}}{A \code{data.frame} with columns: \code{name} (the client function call),
+\subsection{\code{DSLiteServer$aggregateMethods()}}{
+  Get or set the aggregate methods.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{DSLiteServer$aggregateMethods(value)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{value}}{A \code{data.frame} with columns: \code{name} (the client function call),
 \code{value} (the translated server call), \code{package} (relevant when extracted from a DataSHIELD server-side package),
 \code{version} (relevant when extracted from a DataSHIELD server-side package), \code{type} ("aggregate"),
 \code{class} ("function" for package functions or "script" for custom scripts).}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    The aggregate methods when no parameter is provided.
+  }
 }
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-The aggregate methods when no parameter is provided.
-}
-}
+
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DSLiteServer-aggregateMethod"></a>}}
 \if{latex}{\out{\hypertarget{method-DSLiteServer-aggregateMethod}{}}}
-\subsection{Method \code{aggregateMethod()}}{
-Get or set an aggregate method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$aggregateMethod(name, value)}\if{html}{\out{</div>}}
+\subsection{\code{DSLiteServer$aggregateMethod()}}{
+  Get or set an aggregate method.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{DSLiteServer$aggregateMethod(name, value)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{name}}{The client function call.}
+      \item{\code{value}}{The translated server call: either a package function reference or function expression. Remove the method when \code{NULL}.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    The aggregate method when no \code{value} parameter is provided.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{name}}{The client function call.}
-
-\item{\code{value}}{The translated server call: either a package function reference or function expression. Remove the method when \code{NULL}.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-The aggregate method when no \code{value} parameter is provided.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DSLiteServer-assignMethods"></a>}}
 \if{latex}{\out{\hypertarget{method-DSLiteServer-assignMethods}{}}}
-\subsection{Method \code{assignMethods()}}{
-Get or set the assign methods.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$assignMethods(value)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{value}}{A \code{data.frame} with columns: \code{name} (the client function call), \code{value} (the translated server call),
+\subsection{\code{DSLiteServer$assignMethods()}}{
+  Get or set the assign methods.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{DSLiteServer$assignMethods(value)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{value}}{A \code{data.frame} with columns: \code{name} (the client function call), \code{value} (the translated server call),
 \code{package} (relevant when extracted from a DataSHIELD server-side package), \code{version} (relevant when extracted from a DataSHIELD server-side package),
 \code{type} ("assign"), \code{class} ("function" for package functions or "script" for custom scripts).}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    The assign methods when no parameter is provided.
+  }
 }
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-The assign methods when no parameter is provided.
-}
-}
+
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DSLiteServer-assignMethod"></a>}}
 \if{latex}{\out{\hypertarget{method-DSLiteServer-assignMethod}{}}}
-\subsection{Method \code{assignMethod()}}{
-Get or set an assign method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$assignMethod(name, value)}\if{html}{\out{</div>}}
+\subsection{\code{DSLiteServer$assignMethod()}}{
+  Get or set an assign method.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{DSLiteServer$assignMethod(name, value)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{name}}{The client function call}
+      \item{\code{value}}{The translated server call: either a package function reference or function expression. Remove the method when \code{NULL}.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    The assign method when no \code{value} parameter is provided.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{name}}{The client function call}
-
-\item{\code{value}}{The translated server call: either a package function reference or function expression. Remove the method when \code{NULL}.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-The assign method when no \code{value} parameter is provided.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DSLiteServer-options"></a>}}
 \if{latex}{\out{\hypertarget{method-DSLiteServer-options}{}}}
-\subsection{Method \code{options()}}{
-Get or set the DataSHIELD R options that are applied when a new DataSHIELD session is started.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$options(value)}\if{html}{\out{</div>}}
+\subsection{\code{DSLiteServer$options()}}{
+  Get or set the DataSHIELD R options that are applied when a new DataSHIELD session is started.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{DSLiteServer$options(value)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{value}}{A named list of options.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    The R options when no parameter is provided.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{value}}{A named list of options.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-The R options when no parameter is provided.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DSLiteServer-option"></a>}}
 \if{latex}{\out{\hypertarget{method-DSLiteServer-option}{}}}
-\subsection{Method \code{option()}}{
-Get or set a R option.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$option(key, value)}\if{html}{\out{</div>}}
+\subsection{\code{DSLiteServer$option()}}{
+  Get or set a R option.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{DSLiteServer$option(key, value)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{key}}{The R option's name.}
+      \item{\code{value}}{The R option's value. Remove the option when \code{NULL}.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    The R option's value when only \code{key} parameter is provided.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{key}}{The R option's name.}
-
-\item{\code{value}}{The R option's value. Remove the option when \code{NULL}.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-The R option's value when only \code{key} parameter is provided.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DSLiteServer-newSession"></a>}}
 \if{latex}{\out{\hypertarget{method-DSLiteServer-newSession}{}}}
-\subsection{Method \code{newSession()}}{
-Create a new DataSHIELD session (contained execution environment), apply options that are defined
+\subsection{\code{DSLiteServer$newSession()}}{
+  Create a new DataSHIELD session (contained execution environment), apply options that are defined
 in the DataSHIELD configuration and restore workspace image if \code{restore} workspace name argument is provided.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$newSession(restore = NULL, profile = NULL)}\if{html}{\out{</div>}}
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{DSLiteServer$newSession(restore = NULL, profile = NULL)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{restore}}{The workspace image to be restored (optional).}
+      \item{\code{profile}}{The requested profile name (optional). If provided, new session creation will fail in case it does not match the server's profile name.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{restore}}{The workspace image to be restored (optional).}
-
-\item{\code{profile}}{The requested profile name (optional). If provided, new session creation will fail in case it does not match the server's profile name.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DSLiteServer-hasSession"></a>}}
 \if{latex}{\out{\hypertarget{method-DSLiteServer-hasSession}{}}}
-\subsection{Method \code{hasSession()}}{
-Check a DataSHIELD session is alive.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$hasSession(sid)}\if{html}{\out{</div>}}
+\subsection{\code{DSLiteServer$hasSession()}}{
+  Check a DataSHIELD session is alive.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{DSLiteServer$hasSession(sid)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{sid}}{The session ID.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{sid}}{The session ID.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DSLiteServer-getSession"></a>}}
 \if{latex}{\out{\hypertarget{method-DSLiteServer-getSession}{}}}
-\subsection{Method \code{getSession()}}{
-Get the DataSHIELD session's environment.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$getSession(sid)}\if{html}{\out{</div>}}
+\subsection{\code{DSLiteServer$getSession()}}{
+  Get the DataSHIELD session's environment.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{DSLiteServer$getSession(sid)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{sid}}{The session ID.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{sid}}{The session ID.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DSLiteServer-getSessionIds"></a>}}
 \if{latex}{\out{\hypertarget{method-DSLiteServer-getSessionIds}{}}}
-\subsection{Method \code{getSessionIds()}}{
-Get the DataSHIELD session IDs.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$getSessionIds()}\if{html}{\out{</div>}}
+\subsection{\code{DSLiteServer$getSessionIds()}}{
+  Get the DataSHIELD session IDs.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{DSLiteServer$getSessionIds()}
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DSLiteServer-getSessionData"></a>}}
 \if{latex}{\out{\hypertarget{method-DSLiteServer-getSessionData}{}}}
-\subsection{Method \code{getSessionData()}}{
-Get the symbol value from the DataSHIELD session's environment.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$getSessionData(sid, symbol)}\if{html}{\out{</div>}}
+\subsection{\code{DSLiteServer$getSessionData()}}{
+  Get the symbol value from the DataSHIELD session's environment.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{DSLiteServer$getSessionData(sid, symbol)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{sid}}{The session ID.}
+      \item{\code{symbol}}{The symbol name.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{sid}}{The session ID.}
-
-\item{\code{symbol}}{The symbol name.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DSLiteServer-closeSession"></a>}}
 \if{latex}{\out{\hypertarget{method-DSLiteServer-closeSession}{}}}
-\subsection{Method \code{closeSession()}}{
-Destroy DataSHIELD session and save workspace image if \code{save} workspace name argument is provided.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$closeSession(sid, save = NULL)}\if{html}{\out{</div>}}
+\subsection{\code{DSLiteServer$closeSession()}}{
+  Destroy DataSHIELD session and save workspace image if \code{save} workspace name argument is provided.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{DSLiteServer$closeSession(sid, save = NULL)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{sid}}{The session ID.}
+      \item{\code{save}}{The name of the workspace image to be saved (optional).}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{sid}}{The session ID.}
-
-\item{\code{save}}{The name of the workspace image to be saved (optional).}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DSLiteServer-tableNames"></a>}}
 \if{latex}{\out{\hypertarget{method-DSLiteServer-tableNames}{}}}
-\subsection{Method \code{tableNames()}}{
-List the names of the tables that can be assigned.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$tableNames()}\if{html}{\out{</div>}}
+\subsection{\code{DSLiteServer$tableNames()}}{
+  List the names of the tables that can be assigned.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{DSLiteServer$tableNames()}
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DSLiteServer-hasTable"></a>}}
 \if{latex}{\out{\hypertarget{method-DSLiteServer-hasTable}{}}}
-\subsection{Method \code{hasTable()}}{
-Check a table exists.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$hasTable(name)}\if{html}{\out{</div>}}
+\subsection{\code{DSLiteServer$hasTable()}}{
+  Check a table exists.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{DSLiteServer$hasTable(name)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{name}}{The table name to be looked for.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{name}}{The table name to be looked for.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DSLiteServer-resourceNames"></a>}}
 \if{latex}{\out{\hypertarget{method-DSLiteServer-resourceNames}{}}}
-\subsection{Method \code{resourceNames()}}{
-List the names of the resources (\code{resourcer::Resource} objects) that can be assigned.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$resourceNames()}\if{html}{\out{</div>}}
+\subsection{\code{DSLiteServer$resourceNames()}}{
+  List the names of the resources (\code{resourcer::Resource} objects) that can be assigned.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{DSLiteServer$resourceNames()}
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DSLiteServer-hasResource"></a>}}
 \if{latex}{\out{\hypertarget{method-DSLiteServer-hasResource}{}}}
-\subsection{Method \code{hasResource()}}{
-Check a resource (\code{resourcer::Resource} object) exists.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$hasResource(name)}\if{html}{\out{</div>}}
+\subsection{\code{DSLiteServer$hasResource()}}{
+  Check a resource (\code{resourcer::Resource} object) exists.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{DSLiteServer$hasResource(name)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{name}}{The resource name to be looked for.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{name}}{The resource name to be looked for.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DSLiteServer-symbols"></a>}}
 \if{latex}{\out{\hypertarget{method-DSLiteServer-symbols}{}}}
-\subsection{Method \code{symbols()}}{
-List the symbols living in a DataSHIELD session.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$symbols(sid)}\if{html}{\out{</div>}}
+\subsection{\code{DSLiteServer$symbols()}}{
+  List the symbols living in a DataSHIELD session.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{DSLiteServer$symbols(sid)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{sid}}{The session ID.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{sid}}{The session ID.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DSLiteServer-symbol_rm"></a>}}
 \if{latex}{\out{\hypertarget{method-DSLiteServer-symbol_rm}{}}}
-\subsection{Method \code{symbol_rm()}}{
-Remove a symbol from a DataSHIELD session.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$symbol_rm(sid, name)}\if{html}{\out{</div>}}
+\subsection{\code{DSLiteServer$symbol_rm()}}{
+  Remove a symbol from a DataSHIELD session.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{DSLiteServer$symbol_rm(sid, name)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{sid}}{The session ID.}
+      \item{\code{name}}{The symbol name.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{sid}}{The session ID.}
-
-\item{\code{name}}{The symbol name.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DSLiteServer-assignTable"></a>}}
 \if{latex}{\out{\hypertarget{method-DSLiteServer-assignTable}{}}}
-\subsection{Method \code{assignTable()}}{
-Assign a table to a symbol in a DataSHIELD session. Filter
+\subsection{\code{DSLiteServer$assignTable()}}{
+  Assign a table to a symbol in a DataSHIELD session. Filter
 table columns with the variables names provided.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$assignTable(sid, symbol, name, variables = NULL, id.name = NULL)}\if{html}{\out{</div>}}
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{DSLiteServer$assignTable(sid, symbol, name, variables = NULL, id.name = NULL)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{sid}}{The session ID.}
+      \item{\code{symbol}}{The symbol to be assigned.}
+      \item{\code{name}}{The table's name.}
+      \item{\code{variables}}{The variable names to be filtered in (optional).}
+      \item{\code{id.name}}{The column name to be used for the entity's identifier (optional).}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{sid}}{The session ID.}
-
-\item{\code{symbol}}{The symbol to be assigned.}
-
-\item{\code{name}}{The table's name.}
-
-\item{\code{variables}}{The variable names to be filtered in (optional).}
-
-\item{\code{id.name}}{The column name to be used for the entity's identifier (optional).}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DSLiteServer-assignResource"></a>}}
 \if{latex}{\out{\hypertarget{method-DSLiteServer-assignResource}{}}}
-\subsection{Method \code{assignResource()}}{
-Assign a resource as a \code{resourcer::ResourceClient} object to a symbol in a DataSHIELD session.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$assignResource(sid, symbol, name)}\if{html}{\out{</div>}}
+\subsection{\code{DSLiteServer$assignResource()}}{
+  Assign a resource as a \code{resourcer::ResourceClient} object to a symbol in a DataSHIELD session.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{DSLiteServer$assignResource(sid, symbol, name)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{sid}}{The session ID.}
+      \item{\code{symbol}}{The symbol name.}
+      \item{\code{name}}{The name of the resource.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{sid}}{The session ID.}
-
-\item{\code{symbol}}{The symbol name.}
-
-\item{\code{name}}{The name of the resource.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DSLiteServer-assignExpr"></a>}}
 \if{latex}{\out{\hypertarget{method-DSLiteServer-assignExpr}{}}}
-\subsection{Method \code{assignExpr()}}{
-Evaluate an assignment expression in a DataSHIELD session.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$assignExpr(sid, symbol, expr)}\if{html}{\out{</div>}}
+\subsection{\code{DSLiteServer$assignExpr()}}{
+  Evaluate an assignment expression in a DataSHIELD session.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{DSLiteServer$assignExpr(sid, symbol, expr)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{sid}}{The session ID.}
+      \item{\code{symbol}}{The symbol name.}
+      \item{\code{expr}}{The R expression to evaluate.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{sid}}{The session ID.}
-
-\item{\code{symbol}}{The symbol name.}
-
-\item{\code{expr}}{The R expression to evaluate.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DSLiteServer-aggregate"></a>}}
 \if{latex}{\out{\hypertarget{method-DSLiteServer-aggregate}{}}}
-\subsection{Method \code{aggregate()}}{
-Evaluate an aggregate expression in a DataSHIELD session.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$aggregate(sid, expr)}\if{html}{\out{</div>}}
+\subsection{\code{DSLiteServer$aggregate()}}{
+  Evaluate an aggregate expression in a DataSHIELD session.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{DSLiteServer$aggregate(sid, expr)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{sid}}{The session ID.}
+      \item{\code{expr}}{The R expression to evaluate.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{sid}}{The session ID.}
-
-\item{\code{expr}}{The R expression to evaluate.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DSLiteServer-clone"></a>}}
 \if{latex}{\out{\hypertarget{method-DSLiteServer-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DSLiteServer$clone(deep = FALSE)}\if{html}{\out{</div>}}
+\subsection{\code{DSLiteServer$clone()}}{
+  The objects of this class are cloneable with this method.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{DSLiteServer$clone(deep = FALSE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{deep}}{Whether to make a deep clone.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
-}
-\if{html}{\out{</div>}}
-}
-}
 }

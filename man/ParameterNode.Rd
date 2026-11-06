@@ -8,7 +8,7 @@
 AST node that represents a function's named parameter (such as NAME = \emph{expression}).
 }
 \seealso{
-Other parser items: 
+Other parser items:
 \code{\link{BinaryOpNode}},
 \code{\link{FormulaNode}},
 \code{\link{FunctionNode}},
@@ -22,68 +22,72 @@ Other parser items:
 }
 \concept{parser items}
 \section{Super class}{
-\code{\link[DSLite:Node]{DSLite::Node}} -> \code{ParameterNode}
+\code{\link[DSLite:Node]{Node}} -> \code{ParameterNode}
 }
 \section{Methods}{
 \subsection{Public methods}{
-\itemize{
-\item \href{#method-ParameterNode-add_child}{\code{ParameterNode$add_child()}}
-\item \href{#method-ParameterNode-to_string}{\code{ParameterNode$to_string()}}
-\item \href{#method-ParameterNode-clone}{\code{ParameterNode$clone()}}
+  \itemize{
+    \item \href{#method-ParameterNode-add_child}{\code{ParameterNode$add_child()}}
+    \item \href{#method-ParameterNode-to_string}{\code{ParameterNode$to_string()}}
+    \item \href{#method-ParameterNode-clone}{\code{ParameterNode$clone()}}
+  }
 }
-}
-\if{html}{\out{
-<details open><summary>Inherited methods</summary>
+\if{html}{\out{<details open><summary>Inherited methods</summary>
 <ul>
-<li><span class="pkg-link" data-pkg="DSLite" data-topic="Node" data-id="accept"><a href='../../DSLite/html/Node.html#method-Node-accept'><code>DSLite::Node$accept()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="DSLite" data-topic="Node" data-id="initialize"><a href='../../DSLite/html/Node.html#method-Node-initialize'><code>DSLite::Node$initialize()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="DSLite" data-topic="Node" data-id="set_parent"><a href='../../DSLite/html/Node.html#method-Node-set_parent'><code>DSLite::Node$set_parent()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="DSLite" data-topic="Node" data-id="to_string_children"><a href='../../DSLite/html/Node.html#method-Node-to_string_children'><code>DSLite::Node$to_string_children()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="DSLite" data-topic="Node" data-id="accept"><a href='../../DSLite/html/Node.html#method-Node-accept'><code>Node$accept()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="DSLite" data-topic="Node" data-id="initialize"><a href='../../DSLite/html/Node.html#method-Node-initialize'><code>Node$initialize()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="DSLite" data-topic="Node" data-id="set_parent"><a href='../../DSLite/html/Node.html#method-Node-set_parent'><code>Node$set_parent()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="DSLite" data-topic="Node" data-id="to_string_children"><a href='../../DSLite/html/Node.html#method-Node-to_string_children'><code>Node$to_string_children()</code></a></span></li>
 </ul>
-</details>
-}}
+</details>}}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ParameterNode-add_child"></a>}}
 \if{latex}{\out{\hypertarget{method-ParameterNode-add_child}{}}}
-\subsection{Method \code{add_child()}}{
-Two children
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ParameterNode$add_child(val)}\if{html}{\out{</div>}}
+\subsection{\code{ParameterNode$add_child()}}{
+  Two children
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ParameterNode$add_child(val)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{val}}{Child Node}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{val}}{Child Node}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ParameterNode-to_string"></a>}}
 \if{latex}{\out{\hypertarget{method-ParameterNode-to_string}{}}}
-\subsection{Method \code{to_string()}}{
-Get the string representation of the BinaryOpNode
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ParameterNode$to_string()}\if{html}{\out{</div>}}
+\subsection{\code{ParameterNode$to_string()}}{
+  Get the string representation of the BinaryOpNode
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ParameterNode$to_string()}
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ParameterNode-clone"></a>}}
 \if{latex}{\out{\hypertarget{method-ParameterNode-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ParameterNode$clone(deep = FALSE)}\if{html}{\out{</div>}}
+\subsection{\code{ParameterNode$clone()}}{
+  The objects of this class are cloneable with this method.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ParameterNode$clone(deep = FALSE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{deep}}{Whether to make a deep clone.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
-}
-\if{html}{\out{</div>}}
-}
-}
 }
