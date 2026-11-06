@@ -8,7 +8,7 @@ Lexer <- R6::R6Class(
     tokens = TOKENS,
     literals = LITERALS,
     
-    t_NAME = '[a-zA-Z_][a-zA-Z\\d_\\$\\.-]*',
+    t_NAME = '[a-zA-Z_][a-zA-Z\\d_\\$\\.]*',
     
     t_STRING = '\'[a-zA-Z\\d_+-;:\\$]*\'',
     
@@ -16,9 +16,9 @@ Lexer <- R6::R6Class(
     
     t_INTEGER = '\\d+L',
     
-    t_NUMBER = '[+-]?\\d+(\\.\\d+)?([eE][+-]?\\d+)?',
+    t_NUMBER = '\\d+(\\.\\d+)?([eE][+-]?\\d+)?',
     
-    t_PCTOP = '%[a-z]+%',
+    t_PCTOP = '%[a-z*/]*%',
     
     t_NOTOP = '!',
     
@@ -38,10 +38,17 @@ Parser <- R6::R6Class(
     tokens = TOKENS,
     literals = LITERALS,
     # Parsing rules
+    # From the loosest to the tightest binding, see ?Syntax
     precedence = list(
+      c('right', '='),
+      c('left', '~'),
+      c('right', 'NOTOP'),
       c('left', '+', '-'),
-      c('left', '*', '/', 'PCTOP', ':', '^'),
-      c('right', 'UMINUS', 'NOTOP')
+      c('left', '*', '/'),
+      c('left', 'PCTOP'),
+      c('left', ':'),
+      c('right', 'UMINUS'),
+      c('right', '^')
     ),
     
     p_expression_named = function(doc='expression : NAME "=" expression', p) {
@@ -51,49 +58,23 @@ Parser <- R6::R6Class(
       p$set(1, op)
     },
     
-    p_expression_formula = function(doc='expression : NAME "~" formula_term', p) {
+    p_expression_formula = function(doc='expression : expression "~" expression', p) {
       op <- FormulaNode$new(p$get(3))
-      op$add_child(SymbolNode$new(p$get(2)))
-      op$add_child(p$get(4))
-      p$set(1, op)
-    },
-    
-    p_formula_term_binop = function(doc="formula_term : formula_term '+' formula_term
-                                                      | formula_term '-' formula_term
-                                                      | formula_term '*' formula_term
-                                                      | formula_term ':' formula_term
-                                                      | formula_term '^' formula_term
-                                                      | formula_term PCTOP formula_term", p) {
-      op <- BinaryOpNode$new(p$get(3))
       op$add_child(p$get(2))
       op$add_child(p$get(4))
+      # formulas are not mapped to the configured methods
+      op$accept(list(visit = function(node) {
+        if (inherits(node, c("FunctionNode", "StringNode")))
+          stop(sprintf("Syntax error in formula at '%s'", node$name))
+      }))
       p$set(1, op)
-    },
-    
-    p_formula_term_name = function(doc='formula_term : NAME', p) {
-      p$set(1, SymbolNode$new(p$get(2)))
-    },
-    
-    p_formula_term_number = function(doc='formula_term : NUMBER', p) {
-      p$set(1, NumericNode$new(p$get(2)))
-    },
-    
-    p_formula_term_not = function(doc='formula_term : NOTOP formula_term', p) {
-      op <- UnaryOpNode$new("!")
-      op$add_child(p$get(3))
-      p$set(1, op)
-    },
-    
-    p_formula_term_group = function(doc="formula_term : '(' formula_term ')'", p) {
-      gn <- GroupNode$new()
-      gn$add_child(p$get(3))
-      p$set(1, gn)
     },
     
     p_expression_binop = function(doc="expression : expression '+' expression
                                                   | expression '-' expression
                                                   | expression '*' expression
                                                   | expression '/' expression
+                                                  | expression '^' expression
                                                   | expression ':' expression
                                                   | expression PCTOP expression", p) {
       if (p$get(3) == ':') {
@@ -109,8 +90,9 @@ Parser <- R6::R6Class(
       }
     },
     
-    p_expression_uminus = function(doc="expression : '-' expression %prec UMINUS", p) {
-      op <- UnaryOpNode$new("-")
+    p_expression_uminus = function(doc="expression : '-' expression %prec UMINUS
+                                                  | '+' expression %prec UMINUS", p) {
+      op <- UnaryOpNode$new(p$get(2))
       op$add_child(p$get(3))
       p$set(1, op)
     },

@@ -12,7 +12,7 @@ test_that("A number", {
 
 test_that("A negative number", {
   ast <- DSLite::testParse("-0.43151402098822")
-  expect_true(inherits(ast, "NumericNode"))
+  expect_true(inherits(ast, "UnaryOpNode"))
   expect_equal(ast$to_string(), "-0.43151402098822")
 })
 
@@ -34,13 +34,13 @@ test_that("A number with floating point and exponent", {
 
 test_that("A number with floating point, exponent and negative signs", {
   ast <- DSLite::testParse("-3.1e-4")
-  expect_true(inherits(ast, "NumericNode"))
+  expect_true(inherits(ast, "UnaryOpNode"))
   expect_equal(ast$to_string(), "-3.1e-4")
 })
 
 test_that("A number with floating point, exponent and positive signs", {
   ast <- DSLite::testParse("+3.1e+4")
-  expect_true(inherits(ast, "NumericNode"))
+  expect_true(inherits(ast, "UnaryOpNode"))
   expect_equal(ast$to_string(), "+3.1e+4")
 })
 
@@ -124,9 +124,9 @@ test_that("A symbol", {
   expect_true(inherits(ast, "SymbolNode"))
   expect_equal(ast$to_string(), "abc")
 
-  ast <- DSLite::testParse("abc-DEF.123X$var_12")
+  ast <- DSLite::testParse("abc.DEF.123X$var_12")
   expect_true(inherits(ast, "SymbolNode"))
-  expect_equal(ast$to_string(), "abc-DEF.123X$var_12")
+  expect_equal(ast$to_string(), "abc.DEF.123X$var_12")
 })
 
 test_that("Symbol with invalid chars", {
@@ -180,6 +180,50 @@ test_that("Unary not operator", {
   ast <- DSLite::testParse("!A")
   expect_true(inherits(ast, "UnaryOpNode"))
   expect_equal(ast$to_string(), "!A")
+})
+
+test_that("Minus sign is an operator", {
+  expect_equal(DSLite::testParse("1-1")$to_string(), "1 - 1")
+  expect_equal(DSLite::testParse("x -1")$to_string(), "x - 1")
+  expect_equal(DSLite::testParse("x+1")$to_string(), "x + 1")
+  expect_equal(DSLite::testParse("-1L")$to_string(), "-1L")
+
+  ast <- DSLite::testParse("a-f(1)")
+  expect_true(inherits(ast, "BinaryOpNode"))
+  expect_true(inherits(ast$children[[2]], "FunctionNode"))
+  expect_equal(ast$children[[2]]$name, "f")
+
+  ast <- DSLite::testParse("a-(b)")
+  expect_true(inherits(ast, "BinaryOpNode"))
+  expect_equal(ast$to_string(), "a - (b)")
+})
+
+test_that("Power and pct operators", {
+  expect_equal(DSLite::testParse("a^2")$to_string(), "a^2")
+  expect_equal(DSLite::testParse("A %*% B")$to_string(), "A %*% B")
+  expect_equal(DSLite::testParse("A %% B")$to_string(), "A %% B")
+  expect_equal(DSLite::testParse("A %/% B")$to_string(), "A %/% B")
+})
+
+test_that("Operators follow R precedence", {
+  # the shape of the tree must be the one R gives: operator at the root, then its operands
+  root <- function(expr) {
+    ast <- DSLite::testParse(expr)
+    c(ast$name, ast$children[[1]]$to_string())
+  }
+  expect_equal(root("a * b + c"), c("+", "a * b"))
+  expect_equal(root("a - b - c"), c("-", "a - b"))
+  expect_equal(root("a^b^c"), c("^", "a"))
+  expect_equal(root("-2^2"), c("-", "2^2"))
+  expect_equal(root("-1:3"), c(":", "-1"))
+  expect_equal(root("1:3^2"), c(":", "1"))
+  expect_equal(root("2 * 1:3"), c("*", "2"))
+})
+
+test_that("Round trip is the same expression for R", {
+  for (expr in c("a*b-c", "-2^2", "1:3^2", "2^1:3", "-1:3", "a^b^c", "1-1", "x -1", "a-f(1)", "f(1 -2)",
+                 "a %*% b", "y-1 ~ x", "a + b ~ c", "y ~ -x", "y ~ x -1", "y ~ a/b + c", "-y ~ x"))
+    expect_identical(parse(text = DSLite::testParse(expr)$to_string())[[1]], parse(text = expr)[[1]], info = expr)
 })
 
 #
@@ -247,11 +291,31 @@ test_that("A formula with operators", {
   ast <- DSLite::testParse("A ~ B + (C * D)^4 : E %in% F")
   expect_true(inherits(ast, "FormulaNode"))
   expect_equal(ast$to_string(), "A ~ B + (C * D)^4:E %in% F")
+
+  ast <- DSLite::testParse("A ~ B / C")
+  expect_true(inherits(ast, "FormulaNode"))
+  expect_equal(ast$to_string(), "A ~ B / C")
+
+  ast <- DSLite::testParse("A ~ -1 + B")
+  expect_true(inherits(ast, "FormulaNode"))
+  expect_equal(ast$to_string(), "A ~ -1 + B")
+})
+
+test_that("A formula with an expression as response", {
+  ast <- DSLite::testParse("A-1~B")
+  expect_true(inherits(ast, "FormulaNode"))
+  expect_equal(ast$to_string(), "A - 1 ~ B")
+
+  ast <- DSLite::testParse("A + B ~ C")
+  expect_true(inherits(ast, "FormulaNode"))
+  expect_equal(ast$to_string(), "A + B ~ C")
 })
 
 test_that("Formula with invalid syntax", {
   expect_error(DSLite::testParse("A ~ 'abc'"))
   expect_error(DSLite::testParse("D$height ~ D$diameter + poly(D$length, 3, raw=TRUE)"))
+  expect_error(DSLite::testParse("log(A) ~ B"))
+  expect_error(DSLite::testParse("A ~ (log(B))"))
 })
 
 #

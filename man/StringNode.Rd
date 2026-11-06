@@ -8,7 +8,7 @@
 AST node that represent a string value, either single or double quoted.
 }
 \seealso{
-Other parser items: 
+Other parser items:
 \code{\link{BinaryOpNode}},
 \code{\link{FormulaNode}},
 \code{\link{FunctionNode}},
@@ -22,68 +22,72 @@ Other parser items:
 }
 \concept{parser items}
 \section{Super class}{
-\code{\link[DSLite:Node]{DSLite::Node}} -> \code{StringNode}
+\code{\link[DSLite:Node]{Node}} -> \code{StringNode}
 }
 \section{Methods}{
 \subsection{Public methods}{
-\itemize{
-\item \href{#method-StringNode-add_child}{\code{StringNode$add_child()}}
-\item \href{#method-StringNode-to_string}{\code{StringNode$to_string()}}
-\item \href{#method-StringNode-clone}{\code{StringNode$clone()}}
+  \itemize{
+    \item \href{#method-StringNode-add_child}{\code{StringNode$add_child()}}
+    \item \href{#method-StringNode-to_string}{\code{StringNode$to_string()}}
+    \item \href{#method-StringNode-clone}{\code{StringNode$clone()}}
+  }
 }
-}
-\if{html}{\out{
-<details open><summary>Inherited methods</summary>
+\if{html}{\out{<details open><summary>Inherited methods</summary>
 <ul>
-<li><span class="pkg-link" data-pkg="DSLite" data-topic="Node" data-id="accept"><a href='../../DSLite/html/Node.html#method-Node-accept'><code>DSLite::Node$accept()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="DSLite" data-topic="Node" data-id="initialize"><a href='../../DSLite/html/Node.html#method-Node-initialize'><code>DSLite::Node$initialize()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="DSLite" data-topic="Node" data-id="set_parent"><a href='../../DSLite/html/Node.html#method-Node-set_parent'><code>DSLite::Node$set_parent()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="DSLite" data-topic="Node" data-id="to_string_children"><a href='../../DSLite/html/Node.html#method-Node-to_string_children'><code>DSLite::Node$to_string_children()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="DSLite" data-topic="Node" data-id="accept"><a href='../../DSLite/html/Node.html#method-Node-accept'><code>Node$accept()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="DSLite" data-topic="Node" data-id="initialize"><a href='../../DSLite/html/Node.html#method-Node-initialize'><code>Node$initialize()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="DSLite" data-topic="Node" data-id="set_parent"><a href='../../DSLite/html/Node.html#method-Node-set_parent'><code>Node$set_parent()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="DSLite" data-topic="Node" data-id="to_string_children"><a href='../../DSLite/html/Node.html#method-Node-to_string_children'><code>Node$to_string_children()</code></a></span></li>
 </ul>
-</details>
-}}
+</details>}}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-StringNode-add_child"></a>}}
 \if{latex}{\out{\hypertarget{method-StringNode-add_child}{}}}
-\subsection{Method \code{add_child()}}{
-No children
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{StringNode$add_child(val)}\if{html}{\out{</div>}}
+\subsection{\code{StringNode$add_child()}}{
+  No children
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{StringNode$add_child(val)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{val}}{Child Node}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{val}}{Child Node}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-StringNode-to_string"></a>}}
 \if{latex}{\out{\hypertarget{method-StringNode-to_string}{}}}
-\subsection{Method \code{to_string()}}{
-Get the string representation of the StringNode
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{StringNode$to_string()}\if{html}{\out{</div>}}
+\subsection{\code{StringNode$to_string()}}{
+  Get the string representation of the StringNode
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{StringNode$to_string()}
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-StringNode-clone"></a>}}
 \if{latex}{\out{\hypertarget{method-StringNode-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{StringNode$clone(deep = FALSE)}\if{html}{\out{</div>}}
+\subsection{\code{StringNode$clone()}}{
+  The objects of this class are cloneable with this method.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{StringNode$clone(deep = FALSE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{deep}}{Whether to make a deep clone.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
-}
-\if{html}{\out{</div>}}
-}
-}
 }

@@ -30,7 +30,7 @@ Default is in a hidden folder of the R session's temporary directory.}
 Shortcut function to create a new \code{DSLiteServer} instance.
 }
 \seealso{
-Other server-side items: 
+Other server-side items:
 \code{\link{DSLiteServer}}
 }
 \concept{server-side items}
