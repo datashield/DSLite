@@ -536,8 +536,8 @@ DSLiteServer <- R6::R6Class(
           }
         }
         
-        if (!is.null(self$children)) {
-          for (child in self$children) {
+        if (!is.null(node$children)) {
+          for (child in node$children) {
             if (!is.null(child)) {
               replaceFunctionNode(child)
             }

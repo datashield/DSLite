@@ -35,6 +35,19 @@ test_that("session operations work", {
   expect_false(testServ$hasSession(sid))
 })
 
+test_that("strict mode applies to nested function calls", {
+  methods <- data.frame(name = c("length", "sum"), value = c("base::length", "base::sum"),
+                        class = "function", stringsAsFactors = FALSE)
+  serv <- DSLite::DSLiteServer$new(config = list(AggregateMethods = methods), strict = TRUE)
+  sid <- serv$newSession()
+
+  expect_equal(serv$aggregate(sid, "length(sum(1))"), 1)
+  for (expr in c("nchar('a')", "length(nchar('a'))", "1 + nchar('a')", "-nchar('a')", "(nchar('a'))", "x = nchar('a')"))
+    expect_error(serv$aggregate(sid, expr), "does not allow expression: nchar")
+
+  serv$closeSession(sid)
+})
+
 test_that("options operations work", {
   testServ$options(list(foo="bar"))
   expect_equal(testServ$options(), list(foo="bar"))
