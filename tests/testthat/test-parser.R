@@ -39,9 +39,11 @@ test_that("A number with floating point, exponent and negative signs", {
 })
 
 test_that("A number with floating point, exponent and positive signs", {
-  ast <- DSLite::testParse("+3.1e+4")
-  expect_true(inherits(ast, "UnaryOpNode"))
-  expect_equal(ast$to_string(), "+3.1e+4")
+  ast <- DSLite::testParse("3.1e+4")
+  expect_true(inherits(ast, "NumericNode"))
+  expect_equal(ast$to_string(), "3.1e+4")
+  # no unary plus, as in datashield4j
+  expect_error(DSLite::testParse("+3.1e+4"))
 })
 
 test_that("An integer", {
@@ -376,4 +378,23 @@ test_that("A function with parameters", {
   ast <- DSLite::testParse("some_func(B, C(), D, E(F(G/H)), A + B * C())")
   expect_true(inherits(ast, "FunctionNode"))
   expect_equal(ast$to_string(), "some_func(B, C(), D, E(F(G / H)), A + B * C())")
+})
+
+test_that("Validation is aligned with datashield4j", {
+  valid <- function(expr, aggregate = FALSE) DSLite:::validateNode(DSLite::testParse(expr), aggregate)
+  for (expr in c("1:10", "c(-1:3)", "f(1:(2*3))", "f(2^1:3)", "f(y ~ a:b)", "f(x = 1)", "f(x.y_1 = 1)", "x = f(1)"))
+    expect_silent(valid(expr))
+  for (expr in c("f(1:n)", "f(D$A:3)", "f(1:g(3))", "f('a':3)"))
+    expect_error(valid(expr), "Range operands must be numbers")
+  expect_error(valid("f(D$A = 1)"), "Invalid argument name")
+  expect_error(valid("f(_a = 1)"), "Invalid argument name")
+  expect_error(valid("f((x = 1))", aggregate = TRUE), "Assignments are not allowed")
+  expect_silent(valid("f(x = 1)", aggregate = TRUE))
+  expect_silent(valid("f('x' = 1, \"y\" = 2)"))
+  expect_equal(DSLite::testParse("f('x' = 1)")$to_string(), "f('x' = 1)")
+  expect_error(DSLite::testParse("+1"))
+  for (expr in c("1 + f(1)", "-f(1)", "x", "'a'", "x = f(1)"))
+    expect_error(valid(expr, aggregate = TRUE), "must invoke a function|Assignments")
+  expect_silent(valid("((f(1)))", aggregate = TRUE))
+  expect_error(valid("1 + f(1)", aggregate = TRUE), "must invoke a function")
 })

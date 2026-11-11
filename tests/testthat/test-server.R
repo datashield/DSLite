@@ -77,3 +77,21 @@ test_that("methods operations work", {
   testServ$assignMethod("foo", NULL)
   expect_equal(testServ$aggregateMethod("foo"), NULL)
 })
+
+test_that("aggregate rejects assignments", {
+  methods <- data.frame(name = "length", value = "base::length", class = "function", stringsAsFactors = FALSE)
+  serv <- DSLite::DSLiteServer$new(config = list(AggregateMethods = methods), strict = TRUE)
+  sid <- serv$newSession()
+  expect_error(serv$aggregate(sid, "length((x = 1))"), "Assignments are not allowed")
+  expect_false(exists("x", envir = serv$getSession(sid), inherits = FALSE))
+  serv$closeSession(sid)
+})
+
+test_that("expressions are validated without configured methods", {
+  serv <- DSLite::DSLiteServer$new(config = list(), strict = TRUE)
+  sid <- serv$newSession()
+  expect_error(serv$aggregate(sid, "length((x = 1))"), "Assignments are not allowed")
+  expect_error(serv$aggregate(sid, "1 + 1"), "must invoke a function")
+  expect_equal(serv$aggregate(sid, "length(1:3)"), 3)
+  serv$closeSession(sid)
+})
