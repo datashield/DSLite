@@ -1,0 +1,142 @@
+# Package index
+
+## All functions
+
+- [`BinaryOpNode`](https://datashield.github.io/DSLite/reference/BinaryOpNode.md)
+  : Binary operation AST node
+- [`CNSIM1`](https://datashield.github.io/DSLite/reference/CNSIM1.md) :
+  Simulated dataset CNSIM 1
+- [`CNSIM2`](https://datashield.github.io/DSLite/reference/CNSIM2.md) :
+  Simulated dataset CNSIM 2
+- [`CNSIM3`](https://datashield.github.io/DSLite/reference/CNSIM3.md) :
+  Simulated dataset CNSIM 3
+- [`DASIM1`](https://datashield.github.io/DSLite/reference/DASIM1.md) :
+  Simulated dataset DASIM 1
+- [`DASIM2`](https://datashield.github.io/DSLite/reference/DASIM2.md) :
+  Simulated dataset DASIM 2
+- [`DASIM3`](https://datashield.github.io/DSLite/reference/DASIM3.md) :
+  Simulated dataset DASIM 3
+- [`DISCORDANT_STUDY1`](https://datashield.github.io/DSLite/reference/DISCORDANT_STUDY1.md)
+  : Simulated dataset DISCORDANT 1
+- [`DISCORDANT_STUDY2`](https://datashield.github.io/DSLite/reference/DISCORDANT_STUDY2.md)
+  : Simulated dataset DISCORDANT 2
+- [`DISCORDANT_STUDY3`](https://datashield.github.io/DSLite/reference/DISCORDANT_STUDY3.md)
+  : Simulated dataset DISCORDANT 3
+- [`DSLite()`](https://datashield.github.io/DSLite/reference/DSLite.md)
+  : Create a DSLite driver
+- [`DSLiteServer`](https://datashield.github.io/DSLite/reference/DSLiteServer.md)
+  : Lightweight DataSHIELD server-side component
+- [`FormulaNode`](https://datashield.github.io/DSLite/reference/FormulaNode.md)
+  : Formula AST node
+- [`FunctionNode`](https://datashield.github.io/DSLite/reference/FunctionNode.md)
+  : Function AST node
+- [`GroupNode`](https://datashield.github.io/DSLite/reference/GroupNode.md)
+  : Group AST node
+- [`Node`](https://datashield.github.io/DSLite/reference/Node.md) :
+  Simple AST node
+- [`NumericNode`](https://datashield.github.io/DSLite/reference/NumericNode.md)
+  : Numeric AST node
+- [`ParameterNode`](https://datashield.github.io/DSLite/reference/ParameterNode.md)
+  : Parameter AST node
+- [`RangeNode`](https://datashield.github.io/DSLite/reference/RangeNode.md)
+  : Range AST node
+- [`SURVIVAL.EXPAND_WITH_MISSING1`](https://datashield.github.io/DSLite/reference/SURVIVAL.EXPAND_WITH_MISSING1.md)
+  : Simulated survival expand-with-missing dataset 1
+- [`SURVIVAL.EXPAND_WITH_MISSING2`](https://datashield.github.io/DSLite/reference/SURVIVAL.EXPAND_WITH_MISSING2.md)
+  : Simulated survival expand-with-missing dataset 2
+- [`SURVIVAL.EXPAND_WITH_MISSING3`](https://datashield.github.io/DSLite/reference/SURVIVAL.EXPAND_WITH_MISSING3.md)
+  : Simulated survival expand-with-missing dataset 3
+- [`StringNode`](https://datashield.github.io/DSLite/reference/StringNode.md)
+  : String AST node
+- [`SymbolNode`](https://datashield.github.io/DSLite/reference/SymbolNode.md)
+  : Symbol AST node
+- [`TESTING.DATASET1`](https://datashield.github.io/DSLite/reference/TESTING.DATASET1.md)
+  : Simulated dataset TESTING.DATASET 1
+- [`TESTING.DATASET2`](https://datashield.github.io/DSLite/reference/TESTING.DATASET2.md)
+  : Simulated dataset TESTING.DATASET 2
+- [`TESTING.DATASET3`](https://datashield.github.io/DSLite/reference/TESTING.DATASET3.md)
+  : Simulated dataset TESTING.DATASET 3
+- [`UnaryOpNode`](https://datashield.github.io/DSLite/reference/UnaryOpNode.md)
+  : Unary operator AST node
+- [`defaultDSConfiguration()`](https://datashield.github.io/DSLite/reference/defaultDSConfiguration.md)
+  : Default DataSHIELD configuration
+- [`dsAggregate(`*`<DSLiteConnection>`*`)`](https://datashield.github.io/DSLite/reference/dsAggregate-DSLiteConnection-method.md)
+  : Aggregate data
+- [`dsAssignExpr(`*`<DSLiteConnection>`*`)`](https://datashield.github.io/DSLite/reference/dsAssignExpr-DSLiteConnection-method.md)
+  : Assign the result of an expression
+- [`dsAssignResource(`*`<DSLiteConnection>`*`)`](https://datashield.github.io/DSLite/reference/dsAssignResource-DSLiteConnection-method.md)
+  : Assign a resource
+- [`dsAssignTable(`*`<DSLiteConnection>`*`)`](https://datashield.github.io/DSLite/reference/dsAssignTable-DSLiteConnection-method.md)
+  : Assign a table
+- [`dsConnect(`*`<DSLiteDriver>`*`)`](https://datashield.github.io/DSLite/reference/dsConnect-DSLiteDriver-method.md)
+  : Connect to a DSLite server
+- [`dsDisconnect(`*`<DSLiteConnection>`*`)`](https://datashield.github.io/DSLite/reference/dsDisconnect-DSLiteConnection-method.md)
+  : Disconnect from a DSLite server
+- [`dsFetch(`*`<DSLiteResult>`*`)`](https://datashield.github.io/DSLite/reference/dsFetch-DSLiteResult-method.md)
+  : Fetch the result
+- [`dsGetInfo(`*`<DSLiteResult>`*`)`](https://datashield.github.io/DSLite/reference/dsGetInfo-DSLiteResult-method.md)
+  : Get result info
+- [`dsHasResource(`*`<DSLiteConnection>`*`)`](https://datashield.github.io/DSLite/reference/dsHasResource-DSLiteConnection-method.md)
+  : Verify DSLite server resource
+- [`dsHasTable(`*`<DSLiteConnection>`*`)`](https://datashield.github.io/DSLite/reference/dsHasTable-DSLiteConnection-method.md)
+  : Verify DSLite server dataset
+- [`dsIsAsync(`*`<DSLiteConnection>`*`)`](https://datashield.github.io/DSLite/reference/dsIsAsync-DSLiteConnection-method.md)
+  : DSLite asynchronous support
+- [`dsIsCompleted(`*`<DSLiteResult>`*`)`](https://datashield.github.io/DSLite/reference/dsIsCompleted-DSLiteResult-method.md)
+  : Get whether the operation is completed
+- [`dsKeepAlive(`*`<DSLiteConnection>`*`)`](https://datashield.github.io/DSLite/reference/dsKeepAlive-DSLiteConnection-method.md)
+  : Keep connection with a DSLite server alive
+- [`dsListMethods(`*`<DSLiteConnection>`*`)`](https://datashield.github.io/DSLite/reference/dsListMethods-DSLiteConnection-method.md)
+  : List methods
+- [`dsListPackages(`*`<DSLiteConnection>`*`)`](https://datashield.github.io/DSLite/reference/dsListPackages-DSLiteConnection-method.md)
+  : List packages
+- [`dsListProfiles(`*`<DSLiteConnection>`*`)`](https://datashield.github.io/DSLite/reference/dsListProfiles-DSLiteConnection-method.md)
+  : List profiles
+- [`dsListResources(`*`<DSLiteConnection>`*`)`](https://datashield.github.io/DSLite/reference/dsListResources-DSLiteConnection-method.md)
+  : List DSLite server resources
+- [`dsListSymbols(`*`<DSLiteConnection>`*`)`](https://datashield.github.io/DSLite/reference/dsListSymbols-DSLiteConnection-method.md)
+  : List R symbols
+- [`dsListTables(`*`<DSLiteConnection>`*`)`](https://datashield.github.io/DSLite/reference/dsListTables-DSLiteConnection-method.md)
+  : List DSLite server datasets
+- [`dsListWorkspaces(`*`<DSLiteConnection>`*`)`](https://datashield.github.io/DSLite/reference/dsListWorkspaces-DSLiteConnection-method.md)
+  : List workspaces
+- [`dsRestoreWorkspace(`*`<DSLiteConnection>`*`)`](https://datashield.github.io/DSLite/reference/dsRestoreWorkspace-DSLiteConnection-method.md)
+  : Restore workspace
+- [`dsRmSymbol(`*`<DSLiteConnection>`*`)`](https://datashield.github.io/DSLite/reference/dsRmSymbol-DSLiteConnection-method.md)
+  : Remove a R symbol
+- [`dsRmWorkspace(`*`<DSLiteConnection>`*`)`](https://datashield.github.io/DSLite/reference/dsRmWorkspace-DSLiteConnection-method.md)
+  : Remove a workspace
+- [`dsSaveWorkspace(`*`<DSLiteConnection>`*`)`](https://datashield.github.io/DSLite/reference/dsSaveWorkspace-DSLiteConnection-method.md)
+  : Save workspace
+- [`getDSLiteData()`](https://datashield.github.io/DSLite/reference/getDSLiteData.md)
+  : Get data value from DSLite connection(s)
+- [`logindata.dslite.cnsim`](https://datashield.github.io/DSLite/reference/logindata.dslite.cnsim.md)
+  : DataSHIELD login data for the CNSIM simulated datasets
+- [`logindata.dslite.dasim`](https://datashield.github.io/DSLite/reference/logindata.dslite.dasim.md)
+  : DataSHIELD login data for the DASIM simulated datasets
+- [`logindata.dslite.discordant`](https://datashield.github.io/DSLite/reference/logindata.dslite.discordant.md)
+  : DataSHIELD login data for the DISCORDANT simulated datasets
+- [`logindata.dslite.survival.expand_with_missing`](https://datashield.github.io/DSLite/reference/logindata.dslite.survival.expand_with_missing.md)
+  : DataSHIELD login data for the simulated survival expand-with-missing
+  datasets
+- [`logindata.dslite.testing.dataset`](https://datashield.github.io/DSLite/reference/logindata.dslite.testing.dataset.md)
+  : DataSHIELD login data for the TESTING.DATASET simulated datasets
+- [`newDSLiteServer()`](https://datashield.github.io/DSLite/reference/newDSLiteServer.md)
+  : Create a new DSLite server
+- [`setupCNSIMTest()`](https://datashield.github.io/DSLite/reference/setupCNSIMTest.md)
+  : Setup a test environment based on the CNSIM simulated datasets
+- [`setupDASIMTest()`](https://datashield.github.io/DSLite/reference/setupDASIMTest.md)
+  : Setup a test environment based on the DASIM simulated datasets
+- [`setupDATASETTest()`](https://datashield.github.io/DSLite/reference/setupDATASETTest.md)
+  : Setup a test environment based on the TESTING.DATASET simulated
+  datasets
+- [`setupDISCORDANTTest()`](https://datashield.github.io/DSLite/reference/setupDISCORDANTTest.md)
+  : Setup a test environment based on the DISCORDANT simulated datasets
+- [`setupDSLiteServer()`](https://datashield.github.io/DSLite/reference/setupDSLiteServer.md)
+  : Setup an environment based on named datasets and logindata
+- [`setupSURVIVALTest()`](https://datashield.github.io/DSLite/reference/setupSURVIVALTest.md)
+  : Setup a test environment based on the SURVIVAL (EXPAND_WITH_MISSING)
+  simulated datasets
+- [`testParse()`](https://datashield.github.io/DSLite/reference/testParse.md)
+  : Parse an expression according to DataSHIELD syntax rules and returns
+  an Abstract Syntaxic Tree (AST) node.

@@ -1,3 +1,4 @@
+url: https://datashield.github.io/DSLite/
 template:
-  params:
-    bootswatch: simplex
+  bootstrap: 5
+  bootswatch: simplex

@@ -1,0 +1,239 @@
+# DataSHIELD Development with DSLite
+
+## Introduction
+
+DSLite is a serverless [DataSHIELD Interface
+(DSI)](https://github.com/datashield/DSI/) implementation which purpose
+is to mimic the behavior of a distant (virtualized or barebone) data
+repository server (see [DSOpal](https://github.com/datashield/DSOpal)
+for instance). The datasets that are being analyzed must be fully
+accessible in the local environment and then the non-disclosive
+constraint of the analysis is not relevant for DSLite: some DSLite
+functionalities allows to inspect what is under the hood of the
+DataSHIELD computation nodes, making it a perfect tool for DataSHIELD
+analysis package developers.
+
+## Development Environment Setup
+
+### DataSHIELD Packages
+
+Both client and server side packages must be installed in your local R
+session. The entry point is still the client side package and DSLite
+will automatically load the corresponding server side package on
+DataSHIELD aggregate and assignment functions call, based on the
+DataSHIELD configuration.
+
+### Test Datasets
+
+DSLite comes with a set of datasets that can be easily loaded. You can
+also provide your own to illustrate a specific data analysis function.
+
+### R Package Development Tools
+
+We recommend using the following tools to facilitate R package
+development:
+
+- [devtools](https://www.rdocumentation.org/packages/devtools), the
+  collection of package development tools,
+- [usethis](https://www.rdocumentation.org/packages/usethis), automate
+  package and project setup tasks that are otherwise performed manually,
+- [testthat](https://www.rdocumentation.org/packages/testthat), for unit
+  testing,
+- [roxygen2](https://www.rdocumentation.org/packages/roxygen2), for
+  writing documentation in-line with code,
+- [Rstudio](https://posit.co/), the R editor that integrates the tools
+  mentioned above and more.
+
+## DataSHIELD Development Flow
+
+The typical development flow, using DSLite, is:
+
+1.  Build and install your client and/or server side DataSHIELD
+    packages.
+2.  Create a new DSLiteServer object instance, refering test datasets.
+    Use or alter the default DataSHIELD configuration.
+3.  Test your DataSHIELD client/server functions.
+4.  Debug DataSHIELD server nodes using DSLiteServer methods.
+
+### DSLiteServer
+
+After your client and/or server side DataSHIELD packages have been built
+and installed, a new DSLiteServer object instance must be created.
+
+Some DSLiteServer methods can be used to verify or modify the
+DSLiteServer behaviour:
+
+- `DSLiteServer$strict()`
+- `DSLiteServer$home()`
+
+See the R documentation of the DSLiteServer class for details.
+
+As an example:
+
+``` r
+
+library(DSLite)
+
+# prepare test data in a light DS server
+data("CNSIM1")
+data("CNSIM2")
+data("CNSIM3")
+dslite.server <- newDSLiteServer(tables=list(CNSIM1=CNSIM1, CNSIM2=CNSIM2, CNSIM3=CNSIM3))
+# load corresponding DataSHIELD login data
+data("logindata.dslite.cnsim")
+```
+
+The previous example can be simplified using the set-up functions based
+on the provided test datasets:
+
+``` r
+
+library(DSLite)
+
+# load CNSIM test data
+logindata.dslite.cnsim <- setupCNSIMTest()
+```
+
+### DataSHIELD Configuration
+
+The DataSHIELD configuration (aggregate and assign functions, R options)
+is automatically discovered by inspecting the R packages installed and
+having some DataSHIELD settings defined, either in their `DESCRIPTION`
+file or in a `DATASHIELD` file.
+
+This default configuration extracting function is:
+
+``` r
+
+DSLite::defaultDSConfiguration()
+```
+
+The list of the DataSHIELD R packages to be inspected (or excluded) when
+building the default configuration can be specified as parameters of
+[`defaultDSConfiguration()`](https://datashield.github.io/DSLite/reference/defaultDSConfiguration.md).
+
+The DataSHIELD configuration can be specified at DSLiteServer creation
+time or afterwards with some DSLiteServer methods that can be used to
+verify or modify the DSLiteServer configuration:
+
+- `DSLiteServer$config()`
+- `DSLiteServer$aggregateMethods()`
+- `DSLiteServer$aggregateMethod()`
+- `DSLiteServer$assignMethods()`
+- `DSLiteServer$assignMethod()`
+- `DSLiteServer$options()`
+- `DSLiteServer$option()`
+
+See the R documentation of the DSLiteServer class for details.
+
+As an example:
+
+``` r
+
+# verify configuration
+dslite.server$config()
+```
+
+### DataSHIELD Sessions
+
+The following figure illustrates a setup where a single DSLiteServer
+holds several data frames and is used by two different DataSHIELD
+Connection ([DSConnection](https://github.com/datashield/DSI)) objects.
+All these objects live in the same R environment (usually the Global
+Environment). The “server” is responsible for managing DataSHIELD
+sessions that are implemented as distinct R environments inside of which
+R symbols are assigned and R functions are evaluated. Using the [R
+environment](https://adv-r.hadley.nz/environments.html) paradigm ensures
+that the different DataSHIELD execution context (client and servers) are
+contained and exclusive from each other.
+
+![DSLite
+architecture](https://raw.githubusercontent.com/datashield/DSLite/master/inst/images/dslite.png)
+
+DSLite architecture
+
+After performing the login DataSHIELD phase, the DSLiteServer holds the
+different DataSHIELD server side sessions, i.e. R environments
+identified by an ID. These IDs are also stored within the DataSHIELD
+connection objects that are the result of the
+[`datashield.login()`](https://datashield.github.io/DSI/reference/datashield.login.html)
+call. The folllowing example shows how to access these session IDs:
+
+``` r
+
+# datashield logins and assignments
+conns <- datashield.login(logindata.dslite.cnsim, assign=TRUE)
+
+# get the session ID of "sim1" node connection object
+conns$sim1@sid
+# the same ID is in the DSLiteServer
+dslite.server$hasSession(conns$sim1@sid)
+```
+
+### Debugging
+
+Thanks to the DSLiteServer capability to have its configuration modified
+at any time, it is possible to add some debugging functions without
+polluting in the DataSHIELD package you are developping.
+
+For instance, this code adds an aggregate function
+[`print()`](https://rdrr.io/r/base/print.html):
+
+``` r
+
+# add a print method to configuration
+dslite.server$aggregateMethod("print", function(x){ print(x) })
+
+# and use it to print the D symbol
+datashield.aggregate(conns, quote(print(D)))
+```
+
+Another option is to get a symbol value from the server into the client
+environment. This can be very helpful for complex data structures. The
+following example illustrates usage of a shortcut function that iterates
+over all the connection objects and get the corresponding symbol value:
+
+``` r
+
+# get data represented by symbol D for each DataSHIELD connection
+data <- getDSLiteData(conns, "D")
+# get data represented by symbol D from a specific DataSHIELD connection
+data1 <- getDSLiteData(conns$sim1, "D")
+```
+
+### Limitations
+
+#### Server Side Environments
+
+For each of the DataSHIELD node, the server side code is evaluated
+within an environment that has no parent, i.e. detached from the global
+environment where the client code is executed. Some R functions have a
+parameter that allows to specify to which environment they apply, for
+instance [`assign()`](https://rdrr.io/r/base/assign.html),
+[`get()`](https://rdrr.io/r/base/get.html),
+[`eval()`](https://rdrr.io/r/base/eval.html),
+[`as.formula()`](https://rdrr.io/r/stats/formula.html), etc. Their `env`
+(or `envir`) parameter default value is
+[`parent.frame()`](https://rdrr.io/r/base/sys.parent.html) which is the
+global environment when executed in Opal’s R server, because it is the
+parent frame of the package’s namespace where the function is defined.
+In DSLiteServer, the parent frame must be the environment where the
+server code is evaluated. In order to be consistent between these two
+execution contexts (Opal R server and DSLiteServer), you must specify
+the `env` (or `envir`) value explicitly to be
+[`parent.frame()`](https://rdrr.io/r/base/sys.parent.html), which is the
+parent frame of the block being executed (either the global environment
+in Opal context, or the environment defined in DSLiteServer).
+
+Example of a valid server side piece of code that assigns a value to a
+symbol in the DataSHIELD server’s environment (being the Opal R server’s
+global environment or a DSLiteServer’s environment):
+
+``` r
+
+base::assign(x = "D", value = someValue, envir = parent.frame())
+```
+
+See also the [Advanced R -
+Environments](http://adv-r.had.co.nz/Environments.md) documentation to
+learn more about environments.
