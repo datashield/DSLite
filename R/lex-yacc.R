@@ -51,9 +51,12 @@ Parser <- R6::R6Class(
       c('right', '^')
     ),
     
-    p_expression_named = function(doc='expression : NAME "=" expression', p) {
+    p_expression_named = function(doc='expression : NAME "=" expression
+                                                  | STRING "=" expression
+                                                  | DBLSTRING "=" expression', p) {
       op <- ParameterNode$new(p$get(3))
-      op$add_child(SymbolNode$new(p$get(2)))
+      name <- p$get(2)
+      op$add_child(if (grepl("^['\"]", name)) StringNode$new(name) else SymbolNode$new(name))
       op$add_child(p$get(4))
       p$set(1, op)
     },
@@ -90,8 +93,7 @@ Parser <- R6::R6Class(
       }
     },
     
-    p_expression_uminus = function(doc="expression : '-' expression %prec UMINUS
-                                                  | '+' expression %prec UMINUS", p) {
+    p_expression_uminus = function(doc="expression : '-' expression %prec UMINUS", p) {
       op <- UnaryOpNode$new(p$get(2))
       op$add_child(p$get(3))
       p$set(1, op)
@@ -158,3 +160,40 @@ Parser <- R6::R6Class(
     }
   )
 )
+
+# Checks applied on the parsed expression, aligned with datashield4j's DSRScriptValidator and NoAssignmentValidator.
+validateNode <- function(node, aggregate = FALSE, parent = NULL, inFormula = FALSE) {
+  if (aggregate && is.null(parent)) {
+    # parentheses are transparent, as in datashield4j's grammar
+    root <- node
+    while (inherits(root, "GroupNode")) root <- root$children[[1]]
+    if (!inherits(root, "FunctionNode"))
+      stop("Aggregate expression must invoke a function.", call. = FALSE)
+  }
+  if (inherits(node, "ParameterNode")) {
+    if (inherits(parent, "FunctionNode")) {
+      # R only accepts a name or a string there: a NAME token can also hold a column (D$A)
+      if (!inherits(node$children[[1]], "StringNode") && !grepl("^[a-zA-Z][a-zA-Z0-9_.]*$", node$children[[1]]$name))
+        stop("Invalid argument name.", call. = FALSE)
+    } else if (aggregate) {
+      # anywhere else than in a named argument, = assigns in the R session
+      stop("Assignments are not allowed.", call. = FALSE)
+    }
+  }
+  # ranges are limited to numbers, as R's ':' operator would also accept symbols and function calls
+  # (in a formula, ':' is an interaction term)
+  if (inherits(node, "RangeNode") && !inFormula && !all(vapply(node$children, isNumericNode, logical(1))))
+    stop("Range operands must be numbers.", call. = FALSE)
+  inFormula <- inFormula || inherits(node, "FormulaNode")
+  for (child in node$children)
+    if (!is.null(child)) validateNode(child, aggregate, node, inFormula)
+  invisible(node)
+}
+
+isNumericNode <- function(node) {
+  if (inherits(node, "NumericNode")) return(TRUE)
+  ok <- inherits(node, c("RangeNode", "GroupNode")) ||
+    (inherits(node, "UnaryOpNode") && node$name == "-") ||
+    (inherits(node, "BinaryOpNode") && node$name %in% c("+", "-", "*", "/", "^", "%*%"))
+  ok && all(vapply(node$children, isNumericNode, logical(1)))
+}

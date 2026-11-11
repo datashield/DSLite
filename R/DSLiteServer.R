@@ -451,7 +451,7 @@ DSLiteServer <- R6::R6Class(
     #' @param sid The session ID.
     #' @param expr The R expression to evaluate.
     aggregate = function(sid, expr) {
-      exprr <- private$.as.language(sid, expr, private$.config$AggregateMethods)
+      exprr <- private$.as.language(sid, expr, private$.config$AggregateMethods, aggregate = TRUE)
       origwd <- setwd(private$.get.wd(sid))
       on.exit(setwd(origwd))
       tryCatch(eval(exprr, envir = private$.session(sid)))
@@ -482,7 +482,7 @@ DSLiteServer <- R6::R6Class(
       private$.sessions[[sid]]
     },
     # apply configuration to function calls in the expression
-    .as.language = function(sid, expr, methods) {
+    .as.language = function(sid, expr, methods, aggregate = FALSE) {
       if (is.null(expr)) {
         stop("Invalid expression type: 'NULL'. Expected a call or character vector.",
              call. = FALSE)
@@ -545,13 +545,13 @@ DSLiteServer <- R6::R6Class(
         }
       }
 
+      ast <- private$.parse(exprStr)
       if (!is.null(methods)) {
-        
         # develop function calls according to configured methods
-        ast <- private$.parse(exprStr)
         replaceFunctionNode(ast)
         exprStr <- ast$to_string()
       }
+      validateNode(ast, aggregate)
       if (getOption("dslite.verbose", FALSE)) {
         message(paste0("Expression to evaluate: ", exprStr))
       }
